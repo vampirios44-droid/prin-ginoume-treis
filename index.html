@@ -264,6 +264,252 @@ body.cover-mode{overflow:auto;background:#090a0b}
   .choice-btn{padding:19px 18px;font-size:16.5px}
 }
 
+
+/* v0.14 — Cinematic Reader */
+.topbar{
+  background:color-mix(in srgb,var(--bg) 78%,transparent);
+  backdrop-filter:blur(18px) saturate(120%);
+  -webkit-backdrop-filter:blur(18px) saturate(120%);
+  border-bottom:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+}
+.topbar-center #chapterMini{
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  font-size:9px;
+}
+.main{
+  animation:readerEnter .34s ease both;
+}
+@keyframes readerEnter{
+  from{opacity:.35;transform:translateY(5px)}
+  to{opacity:1;transform:none}
+}
+
+/* Chapter opening shot */
+.chapter-opening{
+  position:relative;
+  margin:0 0 28px;
+  border-radius:24px;
+  overflow:hidden;
+  min-height:clamp(285px,57vw,430px);
+  border:1px solid color-mix(in srgb,var(--line) 78%,transparent);
+  background:#171513;
+  box-shadow:0 24px 60px rgba(0,0,0,.18);
+  isolation:isolate;
+}
+.chapter-opening-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 78% 22%,rgba(190,146,90,.16),transparent 30%),
+    linear-gradient(145deg,#161514,#2b241f);
+  z-index:-3;
+}
+.chapter-opening.has-photo .chapter-opening-bg{
+  background-image:
+    linear-gradient(180deg,rgba(7,8,9,.06) 0%,rgba(7,8,9,.18) 42%,rgba(7,8,9,.88) 100%),
+    var(--hero);
+  background-size:cover;
+  background-position:center 46%;
+  transform:scale(1.015);
+}
+.chapter-opening::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.04) 48%,rgba(0,0,0,.18) 100%);
+  pointer-events:none;
+  z-index:-1;
+}
+.chapter-opening-content{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  padding:28px 25px 25px;
+  color:#f4eee7;
+  text-shadow:0 2px 20px rgba(0,0,0,.28);
+}
+.chapter-opening-no{
+  font:700 9px/1.4 var(--sans);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  opacity:.74;
+}
+.chapter-opening h1{
+  margin:8px 0 6px;
+  font:500 clamp(37px,10vw,58px)/.98 var(--serif);
+  letter-spacing:-.035em;
+}
+.chapter-opening-subtitle{
+  font:500 15px/1.45 var(--sans);
+  opacity:.84;
+  max-width:430px;
+}
+.chapter-opening-meta{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+  font:650 9px/1.3 var(--sans);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:.68;
+}
+.chapter-opening-meta .dot{
+  width:3px;height:3px;border-radius:50%;background:currentColor;
+}
+.chapter-opening .visual-word{
+  position:absolute;
+  top:18px;right:18px;
+  padding:7px 9px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  background:rgba(0,0,0,.17);
+  font:700 8px/1 var(--sans);
+  letter-spacing:.15em;
+  color:rgba(255,255,255,.74);
+  text-transform:uppercase;
+  backdrop-filter:blur(8px);
+}
+.chapter-opening:not(.has-photo).v1 .chapter-opening-bg{
+  background:
+    radial-gradient(circle at 28% 38%,rgba(176,139,94,.25),transparent 18%),
+    radial-gradient(circle at 67% 38%,rgba(176,139,94,.20),transparent 18%),
+    linear-gradient(145deg,#171513,#2a231e);
+}
+.chapter-opening:not(.has-photo).v3 .chapter-opening-bg{
+  background:
+    linear-gradient(90deg,transparent 48%,rgba(182,145,97,.24) 49%,rgba(182,145,97,.24) 50%,transparent 51%),
+    linear-gradient(145deg,#171513,#2d251f);
+}
+.chapter-opening:not(.has-photo).v4 .chapter-opening-bg{
+  background:
+    repeating-linear-gradient(16deg,transparent 0 44px,rgba(183,146,98,.06) 45px 46px),
+    linear-gradient(145deg,#181614,#2c2520);
+}
+.chapter-opening:not(.has-photo).v5 .chapter-opening-bg{
+  background:
+    radial-gradient(circle at 33% 43%,rgba(191,149,95,.16),transparent 27%),
+    linear-gradient(145deg,#151515,#2b211d);
+}
+.chapter-opening:not(.has-photo).v6 .chapter-opening-bg{
+  background:
+    radial-gradient(circle at 73% 31%,rgba(195,153,103,.25),transparent 15%),
+    linear-gradient(150deg,#151515,#2a231e);
+}
+.chapter-opening:not(.has-photo).v7 .chapter-opening-bg{
+  background:
+    linear-gradient(115deg,transparent 0 41%,rgba(191,149,95,.14) 42% 43%,transparent 44%),
+    linear-gradient(145deg,#171513,#2b221e);
+}
+.chapter-opening:not(.has-photo).v8 .chapter-opening-bg{
+  background:
+    radial-gradient(ellipse at 68% 48%,rgba(196,155,103,.22),transparent 25%),
+    linear-gradient(145deg,#161514,#2d261f);
+}
+.chapter-opening:not(.has-photo).v9 .chapter-opening-bg{
+  background:
+    linear-gradient(90deg,transparent 48%,rgba(200,160,108,.18) 49% 50%,transparent 51%),
+    radial-gradient(circle at 76% 62%,rgba(197,154,98,.17),transparent 16%),
+    linear-gradient(160deg,#111317,#29231f);
+}
+
+/* Reading body */
+.chapter-reading{
+  max-width:690px;
+  margin:0 auto;
+}
+.chapter-reading .story-text{
+  padding:0 2px;
+}
+.chapter-reading .continue-btn{
+  margin-top:36px;
+}
+
+/* Choice scene */
+.choice-wrap{
+  margin-top:28px;
+}
+.choice-kicker{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.choice-kicker::before{
+  content:"";
+  width:28px;
+  height:1px;
+  background:color-mix(in srgb,var(--accent) 58%,transparent);
+}
+.choice-wrap h2{
+  max-width:620px;
+  margin-top:13px;
+}
+.choice-btn{
+  position:relative;
+  padding-right:52px;
+  border-radius:18px;
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--surface) 94%,var(--accent) 6%),var(--surface));
+  box-shadow:0 9px 24px rgba(0,0,0,.045);
+}
+.choice-btn::after{
+  content:"›";
+  position:absolute;
+  right:19px;
+  top:50%;
+  transform:translateY(-52%);
+  font:400 30px/1 var(--serif);
+  color:color-mix(in srgb,var(--accent) 70%,var(--muted));
+  opacity:.78;
+}
+.choice-btn[disabled]::after{opacity:.24}
+.choice-btn.selected{
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 34%,transparent);
+}
+.branch-card{
+  position:relative;
+  margin-top:34px;
+  padding-top:31px;
+}
+.branch-card::before{
+  content:"";
+  position:absolute;top:0;left:0;
+  width:54px;height:1px;
+  background:var(--accent2);
+}
+.bridge-card{
+  padding:18px 0 12px;
+}
+.chapter-outro-card{
+  padding-top:8vh;
+}
+.chapter-outro-word{
+  font:700 9px/1.4 var(--sans);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:22px;
+}
+.chapter-outro-card .story-text{
+  font-size:calc(var(--reader) + 1px);
+}
+.chapter-outro-card .continue-btn{
+  margin-top:38px;
+}
+
+@media(max-width:520px){
+  .chapter-opening{
+    margin-left:-8px;
+    margin-right:-8px;
+    min-height:365px;
+    border-radius:21px;
+  }
+  .chapter-opening.has-photo .chapter-opening-bg{background-position:center 42%}
+  .chapter-opening-content{padding:24px 20px 22px}
+  .choice-btn{padding:20px 48px 20px 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .main{animation:none}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -318,7 +564,7 @@ body.cover-mode{overflow:auto;background:#090a0b}
 <noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το από το δημοσιευμένο HTTPS link σε Safari ή Chrome και επίτρεψε JavaScript.</div></noscript>
 <script>
 window.STORY_DATA = {
-  "version": "0.13-choice-cards",
+  "version": "0.14-cinematic-reader",
   "book": {
     "series": "Όσα γίναμε μαζί",
     "title": "Πριν γίνουμε τρεις",
@@ -1496,7 +1742,7 @@ window.STORY_DATA = {
 const DATA = window.STORY_DATA;
 const CHAPTER_META = {
  C01:{time:'Αθήνα · Χρόνος 0',word:'ΓΝΩΡΙΜΙΑ',visual:'v1'},
- C02:{time:'Λίγες ημέρες αργότερα',word:'ΕΓΓΥΤΗΤΑ',visual:'v2'},
+ C02:{time:'Λίγες ημέρες αργότερα',word:'ΕΓΓΥΤΗΤΑ',visual:'v2',image:'chapter-02.jpg'},
  C03:{time:'2–10 μήνες',word:'ΟΡΙΑ',visual:'v3'},
  C04:{time:'1–2 χρόνια',word:'ΚΑΘΗΜΕΡΙΝΟΤΗΤΑ',visual:'v4'},
  C05:{time:'3 χρόνια',word:'ΔΕΣΜΕΥΣΗ',visual:'v5'},
@@ -1672,7 +1918,7 @@ function currentItem(){return DATA.order[save.cursor]}
 function updateProgress(){const pct=Math.max(0,Math.min(100,(save.cursor/(DATA.order.length-1))*100));progressBar.style.width=pct+'%'}
 function showToast(t){const el=document.querySelector('#toast');el.textContent=t;el.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>el.classList.remove('show'),1800)}
 function maybeEcho(choiceNum){const parts=[];for(const [flag,e] of Object.entries(DATA.echoes)){if(e.before===choiceNum && save.flags[flag]) parts.push(`<aside class="literary-echo">${esc(e.text)}</aside>`)}return parts.join('')}
-function chapterHeader(ch){const m=CHAPTER_META[ch.id]||{time:'',word:'',visual:'v1'};return `<div class="chapter-visual ${m.visual}" aria-hidden="true"><span class="visual-word">${esc(m.word)}</span></div><section class="chapter-card"><div class="chapter-no">${esc(ch.id.replace('C','ΚΕΦΑΛΑΙΟ '))}</div><h1>${esc(ch.title)}</h1><div class="chapter-subtitle">${esc(ch.subtitle)}</div><span class="time-stamp">${esc(m.time)}</span></section>`}
+function chapterHeader(ch){const m=CHAPTER_META[ch.id]||{time:'',word:'',visual:'v1'};const photo=m.image?` has-photo`:'';const style=m.image?` style="--hero:url('${m.image}')"`:'';return `<section class="chapter-opening ${m.visual}${photo}"${style}><div class="chapter-opening-bg" aria-hidden="true"></div><span class="visual-word">${esc(m.word)}</span><div class="chapter-opening-content"><div class="chapter-opening-no">${esc(ch.id.replace('C','ΚΕΦΑΛΑΙΟ '))}</div><h1>${esc(ch.title)}</h1><div class="chapter-opening-subtitle">${esc(ch.subtitle)}</div><div class="chapter-opening-meta"><span>${esc(m.time)}</span><span class="dot"></span><span>Όσα γίναμε μαζί</span></div></div></section>`}
 function renderLanding(){
  document.body.classList.add('cover-mode');
  chapterMini.textContent='ΠΡΙΝ ΓΙΝΟΥΜΕ ΤΡΕΙΣ';
@@ -1725,7 +1971,7 @@ function renderCurrent(){document.body.classList.remove('cover-mode');if(!save.s
  if(item.type==='chapter_outro')return renderOutro(item.chapter);
  if(item.type==='ending'){save.finished=true;persist();return renderEnding()}
 }
-function renderChapter(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=chapterHeader(ch)+paragraphs(ch.intro)+`<button class="continue-btn" id="continue">Συνέχισε</button>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
+function renderChapter(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=chapterHeader(ch)+`<section class="chapter-reading">${paragraphs(ch.intro)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
 function renderChoice(n){const c=DATA.choices[n];const ch=DATA.chapters.find(x=>x.choices.includes(n));chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')}`;let selected=save.choices[n];let html=maybeEcho(n)+`<section class="choice-wrap"><div class="choice-kicker">Η στιγμή της επιλογής</div><h2>${esc(c.prompt)}</h2><div class="choices">`;
  for(const k of ['A','B','C']){html+=`<button class="choice-btn ${selected===k?'selected':''}" data-choice="${k}" ${selected?'disabled':''}>${esc(c.options[k][0])}</button>`}html+='</div></section>';
  if(selected) html+=branchHtml(n,selected);
@@ -1735,7 +1981,7 @@ function branchText(n,k){const spec=DATA.branchVariants?.[String(n)+k];return sp
 function branchHtml(n,k){const text=branchText(n,k);return `<section class="branch-card">${paragraphs(text)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`}
 function renderBridge(id){const b=DATA.bridges?.[id];if(!b)return next();const text=resolvedVariant(b);main.innerHTML=`<section class="bridge-card">${paragraphs(text)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
 function choose(n,k){if(save.choices[n])return;save.choices[n]=k;for(const [v,d] of Object.entries(DATA.effects[n][k]||{}))save.state[v]=(save.state[v]||0)+d;for(const rule of (DATA.conditionalEffects||[])){if(rule.choice===n&&rule.option===k&&(!rule.ifFlag||save.flags[rule.ifFlag]))for(const [v,d] of Object.entries(rule.effects||{}))save.state[v]=(save.state[v]||0)+d;}const rule=DATA.flags[String(n)+k];if(rule)save.flags[rule[0]]=rule[1];persist();renderChoice(n);requestAnimationFrame(()=>{const b=document.querySelector('.branch-card');if(b)b.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#continue').onclick=next});showToast('Η ιστορία συνεχίζεται');}
-function renderOutro(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=paragraphs(ch.outro)+`<button class="continue-btn" id="continue">Επόμενο κεφάλαιο</button>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
+function renderOutro(id){const ch=getChapter(id);const m=CHAPTER_META[ch.id]||{word:''};chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=`<section class="chapter-outro-card"><div class="chapter-outro-word">${esc(m.word)} · Τέλος κεφαλαίου</div>${paragraphs(ch.outro)}<button class="continue-btn" id="continue">Επόμενο κεφάλαιο</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
 function endingVariation(){const c21=save.choices[21];if(c21==='A')return 'Όταν επιστρέψουν, η γιαγιά θα μπει μαζί τους στο σπίτι και θα μείνει τις πρώτες νύχτες.';if(c21==='B')return 'Η γιαγιά θα έρχεται καθημερινά, αλλά όταν πέφτει η νύχτα το σπίτι θα μένει στους τρεις τους.';if(c21==='C')return 'Για τις πρώτες δύο ημέρες, η πόρτα θα κλείσει πίσω από τους τρεις τους και κανείς άλλος δεν θα μπει.';return ''}
 
 function clamp01(n){return Math.max(0,Math.min(1,n))}
