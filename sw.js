@@ -1,4 +1,4 @@
-const CACHE='ogm-book1-v0180';
+const CACHE='ogm-book1-v0190';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./cover-v1.jpg','./chapter-01.jpg','./chapter-02.jpg','./chapter-03.jpg','./chapter-04.jpg','./chapter-05.jpg','./chapter-06.jpg','./chapter-07.jpg','./chapter-08.jpg','./chapter-09.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

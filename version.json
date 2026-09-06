@@ -1,13 +1,13 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.18",
-  "channel": "release-candidate",
-  "focus": "production hardening",
+  "version": "0.19",
+  "channel": "development-candidate",
+  "focus": "full literary voice pass + true paginated reader",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
-  "engineCompatibility": "v0.16",
+  "engineCompatibility": "v0.18",
   "visualAssets": {
     "chapters": [
       "chapter-01.jpg",
@@ -37,5 +37,15 @@
   "coverOptimization": {
     "fromBytes": 2110147,
     "toBytes": 187784
+  },
+  "reader": {
+    "mobile": "single reflowable page",
+    "desktop": "two-page spread",
+    "input": [
+      "swipe",
+      "page buttons",
+      "keyboard arrows"
+    ],
+    "reflectionMirror": "scrolling document"
   }
 }

@@ -1,5 +1,11 @@
-# v0.18 Release Candidate
+# Πριν γίνουμε τρεις — v0.19 Literary Voice + True Pages
 
-Commit: `v0.18 Book I Release Candidate`
+## Τι να δοκιμάσεις στο development
+1. Mobile: swipe αριστερά/δεξιά σε intro, branch και bridge.
+2. PC: πρέπει να εμφανίζονται δύο αντικριστές σελίδες και να δουλεύουν ← / →.
+3. Άλλαξε μέγεθος γραμματοσειράς: το κείμενο πρέπει να ξαναμοιράζεται σε σελίδες.
+4. Σε επιλογή: εμφανίζεται μία interactive page χωρίς A/B/C. Μετά το tap η συνέπεια ανοίγει σαν σελίδες.
+5. Ολοκλήρωσε ένα κεφάλαιο και το finale.
+6. Reflection Mirror: παραμένει κανονική vertical αναφορά.
 
-Τελικός smoke test στο Netlify development: cover, resume, menu/settings, passport, ending/mirror και offline μετά από μία online φόρτωση.
+Commit: `v0.19 Literary Voice True Page Reader`
