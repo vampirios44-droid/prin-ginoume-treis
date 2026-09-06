@@ -1,13 +1,13 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.15",
+  "version": "0.16",
   "channel": "development-candidate",
-  "focus": "full 9-chapter visual pass + atmospheric reader",
+  "focus": "memory-echo audit + motion & microinteractions",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
-  "engineCompatibility": "v0.14",
+  "engineCompatibility": "v0.15",
   "visualAssets": {
     "chapters": [
       "chapter-01.jpg",
@@ -21,5 +21,11 @@
       "chapter-09.jpg"
     ]
   },
-  "notes": "No changes to Choice IDs, hidden state, branch logic, or Reflection Mirror."
+  "notes": "No changes to Choice IDs, hidden state, branch logic, or Reflection Mirror.",
+  "saveSchemaChanged": false,
+  "memoryAudit": {
+    "existingFlagEchoesRetained": 4,
+    "choiceDependentHooksAdded": 16,
+    "note": "Hidden state, Choice IDs, branch logic and save schema unchanged."
+  }
 }

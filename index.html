@@ -705,6 +705,108 @@ body.paper:not(.cover-mode){
  .choice-btn{min-height:82px}
 }
 
+
+/* v0.16 — Motion & Microinteractions */
+.main.motion-enter{
+  animation:sceneEnter .46s cubic-bezier(.2,.75,.25,1) both;
+}
+@keyframes sceneEnter{
+  from{opacity:.18;transform:translateY(9px)}
+  to{opacity:1;transform:none}
+}
+.chapter-opening.has-photo .chapter-opening-bg{
+  transform:scale(1.045);
+  animation:heroSettle 7.5s cubic-bezier(.18,.7,.22,1) both;
+}
+@keyframes heroSettle{
+  from{transform:scale(1.06)}
+  to{transform:scale(1.018)}
+}
+.chapter-opening-content{
+  animation:titleRise .72s .06s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes titleRise{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:none}
+}
+.choice-btn:not([disabled]){
+  opacity:0;
+  transform:translateY(10px);
+  animation:choiceRise .38s cubic-bezier(.2,.72,.25,1) forwards;
+}
+.choice-btn:nth-child(1){animation-delay:.06s}
+.choice-btn:nth-child(2){animation-delay:.12s}
+.choice-btn:nth-child(3){animation-delay:.18s}
+@keyframes choiceRise{
+  to{opacity:1;transform:none}
+}
+.choice-btn[disabled]{
+  animation:none;
+  opacity:.58;
+  transform:none;
+}
+.choice-btn.selected[disabled]{opacity:1}
+.branch-card{
+  animation:branchReveal .52s cubic-bezier(.2,.75,.22,1) both;
+}
+@keyframes branchReveal{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:none}
+}
+.literary-echo{
+  position:relative;
+  overflow:hidden;
+  animation:memoryReveal .5s cubic-bezier(.2,.72,.22,1) both;
+}
+@keyframes memoryReveal{
+  from{opacity:0;transform:translateX(-7px)}
+  to{opacity:1;transform:none}
+}
+.memory-kicker{
+  display:block;
+  margin-bottom:9px;
+  font:700 8px/1.3 var(--sans);
+  letter-spacing:.19em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-style:normal;
+  opacity:.84;
+}
+.continue-btn,.primary-btn,.secondary-btn,.icon-btn,.choice-btn{
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .16s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease,opacity .2s ease;
+}
+.continue-btn:active,.primary-btn:active,.secondary-btn:active,.icon-btn:active,.choice-btn:active{
+  transform:scale(.985);
+}
+.progress-bar{
+  transition:width .62s cubic-bezier(.22,.7,.25,1);
+}
+.toast.show{
+  animation:toastIn .26s cubic-bezier(.2,.72,.2,1) both;
+}
+@keyframes toastIn{
+  from{opacity:0;transform:translate(-50%,8px) scale(.98)}
+  to{opacity:1;transform:translate(-50%,0) scale(1)}
+}
+.end-card,.mirror-page{
+  animation:endRise .58s cubic-bezier(.2,.72,.22,1) both;
+}
+@keyframes endRise{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .main.motion-enter,.chapter-opening.has-photo .chapter-opening-bg,.chapter-opening-content,
+  .choice-btn:not([disabled]),.branch-card,.literary-echo,.toast.show,.end-card,.mirror-page{
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+  .progress-bar{transition:none}
+  html{scroll-behavior:auto!important}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -759,7 +861,7 @@ body.paper:not(.cover-mode){
 <noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το από το δημοσιευμένο HTTPS link σε Safari ή Chrome και επίτρεψε JavaScript.</div></noscript>
 <script>
 window.STORY_DATA = {
-  "version": "0.15-full-atmospheric",
+  "version": "0.16-motion-memory-audit",
   "book": {
     "series": "Όσα γίναμε μαζί",
     "title": "Πριν γίνουμε τρεις",
@@ -1603,29 +1705,9 @@ window.STORY_DATA = {
     ]
   },
   "echoes": {
-    "NEGATIVE_TEST_UNTOLD": {
-      "before": 15,
-      "text": "Το παλιό αρνητικό τεστ είχε μείνει πίσω — εκτός από μία λέξη που ο Αλέξανδρος θυμόταν ακόμη πολύ καθαρά και δεν είχε πει ποτέ: ανακούφιση."
-    },
-    "MOTHER_BOUNDARY_ESTABLISHED": {
-      "before": 17,
-      "text": "Η Ελένη είχε ήδη μάθει να λέει στη μητέρα της ένα μικρό «μέχρι εδώ». Η εγκυμοσύνη θα έδειχνε πόσο εύκολο είναι να κρατήσεις το ίδιο όριο όταν η βοήθεια έρχεται μαζί με αγάπη."
-    },
-    "PERSONAL_TIME_SACRIFICED": {
-      "before": 13,
-      "text": "Δίπλα στις κοινές τους συνήθειες είχαν μαζευτεί και μερικά ακυρωμένα βράδια του Αλέξανδρου. Δεν τα είχε ονομάσει παράπονο. Όχι ακόμη."
-    },
     "HOUSEHOLD_ISSUE_UNRESOLVED": {
       "before": 12,
       "text": "Το σπίτι λειτουργούσε. Το ποιος ακριβώς κρατούσε τι όρθιο, λιγότερο ξεκάθαρα."
-    },
-    "DELAYED_REPAIR_PATTERN": {
-      "before": 9,
-      "text": "Είχαν ήδη δοκιμάσει μία φορά να αφήσουν χώρο χωρίς να χαθούν μέσα του. Η συγκατοίκηση θα τους ανάγκαζε να το δοκιμάζουν συχνότερα."
-    },
-    "MARRIAGE_UNCERTAINTY": {
-      "before": 15,
-      "text": "Η συζήτηση για τον γάμο είχε μείνει ανοιχτή. Η σημερινή ερώτηση ήταν πιο δύσκολο να αποφευχθεί: «όταν βλέπεις οικογένεια, είμαι εγώ εκεί;»"
     },
     "GRANDMOTHER_HELP_WITH_PARENTAL_BOUNDARY": {
       "before": 21,
@@ -1930,7 +2012,153 @@ window.STORY_DATA = {
       "C": "Λίγο πριν φτάσουν, η μητέρα της Ελένης έστειλε: «Είστε καλά; Να έρθω;»\n\nΗ Ελένη πληκτρολόγησε: «Θα σε πάρουμε αν χρειαστεί. Σήμερα θέλουμε να μπούμε μόνοι μας».\n\nΈδειξε το μήνυμα στον Αλέξανδρο πριν το στείλει.\n\n— Σίγουροι;\n\n— Όχι.\n\nΠάτησε αποστολή.\n\nΤο ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΜπροστά στην πόρτα ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε.\n\nΔεν αγαπάς κάποιον επειδή τον γνώρισες ολοκληρωτικά. Τον αγαπάς — και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί.\n\nΗ κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη. Το σπίτι ήταν το ίδιο, μόνο που τίποτα δεν είχε πια ακριβώς την ίδια σημασία.\n\nΓια λίγα δευτερόλεπτα υπήρξε ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε.",
       "default": "Το ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΜπροστά στην πόρτα ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε.\n\nΔεν αγαπάς κάποιον επειδή τον γνώρισες ολοκληρωτικά. Τον αγαπάς — και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί.\n\nΗ κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη. Το σπίτι ήταν το ίδιο, μόνο που τίποτα δεν είχε πια ακριβώς την ίδια σημασία.\n\nΓια λίγα δευτερόλεπτα υπήρξε ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε."
     }
-  }
+  },
+  "choiceEchoes": [
+    {
+      "before": 3,
+      "dependsOn": 1,
+      "variants": {
+        "A": "Η χαρτοπετσέτα είχε φύγει από το τραπέζι, όχι όμως η πρώτη μικρή παραχώρηση του εσωτερικού του κόσμου.",
+        "B": "Το αστείο με τη χαρτοπετσέτα είχε κάνει τη στιγμή ελαφριά. Η Ελένη είχε προσέξει και τι απέφυγε να δείξει.",
+        "C": "Η χαρτοπετσέτα είχε μείνει δική του. Το «ίσως κάποτε» είχε γίνει η πρώτη τους μικρή συμφωνία ρυθμού."
+      }
+    },
+    {
+      "before": 4,
+      "dependsOn": 2,
+      "variants": {
+        "A": "Την πρώτη νύχτα είχε πάρει ο ίδιος την πρωτοβουλία. Τώρα η εγγύτητα ζητούσε ένα διαφορετικό είδος κίνησης.",
+        "B": "Είχαν αφήσει τα τηλέφωνα να κάνουν την πρώτη γέφυρα. Το επόμενο βήμα δεν ήταν πια μόνο πρακτικό.",
+        "C": "Στην αρχή εκείνη είχε ανοίξει τη δεύτερη πόρτα. Ο Αλέξανδρος το θυμόταν τώρα που η απόσταση μίκραινε."
+      }
+    },
+    {
+      "before": 7,
+      "dependsOn": 3,
+      "variants": {
+        "A": "Της είχε δείξει ήδη έναν από τους βαθύτερους φόβους του. Η πρώτη σύγκρουση θα έδειχνε αν η έκθεση αντέχει και όταν η στιγμή δεν είναι τρυφερή.",
+        "B": "Εκείνη η ασφαλής απάντηση για τον φόβο του είχε μείνει ανάμεσά τους σαν μισάνοιχτη πόρτα.",
+        "C": "Το αστείο είχε σώσει τότε τη στιγμή. Δεν θα μπορούσε να σώσει κάθε δύσκολη στιγμή."
+      }
+    },
+    {
+      "before": 7,
+      "dependsOn": 4,
+      "variants": {
+        "A": "Το πρώτο φιλί είχε έρθει χωρίς βιασύνη. Στη σύγκρουση, όμως, ο ρυθμός γινόταν πιο δύσκολο πράγμα.",
+        "B": "Είχε ρωτήσει πριν τη φιλήσει. Τώρα έπρεπε να μάθει ότι και η απόσταση χρειάζεται μερικές φορές να συμφωνείται.",
+        "C": "Είχε καθυστερήσει το πρώτο φιλί χωρίς να κρύψει το ενδιαφέρον του. Η Ελένη ήξερε πια πως η απόσταση δεν σήμαινε πάντα απομάκρυνση — αλλά στον καβγά αυτό δεν ήταν τόσο εύκολο να το θυμηθεί."
+      }
+    },
+    {
+      "before": 17,
+      "dependsOn": 6,
+      "variants": {
+        "A": "Μετά το οικογενειακό τραπέζι είχε πει καθαρά ότι ένιωσε άβολα. Από τότε η ιδιωτικότητα είχε πάψει να είναι κάτι που η Ελένη έπρεπε να μαντεύει.",
+        "B": "Μετά το οικογενειακό τραπέζι είχε μαλακώσει τη δυσφορία του. Το όριο έμεινε περισσότερο υπαινιγμός παρά συμφωνία.",
+        "C": "Μετά το οικογενειακό τραπέζι δεν είχε πει τίποτα. Η σιωπή είχε προστατεύσει τη βραδιά, όχι απαραίτητα το όριο."
+      }
+    },
+    {
+      "before": 9,
+      "dependsOn": 7,
+      "variants": {
+        "A": "Μετά τον πρώτο μεγάλο καβγά είχε επιστρέψει αμέσως. Η σχέση έμαθε νωρίς ότι η επαφή μπορεί να προηγείται της ηρεμίας.",
+        "B": "Μετά τον πρώτο μεγάλο καβγά είχε ζητήσει χρόνο, αλλά είχε δώσει και ώρα επιστροφής. Η παύση είχε αποκτήσει όριο.",
+        "C": "Είχαν ήδη δοκιμάσει μία φορά να αφήσουν χώρο χωρίς να χαθούν μέσα του. Η συγκατοίκηση θα τους ανάγκαζε να το δοκιμάζουν συχνότερα."
+      }
+    },
+    {
+      "before": 12,
+      "dependsOn": 8,
+      "variants": {
+        "A": "Η συγκατοίκηση είχε αρχίσει ως αυτονόητο «έλα εδώ». Τα αυτονόητα, όμως, ζητούσαν τώρα κατανομή.",
+        "B": "Είχαν μιλήσει για χρήματα, χώρο και δουλειές πριν συγκατοικήσουν. Το ότι τα είχαν συζητήσει δεν σήμαινε ότι τα είχαν λύσει για πάντα.",
+        "C": "Είχαν αρνηθεί να αφήσουν το ενοίκιο να αποφασίσει για εκείνους. Τώρα η καθημερινότητα αποφάσιζε λίγο λίγο τι χώρο κρατούσε ο καθένας."
+      }
+    },
+    {
+      "before": 10,
+      "dependsOn": 9,
+      "variants": {
+        "A": "Το παράπονο είχε ειπωθεί για κάτι συγκεκριμένο. Αυτό άφηνε ακόμη χώρο να συζητηθεί η συμπεριφορά χωρίς να γίνει ο άλλος το πρόβλημα.",
+        "B": "Η δουλειά είχε γίνει και το παράπονο είχε μείνει μέσα του. Η ησυχία εκείνης της στιγμής είχε ήδη ένα μικρό κόστος.",
+        "C": "Το «αφήνεις συνέχεια τα πάντα» είχε μετακινήσει την κουβέντα από τα πράγματα στον άνθρωπο. Η συνέχεια θα έκρινε αν μπορούσαν να ξαναγυρίσουν στο πραγματικό αίτημα."
+      }
+    },
+    {
+      "before": 13,
+      "dependsOn": 12,
+      "variants": {
+        "A": "Δίπλα στις κοινές τους συνήθειες είχε προστεθεί κι ένα ακυρωμένο βράδυ του Αλέξανδρου. Δεν το είχε ονομάσει παράπονο. Όχι ακόμη.",
+        "B": "Εκείνο το Σάββατο είχε κρατήσει και τον χρόνο του και μέρος της φροντίδας. Το «εμείς» δεν είχε ζητήσει να εξαφανιστεί το «εγώ».",
+        "C": "Η ανατροπή εκείνου του Σαββάτου είχε βγάλει θυμό στην επιφάνεια. Η σχέση είχε ακούσει πια ότι ο προσωπικός χρόνος δεν ήταν πολυτέλεια."
+      }
+    },
+    {
+      "before": 15,
+      "dependsOn": 13,
+      "variants": {
+        "A": "Στη συζήτηση για τον γάμο είχε βάλει καθαρά την Ελένη μέσα στο κοινό μέλλον. Η σημερινή ερώτηση αφορούσε πια το πώς θα μοιάζει αυτό το μέλλον.",
+        "B": "Είχε ξεχωρίσει τη δέσμευση από τον γάμο. Η Ελένη είχε ακούσει το «μαζί», αλλά όχι απαραίτητα την ίδια μορφή μέλλοντος.",
+        "C": "Η συζήτηση για τον γάμο είχε μείνει ανοιχτή. Η σημερινή ερώτηση ήταν πιο δύσκολο να αποφευχθεί: «όταν βλέπεις οικογένεια, είμαι εγώ εκεί;»"
+      }
+    },
+    {
+      "before": 15,
+      "dependsOn": 14,
+      "variants": {
+        "A": "Στο αρνητικό τεστ είχε πει αμέσως τη λέξη «ανακούφιση». Η αλήθεια είχε μπει στη σχέση πριν προλάβει να γίνει μυστικό.",
+        "B": "Στο αρνητικό τεστ είχε πει όχι μόνο ότι ανακουφίστηκε, αλλά και γιατί. Η δύσκολη αλήθεια είχε ήδη όνομα.",
+        "C": "Το παλιό αρνητικό τεστ είχε μείνει πίσω — εκτός από μία λέξη που ο Αλέξανδρος θυμόταν ακόμη πολύ καθαρά και δεν είχε πει ποτέ: ανακούφιση."
+      }
+    },
+    {
+      "before": 16,
+      "dependsOn": 15,
+      "variants": {
+        "A": "Είχε απαντήσει στο μέλλον μιλώντας πρώτα για εκείνη. Η επόμενη απόφαση θα ζητούσε να μπει στο ίδιο κάδρο και η ζωή που ήθελαν να χτίσουν.",
+        "B": "Η παλιά ανακούφιση είχε επιτέλους ειπωθεί ολόκληρη. Δεν εξαφανίστηκε· άλλαξε θέση μέσα στη σχέση.",
+        "C": "Είχε αφήσει ανοιχτό το αν ήταν έτοιμος. Η επόμενη απόφαση θα ζητούσε να χωρέσουν και τα δύο: σχέδιο και αβεβαιότητα."
+      }
+    },
+    {
+      "before": 17,
+      "dependsOn": 16,
+      "variants": {
+        "A": "Είχαν αποφασίσει ότι η επαγγελματική ευκαιρία θα προηγηθεί και η προσπάθεια για παιδί θα περιμένει λίγο. Η ζωή είχε αποκτήσει σειρά.",
+        "B": "Είχαν αρνηθεί να βάλουν τη ζωή σε αναμονή μέχρι να έρθει το παιδί. Καριέρα και οικογένεια θα έπρεπε να μάθουν να συνυπάρχουν.",
+        "C": "Είχαν αποφασίσει ότι δεν ήθελαν άλλη αναβολή. Η επιθυμία για παιδί είχε πάρει προτεραιότητα απέναντι στην αβεβαιότητα του χρόνου."
+      }
+    },
+    {
+      "before": 18,
+      "dependsOn": 17,
+      "variants": {
+        "A": "Η εγκυμοσύνη είχε μπει αμέσως στον οικογενειακό κύκλο. Μαζί με τη χαρά είχαν μπει νωρίς και οι συμβουλές, οι φόβοι και οι προτάσεις βοήθειας.",
+        "B": "Για τις πρώτες εβδομάδες η εγκυμοσύνη είχε μείνει μόνο δική τους. Τώρα η βοήθεια των άλλων ερχόταν αφού πρώτα είχαν προλάβει να ακούσουν τη δική τους φωνή.",
+        "C": "Το νέο είχε περάσει πρώτα από έναν μόνο κοντινό άνθρωπο. Η στήριξη είχε μπει στο δωμάτιο χωρίς να μπει μαζί της όλη η οικογένεια."
+      }
+    },
+    {
+      "before": 20,
+      "dependsOn": 19,
+      "variants": {
+        "A": "Είχαν διαλέξει να κουβαλήσει το παιδί ένα κομμάτι οικογενειακής ιστορίας. Όχι από υποχρέωση — από δική τους απόφαση.",
+        "B": "Είχαν διαλέξει ένα όνομα μόνο επειδή το αγαπούσαν. Για λίγο, το παιδί υπήρχε στο μέλλον τους χωρίς να χρειάζεται να εκπροσωπεί κανέναν πριν από εκείνο.",
+        "C": "Είχαν βρει έναν τρόπο να χωρέσουν παράδοση και δική τους επιλογή στο ίδιο όνομα. Ήταν μια μικρή πρόβα για όσα θα ακολουθούσαν ως γονείς."
+      }
+    },
+    {
+      "before": 21,
+      "dependsOn": 20,
+      "variants": {
+        "A": "Στην πόρτα του μαιευτηρίου του είχε βγει πρώτα το «Μπορείς. Θα τα καταφέρεις». Τώρα μάθαινε σιγά σιγά ότι μερικές φορές η παρουσία είναι πιο χρήσιμη από τη βεβαιότητα.",
+        "B": "Στην πόρτα του μαιευτηρίου είχε διαλέξει να μην της υποσχεθεί ότι όλα θα πάνε εύκολα. Μόνο ότι δεν θα είναι μόνη. Η φράση είχε μείνει μαζί τους.",
+        "C": "Στην πόρτα του μαιευτηρίου είχε χρησιμοποιήσει χιούμορ για να χαλαρώσει τον φόβο. Τώρα, με το μωρό ήδη εδώ, δεν υπήρχε αστείο που να αντικαθιστά την παρουσία."
+      }
+    }
+  ]
 };
 </script>
 <script>
@@ -2112,7 +2340,8 @@ function getChapter(id){return DATA.chapters.find(c=>c.id===id)}
 function currentItem(){return DATA.order[save.cursor]}
 function updateProgress(){const pct=Math.max(0,Math.min(100,(save.cursor/(DATA.order.length-1))*100));progressBar.style.width=pct+'%'}
 function showToast(t){const el=document.querySelector('#toast');el.textContent=t;el.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>el.classList.remove('show'),1800)}
-function maybeEcho(choiceNum){const parts=[];for(const [flag,e] of Object.entries(DATA.echoes)){if(e.before===choiceNum && save.flags[flag]) parts.push(`<aside class="literary-echo">${esc(e.text)}</aside>`)}return parts.join('')}
+const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)');const sceneObserver=new MutationObserver(()=>{if(reduceMotion?.matches)return;main.classList.remove('motion-enter');requestAnimationFrame(()=>main.classList.add('motion-enter'));});sceneObserver.observe(main,{childList:true});
+function maybeEcho(choiceNum){const parts=[];for(const [flag,e] of Object.entries(DATA.echoes||{})){if(e.before===choiceNum&&save.flags[flag])parts.push(e.text)}for(const e of (DATA.choiceEchoes||[])){if(e.before!==choiceNum)continue;const k=save.choices[e.dependsOn];const text=e.variants?.[k]||e.text||'';if(text)parts.push(text)}return parts.map(text=>`<aside class="literary-echo memory-echo"><span class="memory-kicker">Κάτι που έμεινε</span>${esc(text)}</aside>`).join('')}
 function chapterHeader(ch){const m=CHAPTER_META[ch.id]||{time:'',word:'',visual:'v1'};const photo=m.image?` has-photo`:'';const mood=m.mood?` mood-${m.mood}`:'';const style=m.image?` style="--hero:url('${m.image}');--focus:${m.focus||'center 46%'}"`:'';return `<section class="chapter-opening ${m.visual}${photo}${mood}"${style}><div class="chapter-opening-bg" aria-hidden="true"></div><span class="visual-word">${esc(m.word)}</span><div class="chapter-opening-content"><div class="chapter-opening-no">${esc(ch.id.replace('C','ΚΕΦΑΛΑΙΟ '))}</div><h1>${esc(ch.title)}</h1><div class="chapter-opening-subtitle">${esc(ch.subtitle)}</div><div class="chapter-opening-meta"><span>${esc(m.time)}</span><span class="dot"></span><span>Όσα γίναμε μαζί</span></div></div></section>`}
 function renderLanding(){
  document.body.classList.add('cover-mode');
@@ -2175,7 +2404,7 @@ function resolvedVariant(spec){if(!spec)return '';const dep=spec.dependsOn;const
 function branchText(n,k){const spec=DATA.branchVariants?.[String(n)+k];return spec?resolvedVariant(spec):DATA.choices[n].options[k][1]}
 function branchHtml(n,k){const text=branchText(n,k);return `<section class="branch-card">${paragraphs(text)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`}
 function renderBridge(id){const b=DATA.bridges?.[id];if(!b)return next();const text=resolvedVariant(b);main.innerHTML=`<section class="bridge-card">${paragraphs(text)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
-function choose(n,k){if(save.choices[n])return;save.choices[n]=k;for(const [v,d] of Object.entries(DATA.effects[n][k]||{}))save.state[v]=(save.state[v]||0)+d;for(const rule of (DATA.conditionalEffects||[])){if(rule.choice===n&&rule.option===k&&(!rule.ifFlag||save.flags[rule.ifFlag]))for(const [v,d] of Object.entries(rule.effects||{}))save.state[v]=(save.state[v]||0)+d;}const rule=DATA.flags[String(n)+k];if(rule)save.flags[rule[0]]=rule[1];persist();renderChoice(n);requestAnimationFrame(()=>{const b=document.querySelector('.branch-card');if(b)b.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#continue').onclick=next});showToast('Η ιστορία συνεχίζεται');}
+function choose(n,k){if(save.choices[n])return;save.choices[n]=k;for(const [v,d] of Object.entries(DATA.effects[n][k]||{}))save.state[v]=(save.state[v]||0)+d;for(const rule of (DATA.conditionalEffects||[])){if(rule.choice===n&&rule.option===k&&(!rule.ifFlag||save.flags[rule.ifFlag]))for(const [v,d] of Object.entries(rule.effects||{}))save.state[v]=(save.state[v]||0)+d;}const rule=DATA.flags[String(n)+k];if(rule)save.flags[rule[0]]=rule[1];persist();renderChoice(n);requestAnimationFrame(()=>{const b=document.querySelector('.branch-card');if(b)b.scrollIntoView({behavior:reduceMotion?.matches?'auto':'smooth',block:'start'});document.querySelector('#continue').onclick=next});showToast('Η ιστορία συνεχίζεται');}
 function renderOutro(id){const ch=getChapter(id);const m=CHAPTER_META[ch.id]||{word:''};chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=`<section class="chapter-outro-card"><div class="chapter-outro-word">${esc(m.word)} · Τέλος κεφαλαίου</div>${paragraphs(ch.outro)}<button class="continue-btn" id="continue">Επόμενο κεφάλαιο</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
 function endingVariation(){const c21=save.choices[21];if(c21==='A')return 'Όταν επιστρέψουν, η γιαγιά θα μπει μαζί τους στο σπίτι και θα μείνει τις πρώτες νύχτες.';if(c21==='B')return 'Η γιαγιά θα έρχεται καθημερινά, αλλά όταν πέφτει η νύχτα το σπίτι θα μένει στους τρεις τους.';if(c21==='C')return 'Για τις πρώτες δύο ημέρες, η πόρτα θα κλείσει πίσω από τους τρεις τους και κανείς άλλος δεν θα μπει.';return ''}
 

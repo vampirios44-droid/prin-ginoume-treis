@@ -1,13 +1,22 @@
 # Changelog
 
-## v0.15 — Full Atmospheric Visual Pass
+## v0.16 — Motion & Memory Audit
 
-- Πραγματικό hero visual και στα 9 κεφάλαια.
-- Κάθε κεφάλαιο έχει δικό του focal point και συναισθηματικό visual mood.
-- Νέο filmic overlay / vignette / πολύ διακριτικό grain για οπτική συνοχή.
-- Πιο βαθύ atmospheric background στον reader.
-- Νέα λογοτεχνική έναρξη κειμένου με drop cap.
-- Βελτιωμένες choice cards, branch scenes και chapter outros.
-- Όλες οι εικόνες έχουν γίνει optimized progressive JPEG για γρηγορότερο mobile loading.
-- PWA cache ενημερώθηκε ώστε όλα τα chapter visuals να λειτουργούν και μετά το πρώτο load.
-- Καμία αλλαγή σε narrative engine, Choice IDs, branches, hidden state, Story Passport ή Reflection Mirror.
+### Continuity / memory audit
+- Έγινε δεύτερος έλεγχος του `index.html` απέναντι στο αρχικό Choice & Consequence Map.
+- Διαπιστώθηκε ότι το hidden state ήταν σωστό, αλλά αρκετά long-term echoes δεν είχαν ορατό λογοτεχνικό callback.
+- Προστέθηκαν 16 choice-dependent memory hooks χωρίς να εμφανίζονται A/B/C ή scores.
+- Τα callbacks εμφανίζονται ως διακριτικό «Κάτι που έμεινε».
+- Διατηρούνται τα υπάρχοντα unresolved-household και grandmother delayed echoes.
+- Δεν αλλάζουν Choice IDs, effects, branch logic, Story Passport ή save schema.
+
+### Motion & microinteractions
+- Soft scene fade/slide σε κάθε αλλαγή οθόνης.
+- Πολύ αργό cinematic settling στα chapter hero visuals.
+- Staggered είσοδος των τριών choice cards.
+- Branch reveal animation μετά την επιλογή.
+- Micro-press feedback σε buttons/cards.
+- Ομαλότερη κίνηση της progress line.
+- Motion σε memory echoes, ending και Reflection Mirror.
+- Πλήρης υποστήριξη `prefers-reduced-motion`.
+- PWA cache bump σε `v0160`.
