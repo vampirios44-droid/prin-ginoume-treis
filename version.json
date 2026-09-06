@@ -1,0 +1,9 @@
+{
+  "series": "Όσα γίναμε μαζί",
+  "book": "Πριν γίνουμε τρεις",
+  "version": "0.8.2",
+  "channel": "production-candidate",
+  "deployment": "GitHub -> Netlify",
+  "production_branch": "main",
+  "preview_branch": "development"
+}

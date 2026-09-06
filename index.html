@@ -1,0 +1,1573 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#11100f">
+<meta name="description" content="Πριν γίνουμε τρεις — διαδραστικό μυθιστόρημα επιλογών">
+<title>Πριν γίνουμε τρεις — Interactive Web-Book v0.8.2 · HTTPS/PWA</title>
+<style>
+:root{
+ --bg:#11100f;--surface:#181614;--surface2:#211e1b;--text:#eee8df;--muted:#9e968d;--line:#302b26;
+ --accent:#d7b98b;--accent2:#8f6d46;--danger:#c86f68;--reader:20px;--max:760px;
+ --serif: Georgia,"Times New Roman",serif;--sans: Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--serif);min-height:100vh}
+body.paper{--bg:#f1eadf;--surface:#faf6ef;--surface2:#e9dfd1;--text:#28231e;--muted:#766d63;--line:#d7cabb;--accent:#765a39;--accent2:#a6855f}
+body.font-small{--reader:18px}body.font-medium{--reader:20px}body.font-large{--reader:23px}
+button{font:inherit}.topbar{position:sticky;top:0;z-index:20;height:68px;padding:10px max(12px,env(safe-area-inset-left));display:flex;align-items:center;gap:12px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.icon-btn{width:44px;height:44px;border:0;border-radius:14px;background:var(--surface);color:var(--text);font-family:var(--sans);font-weight:650;cursor:pointer}.topbar-center{flex:1;text-align:center;min-width:0}.topbar-center span{display:block;font:650 11px/1.3 var(--sans);letter-spacing:.14em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.progress-track{height:2px;margin:8px auto 0;max-width:220px;background:var(--line);overflow:hidden}.progress-bar{height:100%;background:var(--accent);width:0;transition:width .35s ease}
+.main{width:min(100%,var(--max));margin:0 auto;padding:34px 23px 120px}.landing{min-height:calc(100vh - 120px);display:grid;align-content:center;padding-bottom:80px}.eyebrow{font:650 12px/1.4 var(--sans);letter-spacing:.18em;color:var(--accent);text-transform:uppercase}.cover-art{position:relative;width:min(100%,430px);aspect-ratio:16/10;margin:28px 0 30px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:radial-gradient(circle at 30% 34%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 30%),radial-gradient(circle at 68% 56%,color-mix(in srgb,var(--accent2) 22%,transparent),transparent 34%),linear-gradient(145deg,var(--surface2),var(--surface));box-shadow:0 25px 70px #0003}.cover-art:before,.cover-art:after{content:"";position:absolute;border:1px solid color-mix(in srgb,var(--accent) 64%,transparent);border-radius:50%;width:44%;aspect-ratio:1;top:22%}.cover-art:before{left:12%}.cover-art:after{right:12%}.cover-third{position:absolute;width:16%;aspect-ratio:1;border-radius:50%;border:1px solid var(--accent);left:42%;bottom:11%;background:color-mix(in srgb,var(--surface) 78%,var(--accent) 22%);box-shadow:0 0 0 10px color-mix(in srgb,var(--accent) 6%,transparent)}.cover-line{position:absolute;left:12%;right:12%;bottom:18%;height:1px;background:linear-gradient(90deg,transparent,var(--accent2),transparent)}.cover-caption{position:absolute;left:18px;right:18px;bottom:16px;text-align:right;font:650 10px/1.3 var(--sans);letter-spacing:.16em;color:var(--muted);text-transform:uppercase}.landing-note{margin-top:18px;font:500 13px/1.55 var(--sans);color:var(--muted);max-width:500px}.chapter-visual{position:relative;aspect-ratio:16/7;border-radius:22px;overflow:hidden;margin:0 0 28px;border:1px solid var(--line);background:var(--surface);isolation:isolate}.chapter-visual:before,.chapter-visual:after{content:"";position:absolute;inset:auto;border-radius:999px;filter:blur(.2px)}.chapter-visual .visual-word{position:absolute;left:18px;bottom:16px;font:700 10px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:color-mix(in srgb,var(--text) 55%,transparent)}.chapter-visual.v1{background:linear-gradient(135deg,#181613,#28221d)}.chapter-visual.v1:before{width:36%;aspect-ratio:1;left:14%;top:18%;border:1px solid #a98961}.chapter-visual.v1:after{width:36%;aspect-ratio:1;right:14%;top:18%;border:1px solid #a98961}.chapter-visual.v2{background:linear-gradient(155deg,#17191a,#24211e)}.chapter-visual.v2:before{width:72%;height:1px;left:14%;top:48%;background:#947b5d;box-shadow:0 20px 0 #51463a}.chapter-visual.v2:after{width:12%;aspect-ratio:1;right:16%;bottom:15%;border:1px solid #b99a70}.chapter-visual.v3{background:linear-gradient(145deg,#171512,#29231f)}.chapter-visual.v3:before{width:42%;height:42%;left:10%;top:18%;border:1px solid #8e765b;border-radius:8px}.chapter-visual.v3:after{width:25%;height:46%;right:13%;bottom:13%;border:1px solid #8e765b;border-radius:50% 50% 8px 8px}.chapter-visual.v4{background:linear-gradient(145deg,#191716,#28221e)}.chapter-visual.v4:before{width:44%;height:2px;left:10%;top:42%;background:#9c7f5c;box-shadow:48px 18px 0 #665240,96px -8px 0 #4f4238}.chapter-visual.v4:after{width:30%;height:1px;right:10%;bottom:25%;background:#a38562;transform:rotate(-18deg)}.chapter-visual.v5{background:linear-gradient(145deg,#151515,#28201d)}.chapter-visual.v5:before{width:56%;height:36%;left:15%;top:20%;border:1px solid #8c7055;border-radius:4px;transform:rotate(-3deg)}.chapter-visual.v5:after{width:26%;height:1px;right:11%;bottom:22%;background:#aa8a65;transform:rotate(25deg)}.chapter-visual.v6{background:radial-gradient(circle at 72% 35%,#312a24,#171514 56%)}.chapter-visual.v6:before{width:10%;aspect-ratio:1;right:22%;top:24%;border:1px solid #b39269}.chapter-visual.v6:after{width:36%;height:1px;left:15%;bottom:28%;background:#8d7256}.chapter-visual.v7{background:linear-gradient(145deg,#171513,#2a211d)}.chapter-visual.v7:before{width:34%;height:22%;left:14%;top:30%;border:1px solid #b18e66;border-radius:6px}.chapter-visual.v7:after{width:5%;aspect-ratio:1;left:30%;top:39%;background:#b18e66;border-radius:50%;box-shadow:12px 0 0 #b18e66}.chapter-visual.v8{background:linear-gradient(145deg,#161514,#29231e)}.chapter-visual.v8:before{width:34%;height:48%;right:14%;top:15%;border:1px solid #9f815f;border-radius:8px}.chapter-visual.v8:after{width:30%;height:1px;left:12%;bottom:22%;background:#ad8e68;transform:rotate(-12deg);box-shadow:0 -11px 0 #685443}.chapter-visual.v9{background:linear-gradient(160deg,#111317,#24201e)}.chapter-visual.v9:before{width:1px;height:72%;left:48%;top:8%;background:#b08d65;box-shadow:24px 0 0 #4f4338}.chapter-visual.v9:after{width:18%;aspect-ratio:1;right:12%;bottom:12%;border:1px solid #b08d65}.time-stamp{display:inline-block;margin-top:10px;font:650 10px/1.3 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}.literary-echo{margin:34px 0;font-style:italic;color:color-mix(in srgb,var(--text) 76%,var(--muted));font-size:calc(var(--reader) - 1px);line-height:1.7;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:19px 0}.selected-path{font:650 12px/1.5 var(--sans);color:var(--muted);margin-top:18px}.selected-path strong{color:var(--accent);font-weight:700}.end-divider{width:52px;height:1px;background:var(--accent2);margin:34px 0}.landing h1{font-size:clamp(44px,11vw,68px);line-height:.98;font-weight:500;letter-spacing:-.04em;margin:0 0 22px}.tagline{font-size:20px;line-height:1.55;color:var(--muted);max-width:540px}.landing-actions{display:grid;gap:12px;margin-top:40px;max-width:430px}.primary-btn,.secondary-btn,.choice-btn,.continue-btn{border:0;border-radius:16px;cursor:pointer}.primary-btn{padding:17px 20px;background:var(--accent);color:#1d1711;font:700 15px var(--sans)}.secondary-btn{padding:16px 20px;background:var(--surface);color:var(--text);font:650 15px var(--sans);border:1px solid var(--line)}
+.chapter-card{padding:18px 0 24px;border-bottom:1px solid var(--line);margin-bottom:30px}.chapter-no{font:700 11px var(--sans);letter-spacing:.16em;color:var(--accent);text-transform:uppercase}.chapter-card h1{font-weight:500;font-size:clamp(35px,9vw,54px);line-height:1.02;letter-spacing:-.03em;margin:12px 0 8px}.chapter-subtitle{font:500 15px/1.5 var(--sans);color:var(--muted)}
+.story-text{font-size:var(--reader);line-height:1.78;letter-spacing:.002em}.story-text p{margin:0 0 1.25em}.story-text p:first-child::first-letter{font-size:3.3em;float:left;line-height:.78;margin:.12em .11em 0 0;color:var(--accent)}.dialogue{margin-left:0}.echo{margin:32px 0;padding:18px 20px;border-left:2px solid var(--accent2);background:var(--surface);font-style:italic;color:color-mix(in srgb,var(--text) 82%,var(--muted));font-size:calc(var(--reader) - 1px);line-height:1.65}.echo-label{display:block;font:700 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.choice-wrap{margin:40px 0 12px}.choice-kicker{font:700 11px var(--sans);letter-spacing:.14em;color:var(--accent);text-transform:uppercase}.choice-wrap h2{font:500 clamp(27px,7vw,36px)/1.14 var(--serif);margin:10px 0 22px}.choices{display:grid;gap:12px}.choice-btn{text-align:left;padding:18px;background:var(--surface);color:var(--text);border:1px solid var(--line);font-size:16px;line-height:1.4;font-family:var(--sans);transition:.18s ease}.choice-btn:hover,.choice-btn:focus-visible{border-color:var(--accent2);transform:translateY(-1px);outline:none}.choice-letter{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:9px;margin-right:9px;background:var(--surface2);color:var(--accent);font-weight:800}.choice-btn.selected{border-color:var(--accent);background:color-mix(in srgb,var(--surface) 85%,var(--accent) 15%)}
+.bridge-card{margin:8px 0 24px;padding:4px 0 8px}.branch-card{margin-top:28px;padding:24px 0;border-top:1px solid var(--line)}.branch-card .story-text p:first-child::first-letter{font-size:inherit;float:none;margin:0;color:inherit}.memory-note{font:600 12px/1.5 var(--sans);color:var(--muted);margin-top:22px}.continue-btn{width:100%;padding:16px 18px;margin-top:30px;background:transparent;color:var(--accent);border:1px solid var(--accent2);font:700 14px var(--sans)}
+.end-card{padding-top:10vh;text-align:left}.end-card h1{font-size:clamp(42px,11vw,70px);font-weight:500;line-height:1.01;margin:12px 0 25px}.end-quote{font-size:clamp(27px,7vw,40px);line-height:1.35;margin:50px 0;color:var(--accent)}.end-meta{padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;font:14px/1.65 var(--sans);color:var(--muted)}
+.passport-card{margin-top:22px;padding:24px;background:linear-gradient(145deg,var(--surface),var(--surface2));border:1px solid color-mix(in srgb,var(--accent) 34%,var(--line));border-radius:20px}
+.passport-card h3{font:700 19px/1.25 var(--sans);margin:0 0 9px;color:var(--text)}
+.passport-card p{font:14px/1.65 var(--sans);color:var(--muted);margin:0 0 16px}
+.passport-id{display:inline-block;margin:4px 0 18px;padding:7px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font:700 11px/1.2 var(--sans);letter-spacing:.12em;color:var(--accent)}
+.passport-actions{display:grid;gap:10px}
+.passport-note{margin-top:12px;font:12px/1.5 var(--sans);color:var(--muted)}
+.utility-btn{width:100%;padding:13px;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;font:650 13px var(--sans);cursor:pointer;margin-top:8px}
+.utility-btn:hover,.utility-btn:focus-visible{border-color:var(--accent2);outline:none}
+.import-status{margin-top:12px;font:12px/1.5 var(--sans);color:var(--muted)}
+
+.settings-dialog{width:min(92vw,460px);border:1px solid var(--line);border-radius:22px;background:var(--surface);color:var(--text);padding:0;box-shadow:0 24px 100px #0008}.settings-dialog::backdrop{background:#0009;backdrop-filter:blur(3px)}.settings-dialog form{padding:22px}.dialog-head{display:flex;align-items:center;justify-content:space-between}.dialog-head h2{font:700 20px var(--sans);margin:0}.close-btn{border:0;background:transparent;color:var(--text);font-size:30px;cursor:pointer}.settings-dialog label{display:block;font:650 13px var(--sans);margin:24px 0 10px}.segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:5px;border-radius:14px}.segmented button{border:0;border-radius:10px;padding:10px;background:transparent;color:var(--text);cursor:pointer}.segmented button.active{background:var(--surface2);color:var(--accent)}.switch-row{display:flex!important;align-items:center;justify-content:space-between;gap:12px}.switch-row small{display:block;color:var(--muted);font-weight:400}.settings-dialog hr{border:0;border-top:1px solid var(--line);margin:25px 0}.danger-btn{width:100%;padding:13px;border:1px solid color-mix(in srgb,var(--danger) 60%,var(--line));background:transparent;color:var(--danger);border-radius:12px;font:650 13px var(--sans);cursor:pointer}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:50;background:var(--text);color:var(--bg);font:650 12px var(--sans);padding:11px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* v0.8.1 HOME/MOBILE FIX */
+.landing .hero-copy{display:block}
+.landing .home-cover{margin-top:30px}
+.landing .new-path-btn{margin-top:0}
+@media(max-width:600px){
+  .main{padding:22px 18px calc(110px + env(safe-area-inset-bottom))}
+  .landing{
+    min-height:auto;
+    display:flex;
+    flex-direction:column;
+    align-content:initial;
+    justify-content:flex-start;
+    padding-bottom:42px;
+  }
+  .landing h1{font-size:clamp(42px,13.4vw,58px);line-height:.96;margin:8px 0 16px}
+  .landing .tagline{font-size:18px;line-height:1.45}
+  .landing-actions{margin-top:24px;gap:10px;max-width:none}
+  .landing-actions .primary-btn{min-height:56px;font-size:16px}
+  .landing-actions .secondary-btn{min-height:50px}
+  .landing .cover-art{width:100%;margin:28px 0 16px;aspect-ratio:16/8.6;border-radius:22px}
+  .landing .landing-note{margin-top:14px}
+}
+
+.local-file-note{display:none}.local-file-mode .local-file-note{display:block;color:var(--danger);font-weight:650}
+@media(min-width:800px){.main{padding-top:55px}.choice-btn{font-size:17px}.topbar{padding-left:24px;padding-right:24px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+</style>
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Πριν γίνουμε τρεις">
+</head>
+<body class="font-medium">
+<div id="app">
+<header class="topbar">
+<button id="homeBtn" class="icon-btn" aria-label="Αρχική">⌂</button>
+<div class="topbar-center"><span id="chapterMini">ΠΡΙΝ ΓΙΝΟΥΜΕ ΤΡΕΙΣ</span><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div></div>
+<button id="settingsBtn" class="icon-btn" aria-label="Ρυθμίσεις">Aa</button>
+</header>
+<main id="main" class="main">
+<section class="landing" id="bootLanding">
+<div class="eyebrow">Όσα γίναμε μαζί · Βιβλίο I</div>
+<div class="hero-copy">
+<h1>Πριν γίνουμε<br>τρεις</h1>
+<p class="tagline">Μια ιστορία που θυμάται πώς την έζησες.</p>
+</div>
+<div class="landing-actions">
+<button class="primary-btn" id="bootStartBtn" type="button" onclick="window.__bootStartRequested=true">Ξεκίνα την ιστορία</button>
+</div>
+<div class="cover-art home-cover" aria-hidden="true"><span class="cover-third"></span><span class="cover-line"></span><span class="cover-caption">δύο άνθρωποι · μία κοινή ιστορία</span></div>
+<p class="landing-note">Διάβασε. Επίλεξε. Η ιστορία συνεχίζει να θυμάται.</p><p class="landing-note local-file-note">Σε iPhone: άνοιξέ το από το HTTPS link της δημοσιευμένης εφαρμογής — όχι ως αρχείο μέσα από Files/Quick Look.</p>
+</section>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="settingsDialog" class="settings-dialog">
+<form method="dialog">
+<div class="dialog-head"><h2>Ανάγνωση</h2><button class="close-btn" value="cancel">×</button></div>
+<label>Μέγεθος γραμματοσειράς</label>
+<div class="segmented"><button type="button" data-font="small">Α</button><button type="button" data-font="medium">Α</button><button type="button" data-font="large">Α</button></div>
+<label>Εμφάνιση</label>
+<div class="segmented"><button type="button" data-theme="dark">Νύχτα</button><button type="button" data-theme="paper">Χαρτί</button></div>
+<label class="switch-row"><span>Ήπιο ambience <small>(όταν προστεθούν αρχεία)</small></span><input id="ambienceToggle" type="checkbox"></label>
+<hr>
+<button type="button" id="exportPassportBtn" class="utility-btn">Αποθήκευση Διαβατηρίου Ιστορίας</button>
+<button type="button" id="importPassportBtn" class="utility-btn">Φόρτωση Διαβατηρίου Ιστορίας</button>
+<div id="importStatus" class="import-status"></div>
+<hr><button type="button" id="restartBtn" class="danger-btn">Νέα διαδρομή από την αρχή</button>
+</form>
+</dialog>
+<input id="passportFileInput" type="file" accept=".ogmstory,application/json" hidden>
+<noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το με Chrome ή Edge και επίτρεψε JavaScript.</div></noscript>
+<script>
+window.STORY_DATA = {
+  "version": "0.8.2-https-pwa",
+  "book": {
+    "series": "Όσα γίναμε μαζί",
+    "title": "Πριν γίνουμε τρεις",
+    "tagline": "Μια ιστορία που θυμάται πώς την έζησες."
+  },
+  "chapters": [
+    {
+      "id": "C01",
+      "title": "Ένα τραπέζι για δύο",
+      "subtitle": "Η γνωριμία",
+      "choices": [
+        1,
+        2
+      ],
+      "intro": "Κανείς τους δεν ξύπνησε εκείνο το πρωί γνωρίζοντας ότι το βράδυ θα γνώριζε την υπόλοιπη ζωή του.\n\nΟ Αλέξανδρος είχε περάσει μια συνηθισμένη ημέρα στο σχολείο. Λίγο πριν φύγει, βρήκε πάνω στην έδρα ένα χαρτί από έναν μαθητή: «Ο κύριος Αλέξανδρος μάς μαθαίνει πολλά, αλλά καμιά φορά κοιτάζει από το παράθυρο». Το δίπλωσε και το έβαλε στην τσέπη. Τα παιδιά είχαν ένα ενοχλητικό ταλέντο να βλέπουν πράγματα που οι μεγάλοι έκρυβαν ακόμη κι από τον εαυτό τους.\n\nΤο βράδυ, στα γενέθλια του Πέτρου στο Παγκράτι, γνώρισε την Ελένη. Graphic designer, γρήγορο χαμόγελο, βλέμμα που δεν έμενε στην επιφάνεια. Κάποια στιγμή εκείνη είπε: «Δεν νομίζω ότι φοβόμαστε τις σχέσεις. Νομίζω ότι φοβόμαστε περισσότερο να φανεί ποιοι είμαστε μέσα σε αυτές».\n\nΟ Αλέξανδρος, αντί να απαντήσει, έγραψε κάτι σε μια χαρτοπετσέτα.",
+      "outro": "Από εκείνο το βράδυ δεν προέκυψε ακόμη σχέση. Προέκυψε όμως κάτι αρκετό για να θέλουν και οι δύο να υπάρξει δεύτερη σκηνή."
+    },
+    {
+      "id": "C02",
+      "title": "Χωρίς την παρέα",
+      "subtitle": "Όσα λέμε και όσα κρατάμε",
+      "choices": [
+        3,
+        4
+      ],
+      "intro": "Στο Θησείο, χωρίς φίλους ανάμεσά τους, η συζήτηση έγινε πιο προσωπική. Η Ελένη μίλησε για τη μητέρα της, για το πόσο κοντά είναι και για τον φόβο της να χαθεί κάποτε μέσα στον ρόλο της μητέρας όπως πίστευε ότι είχε συμβεί στη δική της οικογένεια.\n\nΜετά γύρισε την ερώτηση προς εκείνον.\n\n— Εσύ τι φοβάσαι;",
+      "outro": "Τρεις εβδομάδες αργότερα, μηνύματα, τραγούδια και μικρές βόλτες είχαν αρχίσει να δημιουργούν κάτι που δεν χρειαζόταν ακόμη όνομα για να είναι πραγματικό."
+    },
+    {
+      "id": "C03",
+      "title": "Όσα λέμε και όσα κρατάμε",
+      "subtitle": "Όρια, σύγκρουση, συγκατοίκηση",
+      "choices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "intro": "Δύο μήνες αργότερα, η Ελένη είχε ήδη αφήσει οδοντόβουρτσα και μερικά ρούχα στο σπίτι του. Μαζί με την οικειότητα εμφανίστηκαν και τα πρώτα όρια: τι ανήκει στο ζευγάρι, τι μπορεί να συζητιέται με τρίτους και πόσο χώρο δικαιούται ο καθένας όταν πιέζεται.\n\nΗ μητέρα της Ελένης ήξερε ήδη αρκετά. Ίσως περισσότερα απ’ όσα ο Αλέξανδρος περίμενε.",
+      "outro": "Όταν το συμβόλαιο της Ελένης έφτασε στη λήξη του, η συγκατοίκηση έπαψε να είναι θεωρία. Έπρεπε να γίνει επιλογή."
+    },
+    {
+      "id": "C04",
+      "title": "Το σπίτι δεν καθαρίζεται μόνο του",
+      "subtitle": "Η καθημερινότητα αρχίζει να μιλά",
+      "choices": [
+        9,
+        10,
+        11
+      ],
+      "intro": "Οι πρώτες εβδομάδες συγκατοίκησης έμοιαζαν με μικρές διακοπές. Μετά εμφανίστηκαν τα πιάτα, τα παλτά, οι σακούλες, τα ψώνια, οι ώρες δουλειάς και το ποιος βλέπει τι πρέπει να γίνει πριν το δει ο άλλος.\n\nΈνα βράδυ ο Αλέξανδρος γύρισε κουρασμένος, μάζεψε το σπίτι σχεδόν μηχανικά και ένιωσε μια ενόχληση πολύ μεγαλύτερη από την κούπα που κρατούσε στο χέρι.",
+      "outro": "Το σπίτι συνέχισε να λειτουργεί. Το ίδιο και η σχέση. Όμως η καλή πρόθεση δεν είχε ακόμη αποκτήσει κοινό λεξιλόγιο."
+    },
+    {
+      "id": "C05",
+      "title": "Οι μικρές θυσίες",
+      "subtitle": "Εγώ, εμείς και το μέλλον",
+      "choices": [
+        12,
+        13,
+        14
+      ],
+      "intro": "Η δουλειά της Ελένης είχε γίνει απαιτητικότερη. Ο Αλέξανδρος κάλυπτε συχνότερα πράγματα στο σπίτι και μερικές φορές μετακινούσε τη δική του ζωή για να χωρέσει τη δική τους.\n\nΈνα Σάββατο, ενώ είχε κανονίσει να παίξει μουσική με φίλους, μια ξαφνική κρίση στη δουλειά της Ελένης έφερε ξανά μπροστά τους την ίδια ερώτηση: πόσο χώρο δικαιούται να κρατά ο καθένας για τον εαυτό του μέσα στο «εμείς»;",
+      "outro": "Το τεστ ήταν αρνητικό. Η ζωή συνέχισε κανονικά, αλλά η ερώτηση δεν ήταν πια θεωρητική. Για πρώτη φορά είχαν δει, έστω για λίγα λεπτά, πώς θα έμοιαζε ένα μέλλον που θα μπορούσε να φτάσει χωρίς να περιμένει να είναι έτοιμοι."
+    },
+    {
+      "id": "C06",
+      "title": "Η αλήθεια που δεν ειπώθηκε",
+      "subtitle": "Όταν το παλιό επιστρέφει",
+      "choices": [
+        15
+      ],
+      "intro": "Τέσσερα χρόνια μαζί. Δεν ήταν δυστυχισμένοι. Αυτό ήταν ίσως που έκανε το θέμα πιο δύσκολο. Υπήρχαν εβδομάδες που λειτουργούσαν εξαιρετικά ως δύο άνθρωποι που μοιράζονταν ζωή, αλλά όχι πάντα ως δύο άνθρωποι που πλησίαζαν ενεργά ο ένας τον άλλον.\n\nΈνα βράδυ στο μπαλκόνι η Ελένη είπε: «Μου λείπεις λίγο». Ήταν μισό μέτρο μακριά του. Και ακριβώς γι’ αυτό κατάλαβε τι εννοούσε.",
+      "outro": "Από εκείνο το βράδυ, το παιδί δεν ήταν πια μόνο μια ιδέα για “κάποτε”. Είχε αρχίσει να αποκτά χώρο μέσα στο κοινό τους μέλλον."
+    },
+    {
+      "id": "C07",
+      "title": "Δεν υπάρχει η σωστή στιγμή",
+      "subtitle": "Η απόφαση",
+      "choices": [
+        16,
+        17
+      ],
+      "intro": "Η Ελένη πήρε πρόταση για θέση υπεύθυνης ομάδας. Περισσότερη ευθύνη, περισσότερα χρήματα, περισσότεροι χρόνοι που δεν θα της ανήκαν. Ταυτόχρονα, η συζήτηση για παιδί είχε γίνει πραγματική.\n\nΓια πρώτη φορά έπρεπε να αποφασίσουν αν περίμεναν η ζωή να τακτοποιηθεί ή αν θα προχωρούσαν μέσα στην αταξία της.",
+      "outro": "Η εγκυμοσύνη ήταν πια πραγματική και, ανάλογα με την επιλογή τους, είχε αρχίσει να ανοίγει τον κύκλο γύρω από το ζευγάρι. Από εδώ και πέρα δεν θα αποφάσιζαν μόνο αν θέλουν βοήθεια· θα μάθαιναν και πόσο κοντά μπορεί να έρθει η βοήθεια χωρίς να γίνει απόφαση."
+    },
+    {
+      "id": "C08",
+      "title": "Η βοήθεια έχει όρια",
+      "subtitle": "Η οικογένεια γύρω από την οικογένεια",
+      "choices": [
+        18,
+        19
+      ],
+      "intro": "Όταν η εγκυμοσύνη έγινε γνωστή στις οικογένειες, μαζί με τη χαρά ήρθαν συμβουλές, αγωνίες, προσφορές, κούνιες, καρότσια και η παλιά ερώτηση σε νέα μορφή: ποιος βοηθά και ποιος αποφασίζει;\n\nΗ μητέρα της Ελένης προσφέρθηκε να αγοράσει ολόκληρο το βρεφικό δωμάτιο.",
+      "outro": "Το παιδικό δωμάτιο γέμισε σιγά σιγά. Η κιθάρα του Αλέξανδρου βρήκε άλλη θέση. Το σπίτι είχε αρχίσει να κάνει χώρο σε κάποιον που δεν είχε ακόμη μπει μέσα."
+    },
+    {
+      "id": "C09",
+      "title": "Η πόρτα",
+      "subtitle": "Από δύο, τρεις",
+      "choices": [
+        20,
+        21
+      ],
+      "intro": "Στις τριάντα οκτώ εβδομάδες και δύο ημέρες, στις 03:17, η Ελένη τον ξύπνησε. «Νομίζω ότι άρχισε».\n\nΣτον δρόμο προς το μαιευτήριο η Αθήνα ήταν σχεδόν άδεια. Σχεδόν πέντε χρόνια πριν είχαν γνωριστεί στην ίδια πόλη. Τώρα πήγαιναν προς ένα μέρος από όπου, αν όλα πήγαιναν καλά, θα έφευγαν τρεις.",
+      "outro": "Δύο ημέρες αργότερα ήρθε το εξιτήριο. Ο Αλέξανδρος κοίταζε το βρεφικό κάθισμα σαν να επρόκειτο να εξεταστεί πάνω του. Η Ελένη κρατούσε το μωρό. Σε λίγο θα έφευγαν από έναν χώρο γεμάτο ανθρώπους που ήξεραν τι να κάνουν και θα επέστρεφαν στο δικό τους σπίτι. Το επόμενο κομμάτι δεν είχε προσωπικό βάρδιας."
+    }
+  ],
+  "choices": {
+    "1": {
+      "prompt": "Τι κάνει με τη χαρτοπετσέτα;",
+      "options": {
+        "A": [
+          "Της τη δίνει",
+          "Ο Αλέξανδρος κοίταξε για μια στιγμή τη χαρτοπετσέτα.\n\n— Θες να δεις; είπε.\n\nΗ Ελένη άπλωσε το χέρι.\n\nΔιάβασε τη φράση αργά.\n\n«Μερικοί άνθρωποι μπαίνουν στη ζωή μας τόσο ήσυχα που καταλαβαίνουμε τον θόρυβο μόνο όταν φύγουν.»\n\nΣήκωσε το βλέμμα. Η ειρωνεία που είχε σχεδόν μόνιμα στις άκρες του στόματός της είχε χαθεί.\n\n— Αυτό το έγραψες τώρα;\n\n— Μάλλον.\n\n— Τι σημαίνει «μάλλον»;\n\n— Ότι αν αύριο μου φανεί υπερβολικό, θα ισχυριστώ ότι το έγραψε ο Πέτρος.\n\nΗ Ελένη γέλασε, αλλά δεν του έδωσε αμέσως πίσω τη χαρτοπετσέτα.\n\n— Γράφεις συχνά;\n\nΟ Αλέξανδρος ανασήκωσε τους ώμους.\n\n— Όταν έχω κάτι να πω που δεν μπορώ να πω κανονικά.\n\nΤο είπε και αμέσως κατάλαβε ότι είχε πει περισσότερο απ’ όσο συνήθιζε σε άνθρωπο που γνώριζε λιγότερο από δύο ώρες.\n\nΗ Ελένη δίπλωσε προσεκτικά τη χαρτοπετσέτα και την ακούμπησε μπροστά του.\n\n— Κράτα την.\n\n— Γιατί;\n\n— Για να μην ισχυριστείς αύριο ότι δεν συνέβη.\n\nΧαμογέλασαν.\n\nΗ βραδιά συνέχισε σαν πριν. Κι όμως όχι ακριβώς. Για πρώτη φορά ο Αλέξανδρος είχε αφήσει κάτι δικό του πάνω στο τραπέζι χωρίς πρώτα να βεβαιωθεί ότι ήταν ασφαλές. Και η Ελένη, αντί να το ψάξει περισσότερο, το είχε απλώς κρατήσει για λίγο και του το είχε επιστρέψει."
+        ],
+        "B": [
+          "Το γυρίζει σε αστείο",
+          "Ο Αλέξανδρος είδε την Ελένη να κοιτάζει τη χαρτοπετσέτα.\n\nΤην δίπλωσε γρήγορα στη μέση.\n\n— Απόρρητο υλικό.\n\n— Α, μάλιστα.\n\n— Υψηλή λογοτεχνία μετά το δεύτερο ποτό. Κυκλοφορεί σε πολύ περιορισμένα αντίτυπα.\n\nΗ Ελένη γέλασε.\n\n— Δηλαδή γράφεις;\n\n— Αυτή είναι βαριά λέξη. Θα έλεγα ότι ταλαιπωρώ χαρτοπετσέτες.\n\n— Πολύ ασφαλής απάντηση.\n\nΟ Αλέξανδρος την κοίταξε.\n\n— Γνωριζόμαστε μία ώρα. Πόσο επικίνδυνες απαντήσεις περιμένεις;\n\n— Δεν ξέρω. Απλώς κάνω έρευνα αγοράς.\n\n— Και πώς πάει;\n\n— Υπάρχει ενδιαφέρον. Το προϊόν είναι λίγο επιφυλακτικό.\n\nΓέλασαν και οι δύο.\n\nΤο θέμα έφυγε από τη χαρτοπετσέτα και πήγε στη μουσική, στα μέρη της Αθήνας που αγαπούσαν, στις δουλειές που κάποτε πίστευαν ότι θα κάνουν και τελικά δεν έκαναν.\n\nΟ Αλέξανδρος δεν της έδειξε τη φράση. Όμως το αστείο είχε κάνει κάτι άλλο: είχε δημιουργήσει οικειότητα χωρίς να χρειαστεί ακόμη έκθεση.\n\nΓια εκείνον, το χιούμορ ήταν συχνά γέφυρα. Μερικές φορές όμως ήταν και πόρτα.\n\nΤο δύσκολο ήταν ότι απ’ έξω έμοιαζαν σχεδόν το ίδιο."
+        ],
+        "C": [
+          "Κρατά το όριο",
+          "Η Ελένη έγνεψε προς τη χαρτοπετσέτα.\n\n— Τι έγραψες;\n\nΟ Αλέξανδρος κοίταξε τη φράση. Μετά εκείνη.\n\nΓια ένα δευτερόλεπτο σκέφτηκε να της τη δώσει.\n\nΔεν το έκανε.\n\n— Κάτι δικό μου.\n\nΗ Ελένη σήκωσε το φρύδι.\n\n— Μυστικό;\n\n— Όχι ακριβώς.\n\nΔίπλωσε τη χαρτοπετσέτα.\n\n— Ίσως κάποτε να σου το δείξω.\n\nΠερίμενε σχεδόν ασυναίσθητα να τον πει υπερβολικό. Ή να επιμείνει.\n\nΗ Ελένη όμως απλώς έγνεψε.\n\n— Εντάξει.\n\n— Αυτό ήταν;\n\n— Τι ήθελες; Να σου την αρπάξω;\n\n— Δεν ξέρω.\n\n— Αν θέλεις να μου δείξεις κάτι, θα μου το δείξεις.\n\nΈπειτα πήρε το ποτήρι της και συνέχισε την κουβέντα σαν να μην είχε συμβεί τίποτα.\n\nΚι αυτό, παράξενα, έκανε τον Αλέξανδρο να την προσέξει περισσότερο.\n\nΉταν συνηθισμένος να θεωρεί ότι το ενδιαφέρον εκφράζεται με ερωτήσεις. Εκείνη του έδειξε για πρώτη φορά ότι μπορεί να εκφράζεται και με το να αφήνεις χώρο.\n\nΗ χαρτοπετσέτα μπήκε στην τσέπη του.\n\nΗ φράση έμεινε κρυφή.\n\nΤο γεγονός όμως ότι δεν χρειάστηκε να την υπερασπιστεί, έμεινε κι αυτό."
+        ]
+      }
+    },
+    "2": {
+      "prompt": "Πώς τελειώνει η πρώτη βραδιά;",
+      "options": {
+        "A": [
+          "Της ζητά καφέ",
+          "Έξω από το μαγαζί η ατμόσφαιρα είχε εκείνη τη μικρή αμηχανία των τελευταίων λεπτών.\n\nΚανείς δεν ήθελε να κάνει τη στιγμή μεγαλύτερη απ’ όσο ήταν. Κανείς όμως δεν ήθελε και να τελειώσει τελείως.\n\nΟ Αλέξανδρος έβαλε τα χέρια στις τσέπες.\n\n— Θα ήθελα να σε ξαναδώ.\n\nΗ Ελένη γύρισε προς το μέρος του.\n\n— Αυτό ήταν ασυνήθιστα σαφές.\n\n— Μην το συνηθίσεις.\n\n— Τι προτείνεις;\n\n— Καφέ. Χωρίς τον Πέτρο, χωρίς γενέθλια και χωρίς υποχρεωτικό κοινωνικό πρόγραμμα.\n\nΗ Ελένη χαμογέλασε.\n\n— Ναι.\n\nΗ απάντησή της ήρθε χωρίς παιχνίδι.\n\nΑντάλλαξαν τηλέφωνα.\n\n— Θα σου στείλω αύριο, είπε ο Αλέξανδρος.\n\n— Αύριο αύριο ή εκείνο το αντρικό «αύριο» που σημαίνει σε τέσσερις εργάσιμες;\n\n— Κανονικό αύριο.\n\n— Θα το αξιολογήσω.\n\nΧαιρετήθηκαν.\n\nΟ Αλέξανδρος περπάτησε προς το αυτοκίνητό του και ένιωσε κάτι σχεδόν αστείο: ανακούφιση.\n\nΔεν είχε λύσει τίποτα. Δεν ήξερε τίποτα για εκείνη. Αλλά είχε πει αυτό που ήθελε χωρίς να περιμένει πρώτα εγγύηση ότι θα ακούσει «ναι».\n\nΚαι για εκείνον, αυτό ήταν ήδη μια μικρή μετατόπιση."
+        ],
+        "B": [
+          "Ανταλλάσσουν τηλέφωνα",
+          "Λίγο πριν χωρίσουν, η Ελένη έβγαλε το κινητό της.\n\n— Επειδή ο Πέτρος είναι απολύτως ικανός να εξαφανιστεί για δύο εβδομάδες, καλύτερα να έχουμε δικό μας τρόπο επικοινωνίας.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Πρακτική γυναίκα.\n\n— Graphic designer. Αν δεν οργανώσεις τα αρχεία, πεθαίνουν άνθρωποι.\n\nΑντάλλαξαν αριθμούς.\n\nΟ Αλέξανδρος κοίταξε το όνομά της στην οθόνη. «Ελένη». Τόσο απλό. Σαν να υπήρχε ήδη εκεί πριν από εκείνο το βράδυ.\n\n— Ωραία, είπε εκείνη.\n\n— Ωραία.\n\nΚανείς δεν είπε «θα σε πάρω».\n\nΚανείς δεν ρώτησε «πότε θα τα πούμε».\n\nΚι όμως και οι δύο ήξεραν ότι αυτό δεν ήταν απλώς ανταλλαγή στοιχείων.\n\n— Καληνύχτα, δάσκαλε.\n\n— Καληνύχτα, σχεδιάστρια.\n\nΤο επόμενο πρωί ο Αλέξανδρος κοίταξε το κινητό του δύο φορές πριν τις εννέα χωρίς να υπάρχει ειδοποίηση.\n\nΣτις 09:17 ήρθε μήνυμα.\n\n«Το κοινωνικό πείραμα του χθεσινού πάρτι κρίνεται επιτυχές. Καφέ μέσα στην εβδομάδα;»\n\nΧαμογέλασε μόνος του.\n\nΜερικές σχέσεις ξεκινούν με μεγάλη δήλωση.\n\nΗ δική τους ξεκίνησε με δύο ανθρώπους που αντάλλαξαν αριθμούς προσποιούμενοι ότι δεν σήμαινε και πολλά."
+        ],
+        "C": [
+          "Δεν κάνει κίνηση",
+          "Έξω από το μαγαζί ο Πέτρος χαιρετούσε κόσμο.\n\nΟ Αλέξανδρος είπε ένα απλό «χάρηκα» στην Ελένη.\n\n— Κι εγώ.\n\nΓια μια στιγμή περίμενε ότι ίσως θα έπρεπε να κάνει κάτι άλλο. Να ζητήσει τηλέφωνο. Να προτείνει καφέ. Να βρει την κατάλληλη ατάκα.\n\nΔεν έκανε τίποτα.\n\nΔεν ήξερε αν ήταν δισταγμός ή απλώς η ανάγκη του να μην πιέσει μια καλή βραδιά να γίνει αμέσως κάτι άλλο.\n\nΈκανε δύο βήματα προς τον δρόμο.\n\n— Αλέξανδρε.\n\nΓύρισε.\n\nΗ Ελένη στεκόταν ακόμη στην είσοδο.\n\n— Έχεις Instagram ή θα χρειαστεί να ξανακάνει ο Πέτρος γενέθλια για να μιλήσουμε;\n\nΟ Αλέξανδρος γέλασε.\n\n— Έχω.\n\n— Δώσε.\n\nΑντάλλαξαν usernames.\n\n— Ωραία, είπε εκείνη. Τώρα μπορείς να συνεχίσεις να κάνεις τον μυστηριώδη.\n\n— Δεν κάνω τον μυστηριώδη.\n\n— Ακόμα χειρότερα. Είναι φυσικό.\n\nΧαμογέλασε και έφυγε.\n\nΟ Αλέξανδρος έμεινε για λίγο εκεί.\n\nΔεν είχε πάρει πρωτοβουλία.\n\nΗ ιστορία όμως δεν είχε σταματήσει επειδή εκείνος δεν την έσπρωξε μπροστά.\n\nΑυτό ήταν ίσως η πρώτη μικρή απόδειξη ότι ο άλλος άνθρωπος δεν είναι κομπάρσος στην απόφασή σου. Μπορεί να κινηθεί κι εκείνος."
+        ]
+      }
+    },
+    "3": {
+      "prompt": "Τι απαντά όταν η Ελένη ρωτά τι φοβάται;",
+      "options": {
+        "A": [
+          "Λέει τον βαθύτερο φόβο",
+          "Ο Αλέξανδρος κοίταξε για λίγο τον καφέ του.\n\nΗ ερώτηση ήταν απλή. «Τι φοβάσαι;»\n\nΟι απλές ερωτήσεις έχουν μερικές φορές το χειρότερο πρόβλημα: δεν σου δίνουν πού να κρυφτείς.\n\n— Να περάσω μια ζωή κάνοντας όλα όσα έπρεπε και όχι όλα όσα ήθελα.\n\nΗ Ελένη δεν απάντησε αμέσως.\n\nΟ Αλέξανδρος ένιωσε την παρόρμηση να το ελαφρύνει. Να πει κάτι αστείο.\n\nΔεν το έκανε.\n\n— Δηλαδή; είπε εκείνη.\n\n— Να ξυπνήσω κάποτε και να ανακαλύψω ότι υπήρξα σωστός σε όλα. Καλή δουλειά, υποχρεώσεις, άνθρωποι γύρω μου… και παρ’ όλα αυτά να μην είμαι σίγουρος αν επέλεξα πραγματικά τη ζωή μου.\n\nΗ Ελένη έγειρε λίγο πίσω.\n\n— Αυτό είναι πολύ συγκεκριμένος φόβος.\n\n— Ναι. Δυστυχώς έχω και οργανωμένους φόβους.\n\nΧαμογέλασε.\n\n— Και τώρα; Με τη ζωή σου;\n\nΟ Αλέξανδρος κοίταξε προς τον δρόμο.\n\n— Δεν ξέρω. Μάλλον προσπαθώ να μην κοιμάμαι όταν παίρνω αποφάσεις.\n\nΗ Ελένη έγνεψε.\n\nΔεν του είπε ότι όλα θα πάνε καλά. Δεν του είπε ότι υπεραναλύει.\n\n— Αυτό το καταλαβαίνω, είπε μόνο.\n\nΚαι για τον Αλέξανδρο η μικρή αυτή απάντηση είχε περισσότερο βάρος από μια μεγάλη διαβεβαίωση.\n\nΓιατί αυτή τη φορά δεν της είχε δώσει μια ιδέα του εαυτού του. Της είχε δώσει κάτι που μπορούσε πραγματικά να τον πληγώσει."
+        ],
+        "B": [
+          "Δίνει μια ασφαλή απάντηση",
+          "— Να μην πάνε τα πράγματα όπως τα σχεδιάζουμε, είπε ο Αλέξανδρος.\n\nΗ Ελένη τον κοίταξε.\n\n— Αυτό ήταν η απάντηση;\n\n— Ναι.\n\n— Πολύ δασκαλίστικο.\n\nΟ Αλέξανδρος γέλασε.\n\n— Τι σημαίνει δασκαλίστικο;\n\n— Σωστό. Καθαρό. Χρήσιμο. Και αρκετά γενικό ώστε να μην εκθέτει κανέναν.\n\n— Σκληρή αξιολόγηση.\n\n— Έχεις και κανονική απάντηση;\n\nΟ Αλέξανδρος ανασήκωσε τους ώμους.\n\n— Ίσως.\n\nΗ Ελένη περίμενε δύο δευτερόλεπτα και μετά άλλαξε θέμα.\n\nΑυτό τον ξάφνιασε.\n\nΔεν προσπάθησε να του την πάρει. Δεν έκανε τη σιωπή του κατηγορία.\n\nΣυνέχισαν να μιλούν για οικογένειες, δουλειές, μουσική. Κάποια στιγμή εκείνη του είπε για τον δικό της φόβο μήπως μια μέρα γίνει μητέρα και χαθεί μέσα σε αυτόν τον ρόλο, όπως πίστευε ότι είχε συμβεί με τη μητέρα της.\n\nΟ Αλέξανδρος την άκουσε.\n\nΚι ένιωσε ελαφρά παράξενα.\n\nΕκείνη είχε απαντήσει σε μια δύσκολη ερώτηση με κάτι συγκεκριμένο. Εκείνος με μια γενική αλήθεια.\n\nΔεν είχε πει ψέματα.\n\nΑπλώς είχε αφήσει την πόρτα μισάνοιχτη.\n\nΚαι, για την ώρα, η Ελένη σεβάστηκε ότι δεν είχε προσκληθεί ακόμη να μπει."
+        ],
+        "C": [
+          "Αστειεύεται",
+          "Ο Αλέξανδρος πήρε το πιο σοβαρό ύφος που μπορούσε.\n\n— Κατσαρίδες.\n\nΗ Ελένη τον κοίταξε.\n\n— Τι;\n\n— Πολύ γρήγορες. Δεν εμπιστεύομαι τίποτα που αλλάζει κατεύθυνση τόσο απότομα.\n\nΗ Ελένη ξέσπασε σε γέλια.\n\n— Αυτό είναι η μεγάλη σου υπαρξιακή αγωνία;\n\n— Δεν θα υποτιμήσουμε τον κίνδυνο.\n\n— Εντάξει.\n\nΉπιε μια γουλιά καφέ.\n\n— Την αληθινή απάντηση την κρατάμε για άλλο επεισόδιο.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Ποιος είπε ότι υπάρχει άλλη;\n\n— Το πρόσωπό σου.\n\n— Το πρόσωπό μου είναι αναξιόπιστος μάρτυρας.\n\nΗ Ελένη δεν επέμεινε.\n\nΗ κουβέντα συνέχισε πιο ανάλαφρα και το αστείο επέστρεψε άλλες δύο φορές μέσα στη βραδιά. Όταν πέρασαν δίπλα από ένα σκουπίδι στο πεζοδρόμιο, η Ελένη απομακρύνθηκε θεατρικά.\n\n— Πρόσεχε. Μπορεί να έχει κατσαρίδες.\n\nΟ Αλέξανδρος γέλασε.\n\nΕίχε αποφύγει την απάντηση.\n\nΑλλά είχε δημιουργήσει κάτι άλλο: ένα μικρό ιδιωτικό αστείο.\n\nΚι αυτή είναι η διπλή φύση του χιούμορ στις σχέσεις.\n\nΜπορεί να σε φέρει κοντά.\n\nΜπορεί και να σε βοηθήσει να μη χρειαστεί να πλησιάσεις περισσότερο."
+        ]
+      }
+    },
+    "4": {
+      "prompt": "Τι κάνει όταν η στιγμή μοιάζει να οδηγεί στο πρώτο φιλί;",
+      "options": {
+        "A": [
+          "Τη φιλά",
+          "Περπατούσαν αργά. Το Θησείο είχε αρχίσει να αδειάζει.\n\nΚάποια στιγμή σταμάτησαν.\n\nΔεν υπήρχε λόγος. Απλώς η κουβέντα τελείωσε για λίγα δευτερόλεπτα και η απόσταση ανάμεσά τους έγινε αισθητή.\n\nΟ Αλέξανδρος πλησίασε.\n\nΌχι απότομα.\n\nΑρκετά αργά ώστε η Ελένη να μπορεί να κάνει πίσω.\n\nΔεν έκανε.\n\nΤο φιλί ήταν μικρό στην αρχή. Διστακτικό μόνο όσο χρειάζεται όταν δύο άνθρωποι δοκιμάζουν για πρώτη φορά αν αυτό που υπήρχε στη συζήτηση υπάρχει και στη σιωπή.\n\nΌταν απομακρύνθηκαν, η Ελένη χαμογέλασε.\n\n— Καλά.\n\n— Τι καλά;\n\n— Πέρασες τη δοκιμή.\n\n— Υπήρχε δοκιμή;\n\n— Τώρα το μαθαίνεις.\n\nΟ Αλέξανδρος γέλασε.\n\nΔεν ήξερε τι σήμαινε το φιλί. Δεν ήθελε ακόμη να ξέρει.\n\nΤο μόνο βέβαιο ήταν ότι για πρώτη φορά είχε κινηθεί πριν καταφέρει να εξηγήσει πλήρως στον εαυτό του γιατί.\n\nΚαι αυτή τη φορά η αβεβαιότητα δεν του φάνηκε απειλή."
+        ],
+        "B": [
+          "Ρωτά",
+          "Η στιγμή είχε γίνει ξεκάθαρη αρκετά πριν μιλήσει.\n\nΟ Αλέξανδρος όμως μίλησε.\n\n— Μπορώ να σε φιλήσω;\n\nΗ Ελένη τον κοίταξε για ένα δευτερόλεπτο και χαμογέλασε.\n\n— Μπορείς.\n\n— Πολύ επίσημο ακούστηκε.\n\n— Θες να κάνουμε αίτηση;\n\nΓέλασαν, και ίσως ακριβώς γι’ αυτό το φιλί που ακολούθησε δεν είχε καθόλου την αμηχανία που φοβόταν ο Αλέξανδρος ότι θα δημιουργούσε η ερώτηση.\n\nΉταν ήρεμο.\n\nΧωρίς βιασύνη.\n\nΌταν απομακρύνθηκαν, η Ελένη ακούμπησε για λίγο το μέτωπό της στο δικό του.\n\n— Ξέρεις κάτι;\n\n— Τι;\n\n— Μου άρεσε που ρώτησες.\n\nΟ Αλέξανδρος σήκωσε το φρύδι.\n\n— Δεν χάλασε τη στιγμή;\n\n— Όχι. Την έκανε δική μου κι εμένα.\n\nΗ φράση του έμεινε.\n\nΟ Αλέξανδρος είχε πάντα θεωρήσει ότι η αυθόρμητη κίνηση ήταν πιο «αληθινή» από την ερώτηση. Εκείνο το βράδυ κατάλαβε ότι μερικές φορές η ασφάλεια δεν σκοτώνει την επιθυμία.\n\nΤης επιτρέπει να εμφανιστεί χωρίς να πρέπει πρώτα να αμυνθεί."
+        ],
+        "C": [
+          "Δεν τη φιλά ακόμη",
+          "Η στιγμή υπήρχε.\n\nΚαι οι δύο το ήξεραν.\n\nΟ Αλέξανδρος θα μπορούσε να τη φιλήσει.\n\nΔεν το έκανε.\n\n— Δεν ξέρω αν θέλω να κάνω αυτό τώρα, είπε.\n\nΗ Ελένη τον κοίταξε.\n\nΓια μια στιγμή φοβήθηκε ότι είχε ακουστεί σαν απόρριψη.\n\n— Ξέρω όμως ότι θέλω να σε ξαναδώ.\n\nΤο πρόσωπό της άλλαξε.\n\n— Εντάξει.\n\n— Εντάξει καλό ή εντάξει «μην ξαναστείλεις»;\n\nΗ Ελένη χαμογέλασε.\n\n— Καλό. Αλλά την επόμενη φορά δεν θα σε αφήσω τόσο εύκολα να κρυφτείς πίσω από το «δεν ξέρω».\n\nΤις επόμενες εβδομάδες βγήκαν ξανά. Και ξανά.\n\nΗ σχέση δεν καθυστέρησε επειδή δεν φιλήθηκαν εκείνη τη βραδιά. Απλώς απέκτησε άλλον ρυθμό. Μηνύματα, τραγούδια, μικρά αστεία, κουβέντες που έμεναν μέχρι αργά.\n\nΣτην τρίτη τους έξοδο, η Ελένη τον κοίταξε κάποια στιγμή και είπε:\n\n— Έχεις ένα ταλέντο να σταματάς τα πράγματα λίγο πριν μάθεις αν θα πάνε καλά.\n\nΟ Αλέξανδρος δεν πρόλαβε να βρει απάντηση.\n\nΑυτή τη φορά τη φίλησε.\n\nΌχι επειδή πιέστηκε.\n\nΕπειδή, για πρώτη φορά, δεν χρειαζόταν άλλη βεβαιότητα."
+        ]
+      }
+    },
+    "5": {
+      "prompt": "Τι λέει όταν καταλαβαίνει πόσα γνωρίζει η μητέρα της Ελένης;",
+      "options": {
+        "A": [
+          "Θέτει καθαρό όριο",
+          "Δύο μήνες αργότερα, η οδοντόβουρτσα της Ελένης είχε αποκτήσει μόνιμη θέση στο μπάνιο του. Μαζί της είχαν εμφανιστεί ένα φούτερ, δύο βιβλία και η αίσθηση ότι το σπίτι δεν ήταν πια εντελώς δικό του.\n\nΈνα βράδυ η Ελένη είπε γελώντας:\n\n— Η μάνα μου θέλει να σε γνωρίσει. Έχει ακούσει τόσα.\n\nΟ Αλέξανδρος χαμογέλασε στην αρχή.\n\nΜετά η φράση τον βρήκε λίγο αργότερα.\n\n— Τι σημαίνει «τόσα»;\n\n— Ε, πράγματα.\n\n— Τι πράγματα;\n\nΗ Ελένη τον κοίταξε.\n\n— Σε ενοχλεί;\n\nΟ Αλέξανδρος σκέφτηκε πριν απαντήσει.\n\n— Δεν θέλω να μη μιλάς στη μητέρα σου. Ούτε να σου πω ποιον θα έχεις άνθρωπό σου.\n\nΗ Ελένη περίμενε.\n\n— Αλλά θέλω κάποια πράγματα της σχέσης μας να περνούν πρώτα από εμάς. Ειδικά όταν υπάρχει πρόβλημα.\n\n— Γιατί;\n\n— Γιατί εμείς μπορεί αύριο να το λύσουμε. Η μητέρα σου όμως μπορεί να θυμάται για μήνες ότι εγώ σε πλήγωσα.\n\nΗ Ελένη σταύρωσε τα χέρια.\n\n— Κι εγώ χρειάζομαι να μιλάω.\n\n— Το καταλαβαίνω. Δεν ζητάω να μη μιλάς. Ζητάω να υπάρχει ένα κομμάτι που πρώτα θα προσπαθούμε να το κρατάμε εδώ.\n\nΔεν συμφώνησαν απόλυτα.\n\nΑλλά για πρώτη φορά το όριο δεν εμφανίστηκε ως απαγόρευση. Εμφανίστηκε ως ερώτηση: τι ανήκει στο ζευγάρι πριν γίνει ιστορία των άλλων;"
+        ],
+        "B": [
+          "Το αφήνει",
+          "— Η μάνα μου θέλει να σε γνωρίσει. Έχει ακούσει τόσα, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Ελπίζω τα καλά.\n\n— Τα περισσότερα.\n\nΓέλασαν.\n\nΚάτι όμως έμεινε μέσα του.\n\n«Έχει ακούσει τόσα.»\n\nΔεν ρώτησε τι.\n\nΤου φάνηκε νωρίς για να ανοίξει μια συζήτηση που μπορούσε εύκολα να ακουστεί σαν έλεγχος. Ήξερε ότι η Ελένη ήταν κοντά στη μητέρα της πριν τον γνωρίσει. Δεν ήθελε να εμφανιστεί δύο μήνες μετά και να αποφασίσει ότι αυτό πρέπει να αλλάξει.\n\nΤις επόμενες ημέρες, όμως, άρχισε να προσέχει πράγματα που πριν δεν θα τον απασχολούσαν.\n\n— Η μαμά είπε ότι μάλλον αγχώνεσαι πολύ με τη δουλειά.\n\n— Η μαμά μου πιστεύει ότι εσύ χρειάζεσαι περισσότερο χρόνο μόνος.\n\nΜικρές φράσεις.\n\nΚαμία κακόβουλη.\n\nΟ Αλέξανδρος δεν είπε τίποτα.\n\nΚαι ακριβώς επειδή δεν είχε βάλει λέξεις στο όριο, κάθε καινούργια πληροφορία έμοιαζε να το μετακινεί λίγο ακόμη.\n\nΜερικές φορές ένα ανείπωτο όριο δεν είναι ελευθερία.\n\nΕίναι απλώς ένα σύνορο που μόνο ο ένας ξέρει ότι υπάρχει."
+        ],
+        "C": [
+          "Αντιδρά σαρκαστικά",
+          "— Η μάνα μου θέλει να σε γνωρίσει. Έχει ακούσει τόσα.\n\nΟ Αλέξανδρος σήκωσε το κεφάλι.\n\n— Τόσα;\n\n— Ναι.\n\n— Ωραία. Να της στέλνω και εβδομαδιαίο report για να μη λείπει τίποτα.\n\nΗ Ελένη γέλασε.\n\nΜετά σταμάτησε.\n\n— Αυτό ήταν αστείο;\n\n— Κυρίως.\n\n— Και το υπόλοιπο;\n\nΟ Αλέξανδρος ανασήκωσε τους ώμους.\n\n— Δεν ξέρω. Είναι λίγο περίεργο να γνωρίσω άνθρωπο που ήδη ξέρει λεπτομέρειες για μένα.\n\nΗ Ελένη συνοφρυώθηκε.\n\n— Είναι η μητέρα μου.\n\n— Το ξέρω.\n\n— Μιλάμε.\n\n— Το κατάλαβα.\n\nΟ τόνος του έκανε την τελευταία φράση να ακούγεται πιο βαριά απ’ όσο ήταν.\n\nΗ Ελένη σταύρωσε τα χέρια.\n\n— Αν έχεις κάτι να πεις, πες το χωρίς το report.\n\nΟ Αλέξανδρος κατάλαβε ότι είχε χρησιμοποιήσει χιούμορ για να εισαγάγει ένα πραγματικό παράπονο και τώρα βρισκόταν στην πιο άβολη εκδοχή του: έπρεπε να το υπερασπιστεί χωρίς να έχει αποφασίσει ακόμη ακριβώς τι ζητούσε.\n\n— Με ενοχλεί λίγο πόσα ξέρει, είπε τελικά.\n\nΔεν ήταν η καλύτερη αρχή.\n\nΉταν όμως αρχή."
+        ]
+      }
+    },
+    "6": {
+      "prompt": "Μετά το πρώτο οικογενειακό τραπέζι, τι κάνει;",
+      "options": {
+        "A": [
+          "Λέει καθαρά ότι ένιωσε άβολα",
+          "Στο αυτοκίνητο μετά το τραπέζι, η Ελένη περίμενε σχεδόν με παιδική αγωνία.\n\n— Λοιπόν;\n\n— Τι;\n\n— Τι σου φάνηκαν;\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Ο πατέρας σου με ανέκρινε ευγενικά. Η μητέρα σου με είχε ήδη ανακρίνει εξ αποστάσεως.\n\nΗ Ελένη γέλασε.\n\n— Σου άρεσαν;\n\n— Ναι.\n\nΣταμάτησε.\n\n— Αλλά θέλω να σου πω κάτι.\n\nΗ Ελένη γύρισε.\n\n— Ένιωσα ότι η μητέρα σου με ήξερε λίγο πριν με γνωρίσει.\n\nΤο χαμόγελο της Ελένης έσβησε.\n\n— Πάλι αυτό;\n\n— Δεν στο λέω για να τσακωθούμε. Σήμερα απλώς το ένιωσα καθαρά.\n\n— Και τι θες να κάνω; Να μη μιλάω στη μάνα μου;\n\n— Όχι. Αυτό ακριβώς δεν θέλω.\n\nΟ Αλέξανδρος πήρε μια ανάσα.\n\n— Αλλά όταν έχουμε κάτι δικό μας, θα ήθελα πριν γίνει θέμα σε τρίτους να έχουμε μια ευκαιρία να το ζήσουμε εμείς.\n\nΗ Ελένη κοίταξε μπροστά.\n\n— Εγώ χρειάζομαι να μιλάω για να καταλαβαίνω τι νιώθω.\n\n— Το ξέρω.\n\n— Νομίζω ότι το καταλαβαίνεις λογικά.\n\nΗ φράση τον σταμάτησε.\n\nΊσως είχε δίκιο. Ήξερε γιατί το έκανε. Δεν ήξερε ακόμη πώς να μην το αισθάνεται σαν εισβολή.\n\nΔεν έλυσαν το θέμα. Αλλά αυτή τη φορά η δυσφορία δεν έμεινε μόνη μέσα στο κεφάλι του."
+        ],
+        "B": [
+          "Το μαλακώνει",
+          "Στο αυτοκίνητο η Ελένη τον κοίταξε ανυπόμονα.\n\n— Πώς σου φάνηκαν;\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Ήταν… έντονη εμπειρία.\n\nΗ Ελένη γέλασε.\n\n— Αυτό δεν είναι απάντηση.\n\n— Ο πατέρας σου είναι συμπαθής.\n\n— Και η μάνα μου;\n\n— Πολύ… ενημερωμένη.\n\nΗ Ελένη γύρισε προς το μέρος του.\n\n— Σε πείραξε κάτι.\n\n— Όχι ακριβώς.\n\n— Αλέξανδρε.\n\n— Εντάξει, λίγο. Απλώς είναι διαφορετικό από αυτό που έχω συνηθίσει.\n\n— Τι πράγμα;\n\nΟ Αλέξανδρος κράτησε το βλέμμα στον δρόμο.\n\n— Τόση… συμμετοχή.\n\nΗ λέξη ήταν αρκετά ήπια ώστε να μη γίνει καβγάς και αρκετά ασαφής ώστε η Ελένη να μην ξέρει ακριβώς ποιο είναι το πρόβλημα.\n\n— Είμαστε κοντά, είπε.\n\n— Το ξέρω.\n\nΚαι η κουβέντα τελείωσε.\n\nΗ Ελένη κατάλαβε ότι κάτι τον είχε ενοχλήσει. Ο Αλέξανδρος ένιωσε ότι είχε εκφραστεί.\n\nΣτην πραγματικότητα, κανείς από τους δύο δεν είχε αρκετές λέξεις για να ξέρει τι ακριβώς είχε συμφωνηθεί.\n\nΜερικές φορές το «το είπα κάπως» μοιάζει πολύ με επικοινωνία — μέχρι να χρειαστείς αργότερα να θυμηθείς τι ακριβώς ειπώθηκε."
+        ],
+        "C": [
+          "Δεν λέει τίποτα",
+          "— Λοιπόν; είπε η Ελένη μόλις μπήκαν στο αυτοκίνητο.\n\n— Πολύ καλά.\n\n— Σοβαρά;\n\n— Ναι.\n\nΔεν ήταν ψέμα.\n\nΤου είχαν φερθεί ζεστά. Ο πατέρας της ήταν συγκρατημένος αλλά ευγενικός. Η μητέρα της είχε μαγειρέψει σαν να περίμενε υπουργική αντιπροσωπεία.\n\nΑπλώς υπήρχε και κάτι άλλο.\n\nΗ αίσθηση ότι κάποιες πληροφορίες είχαν φτάσει στο τραπέζι πριν από εκείνον.\n\n— Ο μπαμπάς μου σε συμπάθησε, είπε η Ελένη.\n\n— Το κατάλαβα από το «να την προσέχεις». Πολύ διακριτικό.\n\nΓέλασαν.\n\nΟ Αλέξανδρος θα μπορούσε εκείνη τη στιγμή να πει τι τον είχε ενοχλήσει.\n\nΔεν το έκανε.\n\nΔεν ήθελε να χαλάσει μια βραδιά που ήταν σημαντική για την Ελένη. Δεν ήθελε να γίνει ο άνθρωπος που, μετά από ένα ζεστό οικογενειακό τραπέζι, επιστρέφει σπίτι με λίστα παραπόνων.\n\nΈτσι το θέμα έκλεισε για εκείνο το βράδυ.\n\nΜόνο που μέσα του άρχισε να συμβαίνει κάτι μικρό: στις επόμενες φορές που η Ελένη θα έλεγε «το είπα στη μαμά», δεν θα άκουγε πια μια ουδέτερη πληροφορία.\n\nΘα άκουγε και αυτή τη βραδιά.\n\nΟι ανείπωτες ενοχλήσεις έχουν κακή συνήθεια. Δεν εξαφανίζονται. Απλώς μαθαίνουν να κρύβονται μέσα σε επόμενες στιγμές."
+        ]
+      }
+    },
+    "7": {
+      "prompt": "Μετά τον πρώτο μεγάλο καβγά, πότε επιστρέφει;",
+      "options": {
+        "A": [
+          "Καλεί αμέσως",
+          "Δέκα λεπτά μετά το κλείσιμο του τηλεφώνου, ο Αλέξανδρος την κάλεσε.\n\nΗ Ελένη απάντησε σχεδόν αμέσως.\n\n— Τι;\n\nΗ φωνή της ήταν ακόμη φορτισμένη.\n\n— Δεν θέλω να το αφήσουμε έτσι.\n\n— Ούτε εγώ ήθελα να μου μιλήσεις έτσι.\n\n— Το ξέρω. Γι’ αυτό παίρνω.\n\n— Για να μου εξηγήσεις γιατί είχες δίκιο;\n\nΟ Αλέξανδρος έκλεισε τα μάτια.\n\nΗ ένταση ήταν ακόμη εκεί.\n\n— Όχι.\n\n— Γιατί έτσι ακούγεται.\n\nΓια μερικά λεπτά η κουβέντα ξαναμπήκε στις ίδιες ράγες. Εκείνη μιλούσε για απόσταση. Εκείνος για πίεση. Και οι δύο υπερασπίζονταν την ανάγκη τους πριν προλάβουν να ακούσουν του άλλου.\n\nΚάποια στιγμή ο Αλέξανδρος σταμάτησε.\n\n— Περίμενε. Δεν σε πήρα για να ξανακάνουμε τον ίδιο καβγά.\n\nΣιωπή.\n\n— Σε πήρα για να σου πω ότι αυτό που είπα ήταν άσχημο.\n\nΗ Ελένη δεν απάντησε αμέσως.\n\n— Εντάξει.\n\n— Αλλά δεν μπορώ να μιλήσω καλά τώρα. Είμαι ακόμη μέσα σε αυτό.\n\n— Τότε γιατί πήρες;\n\nΟ Αλέξανδρος χαμογέλασε πικρά.\n\n— Γιατί φοβήθηκα ότι αν δεν πάρω, θα νομίζεις ότι δεν με νοιάζει.\n\nΗ αμεσότητα δεν έλυσε τη σύγκρουση.\n\nΑλλά αποκάλυψε κάτι χρήσιμο: η επιστροφή δεν είναι πάντα repair. Μερικές φορές πρέπει πρώτα να υπάρχει αρκετός χώρος για να μπορείς πραγματικά να επιστρέψεις."
+        ],
+        "B": [
+          "Στέλνει μήνυμα και δεσμεύεται να επιστρέψει",
+          "Ο Αλέξανδρος άνοιξε τη συνομιλία τους τρεις φορές.\n\nΈγραψε. Έσβησε. Ξαναέγραψε.\n\nΤελικά έστειλε:\n\n«Σου μίλησα άσχημα πριν. Δεν θέλω να το αφήσω έτσι, αλλά αν συνεχίσουμε τώρα θα το κάνω χειρότερο. Θέλω να μιλήσουμε αύριο. Δεν εξαφανίζομαι.»\n\nΤο τελευταίο κομμάτι το κοίταξε αρκετή ώρα πριν πατήσει αποστολή.\n\nΗ απάντηση ήρθε μετά από πέντε λεπτά.\n\n«Εντάξει. Αύριο.»\n\nΔεν υπήρχε καρδιά. Δεν υπήρχε καληνύχτα.\n\nΑλλά υπήρχε συμφωνία.\n\nΤο επόμενο πρωί μίλησαν.\n\nΟ Αλέξανδρος της είπε για το δύσκολο περιστατικό στο σχολείο, για το παιδί που περνούσε προβλήματα στο σπίτι, για τις συζητήσεις με γονείς και διεύθυνση που τον είχαν αδειάσει.\n\nΗ Ελένη τον άκουσε.\n\n— Δεν χρειάζομαι να μου τα λες όλα αμέσως, είπε. Θέλω όμως να ξέρω ότι υπάρχει κάτι και ότι δεν φταίω εγώ επειδή σε νιώθω μακριά.\n\nΟ Αλέξανδρος έγνεψε.\n\n— Και εγώ χρειάζομαι να μπορώ να ζητήσω χρόνο χωρίς να πρέπει πρώτα να λύσω το πρόβλημα.\n\nΓια πρώτη φορά, η παύση είχε αποκτήσει πλαίσιο.\n\nΌχι σιωπή.\n\nΥπόσχεση επιστροφής."
+        ],
+        "C": [
+          "Περιμένει μέχρι αύριο",
+          "Ο Αλέξανδρος δεν την πήρε εκείνο το βράδυ.\n\nΆνοιξε δύο φορές τη συνομιλία τους. Έγραψε ένα μήνυμα. Το έσβησε.\n\nΉξερε ότι αν άνοιγε ξανά την κουβέντα, δεν είχε ενέργεια να την κάνει καλύτερα.\n\nΚοιμήθηκε άσχημα.\n\nΤο επόμενο πρωί έγραψε:\n\n«Θέλω να μιλήσουμε για χθες.»\n\nΗ απάντηση ήρθε γρήγορα.\n\n«Κι εγώ.»\n\nΣτο τηλέφωνο ο Αλέξανδρος δεν ξεκίνησε με εξήγηση.\n\n— Σου μίλησα άσχημα.\n\nΗ Ελένη έμεινε σιωπηλή.\n\n— Είχα πολύ δύσκολη εβδομάδα στο σχολείο. Ένα παιδί περνά κάτι σοβαρό στο σπίτι και έχω μπλέξει με γονείς, διεύθυνση, όλα. Δεν το λέω για να δικαιολογηθώ.\n\n— Το πρόβλημα, είπε εκείνη, είναι ότι πρέπει να φτάσουμε σε καβγά για να μάθω ότι συμβαίνει κάτι.\n\nΟ Αλέξανδρος έκλεισε τα μάτια.\n\n— Δεν θέλω να μου τα λες όλα όταν δεν μπορείς. Θέλω να μη με κάνεις να αισθάνομαι τρελή επειδή καταλαβαίνω ότι κάτι έχει αλλάξει.\n\n— Εντάξει.\n\n— Και εγώ θα προσπαθώ να μην ακούω το «χρειάζομαι χρόνο» σαν «δεν σε θέλω».\n\nΑυτή ήταν η πρώτη τους πρόχειρη συμφωνία.\n\nΝα δίνει εκείνος ένα σήμα πριν αποσυρθεί.\n\nΝα δίνει εκείνη λίγο χρόνο πριν κυνηγήσει την απάντηση.\n\nΔεν ήταν ακόμη συνήθεια.\n\nΉταν όμως ένας χάρτης."
+        ]
+      }
+    },
+    "8": {
+      "prompt": "Η συγκατοίκηση εμφανίζεται ως πιθανότητα. Πώς προχωρούν;",
+      "options": {
+        "A": [
+          "Της λέει να μετακομίσει",
+          "Η Ελένη του είπε ότι το συμβόλαιο του σπιτιού της έληγε σε δύο μήνες και ο ιδιοκτήτης ζητούσε αύξηση.\n\nΟ Αλέξανδρος την κοίταξε.\n\n— Γιατί δεν έρχεσαι εδώ;\n\nΗ πρόταση βγήκε πριν προλάβει να την οργανώσει.\n\nΗ Ελένη ανοιγόκλεισε τα μάτια.\n\n— Εδώ… εδώ;\n\n— Ναι.\n\n— Να μείνω;\n\n— Αυτό συνήθως σημαίνει το «έρχεσαι εδώ».\n\nΗ Ελένη γέλασε, αλλά δεν απάντησε αμέσως.\n\n— Το λες επειδή ανέβηκε το ενοίκιο;\n\n— Όχι.\n\nΟ Αλέξανδρος σταμάτησε.\n\n— Βασικά, αυτό το έφερε στην κουβέντα. Αλλά δεν το λέω μόνο γι’ αυτό.\n\nΗ Ελένη κοίταξε γύρω το σπίτι, σαν να το έβλεπε για πρώτη φορά ως πιθανό κοινό χώρο.\n\n— Θες να μένουμε μαζί;\n\nΟ Αλέξανδρος αισθάνθηκε το βάρος της ερώτησης μετά την πρόταση, όχι πριν.\n\n— Ναι. Νομίζω ναι.\n\nΗ Ελένη χαμογέλασε.\n\n— Πολύ ρομαντικό το «νομίζω».\n\n— Προσπαθώ να μη χαλάσω την εικόνα μου.\n\nΑγκαλιάστηκαν.\n\nΟι πρακτικές ερωτήσεις ήρθαν αργότερα. Χρήματα, ντουλάπες, δουλειές, προσωπικός χρόνος.\n\nΗ απόφαση είχε προηγηθεί του σχεδίου.\n\nΜερικές φορές αυτό γεννά ζωντάνια.\n\nΜερικές φορές αφήνει το σχέδιο να πληρώσει αργότερα την αυθόρμητη στιγμή."
+        ],
+        "B": [
+          "Συζητούν πρώτα",
+          "Η Ελένη του είπε ότι το ενοίκιο ανέβαινε και έπρεπε να αποφασίσει σύντομα τι θα κάνει.\n\nΟ Αλέξανδρος κοίταξε το μισό της σπίτι που ήδη βρισκόταν μέσα στο δικό του.\n\n— Θέλω να σου πω κάτι, αλλά όχι σαν πρακτική λύση.\n\n— Τι;\n\n— Θα ήθελα να συζητήσουμε αν θέλουμε να μείνουμε μαζί.\n\nΗ Ελένη χαμογέλασε.\n\n— «Να συζητήσουμε αν θέλουμε». Έχεις τρόπο να κάνεις ακόμη και τη συγκατοίκηση συνεδρίαση.\n\n— Γιατί αν το κάνουμε, δεν θέλω να είναι επειδή έληξε ένα συμβόλαιο.\n\nΚάθισαν στο τραπέζι.\n\nΜίλησαν για χρήματα. Όχι απαραίτητα μισά, αλλά αναλογικά.\n\nΓια δουλειές.\n\nΓια φίλους.\n\nΓια το αν «μένουμε μαζί» σημαίνει ότι πρέπει να περνούν κάθε βράδυ μαζί.\n\n— Εγώ χρειάζομαι μερικές φορές να είμαι μόνος, είπε ο Αλέξανδρος. Ακόμη κι αν είσαι στο ίδιο σπίτι.\n\nΗ Ελένη τον κοίταξε.\n\n— Παράξενο μου ακούγεται να είμαστε μαζί και να μην είμαστε μαζί.\n\n— Το ξέρω.\n\nΣκέφτηκε λίγο.\n\n— Θα το μάθω.\n\nΟ Αλέξανδρος χαμογέλασε.\n\nΔεν είπε «θα αλλάξω».\n\nΕίπε «θα μάθω πώς λειτουργείς».\n\nΚαι ίσως αυτή να ήταν η πρώτη σοβαρή πρόβα συγκατοίκησης πριν μετακινηθεί ούτε ένα κουτί."
+        ],
+        "C": [
+          "Δεν θέλει να γίνει από ανάγκη",
+          "— Ο ιδιοκτήτης θέλει αύξηση, είπε η Ελένη. Οπότε ή μένω και πληρώνω παράλογα λεφτά ή ψάχνω.\n\nΟ Αλέξανδρος έμεινε για λίγο σιωπηλός.\n\nΗ εύκολη λύση βρισκόταν μπροστά τους. Ήδη περνούσε τις περισσότερες νύχτες εκεί.\n\n— Να σου πω κάτι περίεργο;\n\n— Πάντα.\n\n— Δεν θέλω να διαλέξεις πού θα μείνεις με βάση εμένα.\n\nΗ Ελένη συνοφρυώθηκε.\n\n— Αυτό ακούγεται σαν να μη θέλεις να μείνουμε μαζί.\n\n— Όχι. Ακριβώς το αντίθετο.\n\nΟ Αλέξανδρος πλησίασε.\n\n— Αν μείνουμε μαζί, θέλω να το κάνουμε επειδή το θέλουμε. Όχι επειδή ο ιδιοκτήτης σου αποφάσισε να αυξήσει το ενοίκιο.\n\nΗ Ελένη τον κοίταξε.\n\n— Και αν εγώ θέλω και τα δύο; Να φύγω από εκεί και να έρθω εδώ;\n\n— Τότε να το πούμε έτσι.\n\nΓια μερικές ημέρες δεν πήραν απόφαση. Η Ελένη κοίταξε και δύο άλλα σπίτια. Ο Αλέξανδρος παρατήρησε ότι η πιθανότητα να μείνει αλλού τον ενοχλούσε περισσότερο απ’ όσο περίμενε.\n\nΤελικά, ένα βράδυ, η Ελένη είπε:\n\n— Είδα ένα καλό σπίτι σήμερα.\n\nΟ Αλέξανδρος ένιωσε ένα μικρό σφίξιμο.\n\n— Και;\n\n— Δεν το θέλω. Θέλω να έρθω εδώ.\n\nΑυτή τη φορά η συγκατοίκηση δεν ήταν η φθηνότερη λύση.\n\nΉταν επιλογή."
+        ]
+      }
+    },
+    "9": {
+      "prompt": "Πώς εκφράζει την ενόχληση για το σπίτι;",
+      "options": {
+        "A": [
+          "Μιλά για το συγκεκριμένο πρόβλημα",
+          "Ο Αλέξανδρος κοίταξε το παλτό στον καναπέ, την τσάντα στην καρέκλα και τα πιάτα στην κουζίνα.\n\nΠήρε μια ανάσα.\n\n— Θέλω να σου πω κάτι πριν αρχίσω να εκνευρίζομαι περισσότερο.\n\nΗ Ελένη γύρισε.\n\n— Τι;\n\n— Νιώθω ότι τελευταία μαζεύω περισσότερα πράγματα στο σπίτι απ’ όσα είχαμε συμφωνήσει.\n\nΗ Ελένη κοίταξε γύρω.\n\n— Εννοείς τώρα;\n\n— Και τώρα. Αλλά όχι μόνο τώρα.\n\nΗ φωνή του ήταν ήρεμη. Αυτό δεν έκανε τη φράση ευχάριστη, αλλά την κράτησε συγκεκριμένη.\n\n— Τι ακριβώς σε ενοχλεί;\n\n— Ότι πολλές φορές αισθάνομαι πως εγώ είμαι αυτός που πρέπει να δω ότι κάτι χρειάζεται να γίνει.\n\nΗ Ελένη σταύρωσε τα χέρια.\n\n— Κι εγώ κάνω πράγματα που δεν βλέπεις.\n\nΟ Αλέξανδρος άνοιξε το στόμα να απαντήσει και σταμάτησε.\n\n— Πιθανότατα.\n\nΗ απάντηση την ξάφνιασε.\n\n— Δηλαδή;\n\n— Δηλαδή ίσως πρέπει να μιλήσουμε για αυτό χωρίς να προσπαθήσουμε να αποδείξουμε ποιος κάνει περισσότερα.\n\nΗ συζήτηση δεν έγινε εύκολη. Αλλά έμεινε γύρω από το πραγματικό πρόβλημα: το πώς μοιράζονται μια καθημερινότητα, όχι το ποιος από τους δύο είναι «ακατάστατος» ή «γκρινιάρης».\n\nΚαι αυτό, για αρχή, ήταν αρκετό."
+        ],
+        "B": [
+          "Σωπαίνει και τα κάνει",
+          "Ο Αλέξανδρος κοίταξε το παλτό στον καναπέ.\n\nΜετά την τσάντα.\n\nΜετά τα πιάτα.\n\nΔεν είπε τίποτα.\n\nΤα μάζεψε. Έπλυνε. Πέταξε τη σακούλα. Έβαλε τα πράγματα στη θέση τους.\n\nΌταν η Ελένη τον ρώτησε αν είχε κάτι, απάντησε:\n\n— Όχι. Απλώς είμαι κουρασμένος.\n\nΉταν αλήθεια.\n\nΑπλώς δεν ήταν όλη η αλήθεια.\n\nΤο σπίτι έγινε καθαρό. Ο Αλέξανδρος όχι πιο ήρεμος.\n\nΤο ίδιο βράδυ η Ελένη άφησε ένα ποτήρι στο τραπεζάκι. Δεν ήταν τίποτα. Ένα ποτήρι.\n\nΟ Αλέξανδρος το είδε αμέσως.\n\nΚαι εκεί κατάλαβε κάτι δυσάρεστο: όταν δεν λες τι σε ενοχλεί, το μυαλό σου αρχίζει να συλλέγει στοιχεία.\n\nΔεν υπάρχει καβγάς.\n\nΔεν υπάρχει ένταση.\n\nΥπάρχει μόνο ένα μικρό εσωτερικό αρχείο που μεγαλώνει.\n\nΤην επόμενη μέρα το άδειασε πάλι μόνος του.\n\nΗ Ελένη δεν μπορούσε να διορθώσει ένα πρόβλημα που δεν ήξερε ότι υπήρχε.\n\nΚαι ο Αλέξανδρος άρχισε να αισθάνεται μόνος μέσα σε μια ευθύνη που ο ίδιος δεν είχε ακόμη μοιραστεί ως παράπονο."
+        ],
+        "C": [
+          "Γενικεύει",
+          "Ο Αλέξανδρος κοίταξε το παλτό στον καναπέ.\n\n— Ελένη, δεν γίνεται να αφήνεις συνέχεια τα πάντα όπου να ’ναι.\n\nΗ Ελένη σταμάτησε.\n\n— Συγγνώμη;\n\n— Λέω ότι έχω κουραστεί να μαζεύω πράγματα.\n\n— Ποια πράγματα;\n\nΟ Αλέξανδρος έδειξε το παλτό, την τσάντα, τα πιάτα.\n\n— Αυτά. Συνέχεια.\n\nΗ λέξη κρέμασε μεγαλύτερο βάρος απ’ όσο είχε το ίδιο το παλτό.\n\n— Τα πιάτα τα χρησιμοποιήσαμε και οι δύο.\n\n— Ναι, αλλά εγώ τα έπλυνα.\n\n— Επειδή γύρισες νωρίτερα.\n\n— Όχι. Επειδή αν δεν τα έπλενα, θα έμεναν εκεί.\n\nΗ Ελένη σταύρωσε τα χέρια.\n\n— Αυτό πού το ξέρεις;\n\nΟ Αλέξανδρος ένιωσε να περνά από το παράπονο στην απόδειξη. Άρχισε να θυμάται κούπες, ρούχα, παπούτσια.\n\n— Δεν είναι η κούπα, είπε κάποια στιγμή.\n\n— Τότε γιατί μιλάς για την κούπα;\n\nΚαι ξαφνικά το πραγματικό θέμα είχε χαθεί.\n\nΗ Ελένη δεν άκουγε πια «κουράζομαι».\n\nΆκουγε «έτσι είσαι».\n\nΚι ο Αλέξανδρος, ενώ ήθελε να μιλήσει για ένα μοίρασμα ευθύνης, είχε βρεθεί να υπερασπίζεται έναν χαρακτηρισμό που δεν είχε καν συνειδητοποιήσει ότι έκανε."
+        ]
+      }
+    },
+    "10": {
+      "prompt": "Όταν πέφτει η πρώτη ένταση, τι κάνει με το θέμα του σπιτιού;",
+      "options": {
+        "A": [
+          "Επιστρέφει στο θέμα χωρίς να εγκαταλείπει το αίτημα",
+          "Αργότερα, όταν το σπίτι είχε ησυχάσει, ο Αλέξανδρος πλησίασε την Ελένη.\n\n— Θέλω να ξαναγυρίσουμε σε αυτό. Όχι για να αποδείξω ότι έχω δίκιο.\n\nΗ Ελένη τον κοίταξε επιφυλακτικά.\n\n— Αν σε αδίκησα στον τρόπο που μίλησα — ή στον τρόπο που δεν μίλησα αρκετά καθαρά — το αναλαμβάνω. Αλλά υπάρχει ακόμη κάτι στην καθημερινότητά μας που με κουράζει και δεν θέλω να το θάψουμε μόνο και μόνο για να ηρεμήσουμε.\n\nΗ διατύπωση δεν του έδινε αυτόματη δικαίωση. Του έδινε όμως ευθύνη για το δικό του κομμάτι.\n\nΚάθισαν στην κουζίνα. Μίλησαν για το ποιος βλέπει τι, ποιος θυμάται τι και πόσο εύκολα μια κοινή υποχρέωση γίνεται αόρατη όταν ένας από τους δύο την αναλαμβάνει πριν χρειαστεί να ζητηθεί.\n\nΔεν βρήκαν ακόμη σύστημα. Αλλά το θέμα απέκτησε δεύτερη πράξη.\n\nΚαι μερικές φορές η δεύτερη πράξη είναι εκεί όπου μια σχέση αποφασίζει αν μια δύσκολη στιγμή θα μείνει κατηγορία ή θα γίνει πληροφορία."
+        ],
+        "B": [
+          "Κλείνει το θέμα για τη βραδιά",
+          "Ο Αλέξανδρος κοίταξε την Ελένη.\n\n— Δεν θέλω άλλο γι’ αυτό σήμερα.\n\n— Επειδή λύθηκε;\n\n— Όχι. Επειδή αν συνεχίσουμε τώρα, νομίζω ότι θα αρχίσουμε να μαλώνουμε περισσότερο με τον τρόπο που μιλάμε παρά με αυτό που μας ενοχλεί.\n\nΗ Ελένη έμεινε για λίγο σιωπηλή. Μετά κάθισε δίπλα του.\n\nΗ βραδιά επέστρεψε σιγά σιγά στην ηρεμία. Δεν υπήρξε μεγάλη συμφιλίωση. Δεν χρειαζόταν. Έφαγαν, είδαν κάτι στην τηλεόραση, ακούμπησαν ξανά ο ένας πάνω στον άλλον.\n\nΑν κάποιος τους έβλεπε, θα έλεγε ότι τα είχαν βρει.\n\nΘα είχε δίκιο. Απλώς όχι ολόκληρο.\n\nΓιατί άλλο είναι το «η ένταση έπεσε» και άλλο το «βρήκαμε τι θα κάνουμε την επόμενη φορά».\n\nΤις επόμενες ημέρες έγιναν και οι δύο πιο προσεκτικοί. Δεν είχαν όμως φτιάξει συμφωνία. Είχαν φτιάξει προσοχή. Και η προσοχή μπορεί να κρατήσει αρκετά — μέχρι να κουραστεί."
+        ],
+        "C": [
+          "Παραδέχεται ότι δεν έχει ακόμη βρει το πραγματικό θέμα",
+          "Ο Αλέξανδρος έμεινε για λίγο σιωπηλός.\n\n— Νομίζω ότι δεν έχω καταλάβει ακόμη τι ακριβώς με ενοχλεί.\n\nΗ Ελένη σήκωσε το φρύδι.\n\n— Αυτό είναι καινούργιο.\n\n— Το ξέρω. Βλέπω δουλειές, πράγματα, κούραση και προσπαθώ να τα κάνω ένα καθαρό πρόβλημα. Αλλά μάλλον δεν είναι μόνο αυτά.\n\nΗ Ελένη κάθισε απέναντί του.\n\n— Εμένα με ενοχλεί ότι μερικές φορές νιώθω πως μπαίνω στο σπίτι και αξιολογούμαι.\n\n— Δεν θέλω να σε αξιολογώ.\n\n— Το ξέρω. Αλλά άλλο η πρόθεση κι άλλο το πώς φτάνει σε μένα.\n\nΓια πρώτη φορά δεν προσπάθησαν να λύσουν τις δουλειές. Προσπάθησαν να καταλάβουν τι συμβόλιζαν.\n\nΓια εκείνον: ότι κουβαλά μόνος πράγματα που θεωρεί κοινά. Για εκείνη: ότι το κοινό σπίτι μπορεί να γίνει χώρος όπου πρέπει να αποδεικνύει ότι «τα κάνει σωστά».\n\nΔεν είχαν λύση. Είχαν όμως το σωστότερο πρόβλημα."
+        ]
+      }
+    },
+    "11": {
+      "prompt": "Πώς οργανώνουν τελικά την καθημερινότητα;",
+      "options": {
+        "A": [
+          "Μοιράζουν συγκεκριμένες δουλειές",
+          "Το επόμενο Σάββατο κάθισαν με καφέ και ένα χαρτί.\n\nΗ Ελένη το κοίταξε.\n\n— Δεν πιστεύω ότι φτιάχνουμε πίνακα δουλειών.\n\n— Δεν είναι πίνακας.\n\n— Έχει γραμμές.\n\n— Είναι δομή.\n\n— Είσαι άρρωστος.\n\nΓέλασαν.\n\nΈγραψαν τα βασικά: σούπερ μάρκετ, μπάνιο, πλυντήρια, μαγείρεμα, σκουπίδια, λογαριασμοί.\n\nΔεν τα μοίρασαν όλα 50-50. Κάποια τα προτιμούσε εκείνος. Κάποια εκείνη. Κάποια εναλλάξ.\n\n— Δεν θέλω να αρχίσουμε να μετράμε, είπε η Ελένη.\n\n— Ούτε εγώ. Θέλω απλώς να μη χρειάζεται να περιμένουμε ποιος θα το δει.\n\nΤις επόμενες εβδομάδες το σύστημα βοήθησε.\n\nΌχι επειδή εξαφάνισε την ακαταστασία.\n\nΕπειδή εξαφάνισε ένα κομμάτι αβεβαιότητας.\n\nΥπήρξε όμως και μια άλλη πλευρά. Όταν ο Αλέξανδρος έκανε δύο φορές κάτι που «ήταν της Ελένης», πρόσεξε μέσα του τη σκέψη: εγώ έκανα και το δικό σου.\n\nΗ οργάνωση έλυνε ένα πρόβλημα και μπορούσε να γεννήσει άλλο: τη λογιστική της σχέσης.\n\nΈπρεπε να μάθουν ότι μια συμφωνία είναι βάση, όχι δικαστήριο."
+        ],
+        "B": [
+          "Μιλούν πρώτα για το αόρατο φορτίο",
+          "— Πριν μοιράσουμε δουλειές, είπε η Ελένη, θέλω να κάνουμε κάτι.\n\n— Φοβάμαι.\n\n— Πες μου τι κάνεις για το σπίτι ή για μας που πιστεύεις ότι εγώ δεν βλέπω.\n\nΟ Αλέξανδρος την κοίταξε.\n\n— Αυτό θα πάει πολύ καλά.\n\n— Πες.\n\nΆρχισε με το σούπερ μάρκετ. Μετά τεχνικούς. Μαγείρεμα. Μικροεπισκευές. Πράγματα που έβλεπε και έκανε πριν προλάβουν να γίνουν πρόβλημα.\n\nΗ Ελένη άκουσε.\n\nΜετά ήρθε η σειρά της.\n\nΜίλησε για γενέθλια φίλων. Για δώρα. Για το ότι θυμόταν πότε έπρεπε να πάνε στους γονείς του. Για απορρυπαντικά που εμφανίζονταν πριν τελειώσουν. Για ραντεβού, κοινωνικές υποχρεώσεις, μικρές λεπτομέρειες που ο Αλέξανδρος θεωρούσε ότι «κάπως κανονίζονται».\n\nΟ Αλέξανδρος σώπασε.\n\n— Οκ. Αυτό δεν το έβλεπα.\n\n— Ούτε εγώ έβλεπα όλα τα δικά σου.\n\nΔεν συμφώνησαν ποιος έκανε περισσότερα.\n\nΚαι αυτό ήταν ακριβώς το κέρδος.\n\nΓια πρώτη φορά το «αόρατο φορτίο» του άλλου έγινε ορατό πριν μετατραπεί σε κατηγορία.\n\nΜετά μοίρασαν μόνο όσα χρειαζόταν.\n\nΌχι για να είναι δίκαιοι στα χαρτιά.\n\nΓια να μη χρειάζεται να αποδεικνύουν συνέχεια ότι κουράζονται."
+        ],
+        "C": [
+          "Συμφωνούν απλώς να προσπαθήσουν περισσότερο",
+          "Ο Αλέξανδρος ακούμπησε πίσω.\n\n— Ίσως το κάνουμε πιο δύσκολο απ’ όσο είναι.\n\n— Δηλαδή;\n\n— Δεν χρειάζεται πίνακας. Απλώς να προσπαθήσουμε περισσότερο και οι δύο. Αν βλέπουμε κάτι, το κάνουμε.\n\nΗ Ελένη χαμογέλασε.\n\n— Αυτό μπορώ να το υπογράψω.\n\n— Κι εγώ.\n\nΗ συμφωνία ήταν απλή. Ανθρώπινη. Χωρίς λογιστήριο.\n\nΚαι για λίγο λειτούργησε.\n\nΗ Ελένη μάζευε πιο γρήγορα. Ο Αλέξανδρος έκανε πράγματα χωρίς να σχολιάζει.\n\nΜόνο που το «αν βλέπεις κάτι» είχε μια μικρή τεχνική αδυναμία.\n\nΔεν έβλεπαν τα ίδια πράγματα.\n\nΟ Αλέξανδρος έβλεπε τη σακούλα όταν γέμιζε.\n\nΗ Ελένη έβλεπε ότι σε τέσσερις ημέρες είχαν γενέθλια οι φίλοι τους.\n\nΕκείνος πρόσεχε τις πετσέτες.\n\nΕκείνη ότι είχαν δύο εβδομάδες να δουν τους δικούς του.\n\nΚαι έτσι ο καθένας συνέχισε να κάνει πράγματα που ο άλλος θεωρούσε ότι «απλώς συμβαίνουν».\n\nΗ καλή πρόθεση υπήρχε.\n\nΚοινός ορισμός του «προσπαθώ περισσότερο» όχι ακόμη."
+        ]
+      }
+    },
+    "12": {
+      "prompt": "Η δουλειά της Ελένης ανατρέπει ξανά το Σάββατο. Τι κάνει ο Αλέξανδρος;",
+      "options": {
+        "A": [
+          "Ακυρώνει",
+          "Ο Αλέξανδρος κοίταξε τη θήκη της κιθάρας δίπλα στην πόρτα.\n\n— Εντάξει. Πήγαινε στη δουλειά. Θα τα αναλάβω εγώ.\n\n— Σίγουρα;\n\n— Ναι.\n\nΈκλεισε και έστειλε στους φίλους του:\n\n«Παιδιά, τελικά δεν θα μπορέσω. Προέκυψε κάτι στο σπίτι.»\n\nΗ απάντηση ήρθε αμέσως.\n\n«Πάλι ρε;»\n\nΧαμογελαστό emoji.\n\nΟ Αλέξανδρος κοίταξε τη λέξη.\n\nΠάλι.\n\nΤο απόγευμα έκανε σούπερ μάρκετ, καθάρισε, ετοίμασε το σπίτι για τους γονείς του. Δεν ήταν θυμωμένος. Τουλάχιστον όχι καθαρά.\n\nΌταν η Ελένη επέστρεψε αργά, κοίταξε γύρω.\n\n— Τα έκανες όλα;\n\n— Σχεδόν.\n\n— Συγγνώμη που σου χάλασα τη βραδιά.\n\n— Δεν μου τη χάλασες.\n\n— Ακύρωσες όμως.\n\nΟ Αλέξανδρος σώπασε.\n\nΗ Ελένη πλησίασε.\n\n— Δεν θέλω να αρχίσεις να ακυρώνεις τα δικά σου επειδή εγώ έχω αυτή τη δουλειά.\n\n— Δεν θα αρχίσω.\n\n— Το έκανες σήμερα.\n\nΜετά είπε κάτι που θα θυμόταν:\n\n— Τα «δεν πειράζει» είναι ωραία μέχρι τη μέρα που πειράζει.\n\nΗ θυσία είχε γίνει από αγάπη.\n\nΤώρα έπρεπε να μάθουν να μην την αφήσουν να γίνει αόρατη."
+        ],
+        "B": [
+          "Κρατά το πρόγραμμά του",
+          "Ο Αλέξανδρος κοίταξε την ώρα.\n\n— Θα κάνω ό,τι προλάβω μέχρι τις έξι. Μετά θα φύγω όπως είχα κανονίσει.\n\nΣιωπή.\n\n— Και το σπίτι; είπε η Ελένη.\n\n— Θα κάνουμε τα υπόλοιπα αύριο.\n\n— Έρχονται οι γονείς σου.\n\n— Δεν χρειάζεται να κάνουμε παρουσίαση ακινήτου.\n\nΗ Ελένη γέλασε λίγο, αλλά άκουσε και το όριο.\n\n— Οκ.\n\nΜέχρι τις έξι ο Αλέξανδρος έκανε σούπερ μάρκετ και μάζεψε τα βασικά. Μετά πήρε την κιθάρα και έφυγε.\n\nΣτην αρχή ένιωθε ενοχή.\n\nΌταν όμως κάθισε με τους φίλους του και έπαιξαν για πρώτη φορά μετά από εβδομάδες, ένιωσε και κάτι άλλο: τον εαυτό του.\n\nΓύρισε σπίτι λίγο μετά τις έντεκα. Η Ελένη είχε επιστρέψει.\n\n— Πέρασες καλά;\n\n— Πολύ.\n\n— Χαίρομαι.\n\nΔεν υπήρχε τιμωρία. Δεν υπήρχε κατηγορία. Το σπίτι δεν ήταν τέλειο και ο κόσμος δεν είχε καταρρεύσει.\n\nΗ επιλογή του προσωπικού χρόνου δεν σήμαινε ότι αγαπούσε λιγότερο τη σχέση.\n\nΑλλά θα έπρεπε να θυμούνται ότι η αυτονομία λειτουργεί μόνο όταν δεν γίνεται η νέα μορφή του «ο καθένας μόνος του»."
+        ],
+        "C": [
+          "Θυμώνει",
+          "— Δεν γίνεται κάθε φορά που αλλάζει κάτι στη δουλειά σου να ανατρέπεται και η δική μου ζωή.\n\nΗ φράση βγήκε πριν προλάβει να αποφασίσει αν ήθελε να την πει.\n\nΗ Ελένη σώπασε.\n\n— Κάθε φορά;\n\nΟ Αλέξανδρος κοίταξε την κιθάρα.\n\n— Έχω ακυρώσει ήδη δύο φορές.\n\n— Και εγώ τι να κάνω; Να πω στον πελάτη ότι ο Αλέξανδρος έχει πρόβα;\n\n— Δεν είπα αυτό.\n\n— Αυτό ακούω.\n\nΗ ένταση ανέβηκε γρήγορα, γιατί η συγκεκριμένη ημέρα κουβαλούσε ήδη άλλες ημέρες μέσα της.\n\nΟ Αλέξανδρος δεν θύμωνε μόνο για το Σάββατο. Θύμωνε για όλα τα μικρά «εντάξει» που είχε πει χωρίς να τα συζητήσει.\n\nΗ Ελένη, από την άλλη, άκουγε ότι η επαγγελματική της εξέλιξη είχε γίνει πρόβλημα της σχέσης.\n\n— Εγώ δεν σου ζήτησα να ακυρώνεις κάθε φορά, είπε.\n\nΟ Αλέξανδρος σταμάτησε.\n\nΉταν αλήθεια.\n\n— Όχι.\n\n— Τότε μη μου χρεώνεις αποφάσεις που παίρνεις μόνος σου.\n\nΑυτό πόνεσε περισσότερο από όσο περίμενε.\n\nΓιατί μέσα στο θυμό υπήρχε μια πληροφορία: είχε μετατρέψει κάποιες εθελοντικές υποχωρήσεις σε αόρατο χρέος χωρίς ποτέ να της πει ότι άνοιγε λογαριασμό."
+        ]
+      }
+    },
+    "13": {
+      "prompt": "Μετά από τρία χρόνια, θέλει γάμο;",
+      "options": {
+        "A": [
+          "Δηλώνει καθαρή πρόθεση",
+          "Ο Αλέξανδρος κράτησε τα μάτια στον δρόμο.\n\n— Ναι.\n\nΗ Ελένη γύρισε.\n\n— Ναι τι;\n\n— Θέλω. Δεν ξέρω πότε ακριβώς, αλλά θέλω το μέλλον μου μαζί σου. Και ο γάμος είναι μέσα σε αυτό.\n\nΗ Ελένη έμεινε σιωπηλή.\n\n— Δεν σου ζητάω ημερομηνία, είπε.\n\n— Το ξέρω.\n\n— Ούτε δαχτυλίδι στο φανάρι.\n\nΟ Αλέξανδρος γέλασε.\n\n— Ευτυχώς.\n\nΗ Ελένη χαμογέλασε, αλλά τα μάτια της είχαν μαλακώσει.\n\n— Απλώς ήθελα να ξέρω αν όταν κοιτάς πιο μετά… είμαι εκεί.\n\nΟ Αλέξανδρος άπλωσε το χέρι και έπιασε το δικό της.\n\n— Είσαι.\n\nΗ απάντηση δεν έλυσε το πότε, το πώς ή το αν θα παντρεύονταν τελικά με τον τρόπο που φανταζόταν ο καθένας.\n\nΈλυσε κάτι πιο βασικό.\n\nΗ Ελένη δεν χρειαζόταν να ερμηνεύει την απουσία ημερομηνίας ως απουσία προορισμού.\n\nΚαι ο Αλέξανδρος ανακάλυψε ότι η σαφήνεια δεν είναι πάντα παγίδα.\n\nΜερικές φορές είναι απλώς τρόπος να πεις στον άλλον: «ναι, σε βλέπω εκεί»."
+        ],
+        "B": [
+          "Ξεχωρίζει τον γάμο από τη δέσμευση",
+          "— Ξέρω ότι θέλω να είμαι μαζί σου, είπε ο Αλέξανδρος.\n\nΗ Ελένη περίμενε.\n\n— Αυτό για μένα είναι πιο σημαντικό από το αν θα παντρευτούμε.\n\n— Για σένα.\n\n— Ναι.\n\n— Κι εγώ είμαι άλλος άνθρωπος.\n\nΟ Αλέξανδρος έγνεψε.\n\n— Το ξέρω. Γι’ αυτό δεν θέλω να σου πω «ναι» σε κάτι πριν αποφασίσω τι σημαίνει για μένα.\n\nΗ Ελένη κοίταξε έξω από το παράθυρο.\n\n— Εγώ δεν σου ζητάω να αγαπάς τον γάμο. Θέλω να ξέρω αν υπάρχει κοινή κατεύθυνση.\n\n— Υπάρχει.\n\n— Ποια;\n\nΗ ερώτηση τον δυσκόλεψε περισσότερο από το «θέλεις γάμο;».\n\n— Εσύ. Εμείς. Το σπίτι. Μια ζωή μαζί.\n\n— Και παιδί;\n\nΟ Αλέξανδρος πήρε μια ανάσα.\n\n— Ναι, κάποτε.\n\nΗ Ελένη χαμογέλασε αχνά.\n\nΔεν είχε πάρει την απάντηση που ίσως ήθελε. Είχε όμως πάρει μια πιο ακριβή εικόνα του πώς σκεφτόταν εκείνος τη δέσμευση.\n\nΤο ερώτημα παρέμενε: μπορούν δύο άνθρωποι να μοιράζονται το ίδιο μέλλον αν χρησιμοποιούν διαφορετικά σύμβολα για να το ονομάσουν;"
+        ],
+        "C": [
+          "Ζητά περισσότερο χρόνο",
+          "Ο Αλέξανδρος κράτησε για λίγο τα μάτια στον δρόμο.\n\n— Δεν ξέρω ακόμα.\n\nΗ Ελένη δεν απάντησε.\n\n— Και δεν θέλω να σου πω «ναι» επειδή μετά από τρία χρόνια υποτίθεται ότι πρέπει να ξέρω.\n\n— Εντάξει.\n\nΟ Αλέξανδρος αναγνώρισε αμέσως το «εντάξει».\n\n— Μη μου λες απλώς εντάξει.\n\n— Τώρα θέλεις να σου πω αμέσως τι σκέφτομαι;\n\nΔίκαιο.\n\nΛίγα φανάρια αργότερα η Ελένη μίλησε.\n\n— Ξέρεις τι άκουσα; Όχι ότι δεν ξέρεις αν θες γάμο. Ότι δεν ξέρεις αν θες να παντρευτείς εμένα.\n\n— Δεν είπα αυτό.\n\n— Το ξέρω. Αλλά έτσι ακούγεται από εδώ.\n\nΟ Αλέξανδρος της είπε ότι ξέρει πως θέλει να είναι μαζί της.\n\n— Για πόσο; ρώτησε εκείνη.\n\nΗ ερώτηση τον αιφνιδίασε.\n\nΓια την Ελένη, το θέμα δεν ήταν ο γάμος ως τελετή. Ήταν αν υπήρχε μέσα στο μυαλό του μια συγκεκριμένη συνέχεια.\n\nΓια τον Αλέξανδρο, το να πει κάτι πριν το νιώσει ως επιλογή έμοιαζε σχεδόν με προδοσία του εαυτού του.\n\nΚανείς δεν είχε άδικο.\n\nΑπλώς τα εσωτερικά τους ρολόγια δεν έδειχναν την ίδια ώρα."
+        ]
+      }
+    },
+    "14": {
+      "prompt": "Το τεστ είναι αρνητικό. Τι λέει ότι ένιωσε;",
+      "options": {
+        "A": [
+          "Λέει: «Ανακουφίστηκα»",
+          "Ο Αλέξανδρος κοίταξε το αρνητικό τεστ.\n\n— Ανακουφίστηκα.\n\nΗ λέξη βγήκε καθαρή.\n\nΗ Ελένη ακινητοποιήθηκε.\n\n— Α.\n\nΟ Αλέξανδρος κατάλαβε αμέσως ότι το συναίσθημα είχε φτάσει πριν από το νόημά του.\n\n— Περίμενε.\n\n— Δεν είπα κάτι.\n\n— Το ξέρω. Αλλά θέλω να εξηγήσω.\n\nΗ Ελένη γύρισε προς το μέρος του.\n\n— Ανακουφίστηκα επειδή δεν είμαστε έτοιμοι. Ή τουλάχιστον εγώ δεν ένιωσα έτοιμος να αλλάξει η ζωή μας σήμερα.\n\n— Δηλαδή δεν θέλεις παιδί μαζί μου;\n\n— Δεν είπα αυτό.\n\n— Ξέρω. Αλλά τώρα προσπαθώ να καταλάβω τι είπες.\n\nΟ Αλέξανδρος είδε πόσο εύκολα ένα πρώτο συναίσθημα μπορεί να ακουστεί σαν τελική απόφαση.\n\n— Δεν θέλω να σου πω κάτι πιο ωραίο μόνο και μόνο για να μη σε στενοχωρήσω. Αυτό ένιωσα.\n\nΗ Ελένη έγνεψε αργά.\n\n— Με στενοχωρεί. Αλλά προτιμώ να ξέρω.\n\nΗ αλήθεια δεν τους έκανε αμέσως πιο κοντά.\n\nΤους έδωσε όμως κοινό έδαφος για την επόμενη συζήτηση.\n\nΚαι η εμπιστοσύνη δεν μοιάζει πάντα με ανακούφιση. Μερικές φορές μοιάζει με τη βεβαιότητα ότι ο άλλος δεν θα σου κρύψει κάτι μόνο επειδή είναι δύσκολο να το ακούσεις."
+        ],
+        "B": [
+          "Λέει όλη την αλήθεια",
+          "Ο Αλέξανδρος κοίταξε τη μία γραμμή.\n\n— Ανακουφίστηκα.\n\nΗ Ελένη γύρισε προς το μέρος του.\n\nΠριν προλάβει να μιλήσει, συνέχισε.\n\n— Αλλά όχι επειδή δεν θέλω παιδί μαζί σου.\n\nΗ Ελένη περίμενε.\n\n— Νομίζω ότι ανακουφίστηκα επειδή δεν θέλω να μας συμβεί έτσι. Χωρίς να έχουμε κοιταχτεί πρώτα και να έχουμε πει «πάμε».\n\n— Ένα παιδί δεν είναι ποτέ τόσο οργανωμένο.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Το ξέρω. Δεν εννοώ να ελέγξουμε τα πάντα. Εννοώ να ξέρω ότι το επιλέξαμε.\n\nΗ Ελένη ακούμπησε ξανά το χέρι στην κοιλιά της.\n\n— Εγώ για λίγα λεπτά το φαντάστηκα.\n\n— Κι εγώ.\n\n— Και;\n\nΟ Αλέξανδρος πήρε μια ανάσα.\n\n— Με τρόμαξε. Αλλά δεν ήταν εικόνα χωρίς εσένα.\n\nΗ Ελένη τον κοίταξε.\n\nΔεν υπήρχε απόλυτη συμφωνία εκείνο το βράδυ.\n\nΥπήρχε όμως κάτι σπάνιο: και οι δύο μπορούσαν να κρατούν δύο αλήθειες μαζί.\n\nΑνακούφιση και τρυφερότητα.\n\nΦόβο και δυνατότητα.\n\nΤο γεγονός ότι δεν ήταν η κατάλληλη στιγμή δεν χρειαζόταν να σημαίνει ότι ήταν ο λάθος άνθρωπος."
+        ],
+        "C": [
+          "Προστατεύει τη στιγμή",
+          "Ο Αλέξανδρος κοίταξε το τεστ.\n\n— Δεν ξέρω. Ήταν πολύ ξαφνικό όλο αυτό.\n\nΔεν ήταν ψέμα.\n\nΑπλώς δεν ήταν ολόκληρη η αλήθεια.\n\nΗ Ελένη τον κοίταξε για λίγο ακόμη.\n\n— Ναι, είπε.\n\nΞάπλωσαν δίπλα δίπλα. Τα χέρια τους βρήκαν το ένα το άλλο.\n\nΗ στιγμή πέρασε.\n\nΤην επόμενη ημέρα η καθυστέρηση τελείωσε και το περιστατικό απέκτησε εύκολη εξήγηση. Άγχος. Κύκλος. Ένα αρνητικό τεστ.\n\nΔεν ξαναμίλησαν αμέσως γι’ αυτό.\n\nΟ Αλέξανδρος όμως ήξερε ακριβώς τι είχε αισθανθεί όταν είδε τη μία γραμμή.\n\nΑνακούφιση.\n\nΚαι ήξερε επίσης γιατί δεν το είχε πει.\n\nΦοβήθηκε ότι η Ελένη θα άκουγε: «δεν θέλω παιδί μαζί σου».\n\nΠροστάτεψε τη στιγμή από ένα πιθανό τραύμα.\n\nΜα μαζί της προστάτεψε και τον εαυτό του από μια δύσκολη εξήγηση.\n\nΑυτό είναι το περίεργο με όσα δεν λέμε.\n\nΣπάνια ακούγεται κάποιος θόρυβος όταν τα αφήνουμε πίσω.\n\nΚι όμως παραμένουν διαθέσιμα να επιστρέψουν αργότερα, όταν μια άλλη ερώτηση βρει ακριβώς το ίδιο σημείο."
+        ]
+      }
+    },
+    "15": {
+      "prompt": "Όταν η Ελένη ρωτά αν τη βλέπει ως μητέρα του παιδιού του, τι κάνει;",
+      "options": {
+        "A": [
+          "Λέει μόνο το καθαρό «ναι»",
+          "Η Ελένη τον κοίταξε στο μπαλκόνι.\n\n— Όταν το φαντάζεσαι… βλέπεις εμένα;\n\nΟ Αλέξανδρος αυτή τη φορά δεν χρειάστηκε πολύ χρόνο.\n\n— Ναι.\n\nΗ Ελένη δεν μίλησε.\n\n— Εσένα βλέπω.\n\nΤο πρόσωπό της χαλάρωσε.\n\n— Αυτό ήθελα να ξέρω.\n\n— Μόνο αυτό;\n\n— Όχι. Αλλά αυτό πρώτα.\n\nΟ Αλέξανδρος χαμογέλασε. Δεν ήξερε πότε θα ήταν έτοιμοι, ούτε με ποια σειρά θα έρχονταν τα επόμενα βήματα. Ήξερε όμως κάτι που παλιότερα δυσκολευόταν να πει χωρίς υποσημειώσεις: όταν φανταζόταν οικογένεια, η Ελένη ήταν μέσα στην εικόνα.\n\nΓια εκείνη, η φράση δεν ήταν ημερομηνία. Ήταν κατεύθυνση. Και εκείνο το βράδυ αυτό αρκούσε."
+        ],
+        "B": [
+          "Επιστρέφει στην παλιά αλήθεια",
+          "Ο Αλέξανδρος κοίταξε την Ελένη.\n\n— Ναι. Εσένα βλέπω.\n\nΤο πρόσωπό της μαλάκωσε.\n\nΕκείνος όμως δεν σταμάτησε.\n\n— Και πρέπει να σου πω κάτι.\n\nΗ Ελένη τον κοίταξε διαφορετικά.\n\n— Θυμάσαι τότε με το τεστ;\n\n— Ναι.\n\n— Όταν με ρώτησες τι ένιωσα και σου είπα ότι δεν ήξερα;\n\nΈγνεψε.\n\n— Ήξερα. Ανακουφίστηκα.\n\nΗ λέξη έμεινε ανάμεσά τους.\n\n— Και δεν μου το είπες.\n\n— Όχι. Φοβήθηκα ότι θα ακούσεις «δεν θέλω παιδί μαζί σου».\n\n— Δεν μπορούσες να μου το πεις έτσι τότε;\n\nΟ Αλέξανδρος χαμογέλασε πικρά.\n\n— Προφανώς μπορούσα.\n\nΗ Ελένη πήρε λίγο χρόνο.\n\n— Ξέρεις τι φοβάμαι μερικές φορές; Ότι ζούμε το ίδιο πράγμα και εσύ έχεις μια ολόκληρη δεύτερη εκδοχή του μόνο μέσα στο κεφάλι σου.\n\nΗ φράση τον χτύπησε γιατί είχε αλήθεια.\n\n— Μπορεί.\n\n— Και πώς θα ξέρω;\n\n— Δεν θα ξέρεις αν δεν στο λέω. Άρα η δουλειά είναι δική μου.\n\nΗ Ελένη τον κοίταξε.\n\n— Ποια δουλειά;\n\n— Να μην περιμένω να με ανακαλύπτεις.\n\nΓια πρώτη φορά μια παλιά σιωπή δεν επέστρεψε ως κατηγορία. Επέστρεψε ως επιλογή να ειπωθεί."
+        ],
+        "C": [
+          "Παραμένει προσεκτικός",
+          "Η Ελένη τον κοίταξε.\n\n— Όταν το φαντάζεσαι… βλέπεις εμένα;\n\nΟ Αλέξανδρος πήρε μια ανάσα.\n\n— Μπορώ να μας φανταστώ με παιδί.\n\nΗ Ελένη περίμενε το υπόλοιπο.\n\n— Αλλά δεν ξέρω αν αυτό σημαίνει ότι είμαι έτοιμος να το θέλω πραγματικά τώρα.\n\nΤο πρόσωπό της δεν έκλεισε, αλλά άλλαξε.\n\n— Δεν σε ρώτησα αν είσαι έτοιμος τώρα.\n\n— Το ξέρω. Αλλά φοβάμαι ότι αν πω μόνο «ναι», θα γίνει σαν υπόσχεση για κάτι που δεν έχω ακόμη αποφασίσει.\n\nΗ Ελένη ακούμπησε πίσω.\n\n— Εγώ φοβάμαι το αντίθετο. Ότι κάθε φορά που πλησιάζουμε σε κάτι, εσύ θα το μετακινείς λίγο πιο μετά για να μη νιώσεις ότι δεσμεύτηκες πριν είσαι εκατό τοις εκατό σίγουρος.\n\nΟ Αλέξανδρος σώπασε.\n\n— Ίσως.\n\n— Και ξέρεις ότι εκατό τοις εκατό δεν υπάρχει.\n\n— Το ξέρω λογικά.\n\nΗ Ελένη χαμογέλασε αχνά.\n\n— Αυτό είναι ακριβώς το πρόβλημα μερικές φορές.\n\nΔεν τσακώθηκαν.\n\nΑλλά η κουβέντα ξεκαθάρισε το επόμενο μεγάλο όριο του Αλέξανδρου: πότε η προσοχή παύει να είναι ωριμότητα και γίνεται τρόπος να μην παίρνεις ποτέ απόφαση πριν εξαφανιστεί ο φόβος."
+        ]
+      }
+    },
+    "16": {
+      "prompt": "Καριέρα ή οικογένεια;",
+      "options": {
+        "A": [
+          "Πρώτα η θέση",
+          "Η Ελένη κρατούσε ακόμη τον φάκελο με την πρόταση προαγωγής.\n\n— Εσύ τι θα έκανες; ρώτησε.\n\nΟ Αλέξανδρος σκέφτηκε.\n\n— Θα έπαιρνα τη θέση.\n\n— Και το παιδί;\n\n— Μπορεί να περιμένει λίγο.\n\nΗ Ελένη δεν απάντησε αμέσως.\n\n— Πόσο λίγο;\n\n— Δεν ξέρω. Να μπεις στον νέο ρόλο. Να δεις πώς είναι. Να σταθεροποιηθεί λίγο η δουλειά σου.\n\nΗ πρόταση ήταν λογική. Ίσως η πιο λογική.\n\nΚαι ακριβώς γι’ αυτό η Ελένη χαμογέλασε πικρά.\n\n— Ξέρεις τι φοβάμαι; Ότι πάντα θα υπάρχει κάτι που πρέπει πρώτα να σταθεροποιηθεί.\n\nΟ Αλέξανδρος έγνεψε.\n\n— Μπορεί. Αλλά δεν θέλω να πάρεις μια μεγάλη επαγγελματική ευκαιρία και να τη ζήσεις με την αγωνία ότι πρέπει ταυτόχρονα να κάνεις χώρο για κάτι άλλο εξίσου μεγάλο.\n\n— Κι αν μετά υπάρξει άλλη προαγωγή;\n\n— Τότε θα ξαναμιλήσουμε.\n\nΗ Ελένη πήρε τελικά τη θέση. Για ένα διάστημα το «παιδί» επέστρεψε στο μελλοντικό.\n\nΔεν ήταν άρνηση.\n\nΉταν αναβολή.\n\nΚαι κάθε αναβολή έχει ένα παράξενο χαρακτηριστικό: μοιάζει μικρή τη στιγμή που την αποφασίζεις και μεγαλύτερη μόνο όταν κοιτάξεις πίσω."
+        ],
+        "B": [
+          "Δεν βάζουν τη ζωή σε αναμονή",
+          "Ο Αλέξανδρος έπιασε το χέρι της.\n\n— Πάρε τη θέση.\n\nΗ Ελένη χαμήλωσε το βλέμμα.\n\n— Και το παιδί;\n\n— Δεν νομίζω ότι χρειάζεται να βάλουμε τη ζωή μας σε αναμονή.\n\nΗ Ελένη τον κοίταξε.\n\n— Δηλαδή;\n\n— Ότι μπορείς να εξελιχθείς στη δουλειά σου και εμείς να συνεχίσουμε να μιλάμε για παιδί. Δεν χρειάζεται να τελειώσει το ένα για να αρχίσει το άλλο.\n\n— Και αν μείνω έγκυος σε δύο μήνες;\n\n— Θα το αντιμετωπίσουμε τότε.\n\n— Εσύ το λες πολύ εύκολα.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Καθόλου εύκολα. Απλώς αρχίζω να πιστεύω ότι περιμένουμε μια στιγμή που δεν υπάρχει.\n\nΗ Ελένη έμεινε σιωπηλή.\n\n— Θέλεις να αρχίσουμε να προσπαθούμε;\n\nΗ ερώτηση ακούστηκε διαφορετικά από όλες τις προηγούμενες.\n\nΟ Αλέξανδρος ένιωσε φόβο, ενθουσιασμό και μια παράξενη ηρεμία.\n\n— Ναι.\n\nΗ Ελένη άρχισε να κλαίει και να γελά ταυτόχρονα.\n\nΔεν είχαν βρει την ιδανική στιγμή.\n\nΕίχαν απλώς αποφασίσει ότι δεν θα της δώσουν άλλο δικαίωμα να καθυστερεί τη ζωή τους μέχρι να γίνει τέλεια."
+        ],
+        "C": [
+          "Δεν θέλει άλλη αναβολή",
+          "Ο Αλέξανδρος κοίταξε τον φάκελο και μετά την Ελένη.\n\n— Νομίζω ότι δεν θέλω να το αναβάλλουμε άλλο.\n\nΗ Ελένη πάγωσε.\n\n— Το παιδί;\n\n— Ναι.\n\nΉταν η πρώτη φορά που η επιθυμία δεν εμφανιζόταν ως απάντηση σε δική της ερώτηση. Ερχόταν από εκείνον.\n\nΗ Ελένη χαμογέλασε, αλλά σχεδόν αμέσως συνοφρυώθηκε.\n\n— Και η θέση;\n\n— Πάρ’ την.\n\n— Αλέξανδρε, αυτά τα δύο μπορεί να συγκρουστούν.\n\n— Το ξέρω.\n\n— Αν μείνω έγκυος αμέσως;\n\n— Θα έχουμε ένα δύσκολο πρακτικό πρόβλημα. Δεν σημαίνει ότι πρέπει να ακυρώσουμε από πριν ένα από τα δύο.\n\nΗ Ελένη τον κοίταξε.\n\n— Είσαι σίγουρος;\n\nΟ Αλέξανδρος γέλασε.\n\n— Όχι. Αυτό μάλλον είναι το καινούργιο.\n\nΓια χρόνια θεωρούσε ότι μια μεγάλη απόφαση έπρεπε να έρθει όταν η αμφιβολία είχε σχεδόν εξαφανιστεί.\n\nΤώρα ανακάλυπτε ότι ίσως η ενηλικίωση ήταν το αντίθετο: να λες τι θέλεις γνωρίζοντας ότι η βεβαιότητα δεν θα έρθει ποτέ πρώτη."
+        ]
+      }
+    },
+    "17": {
+      "prompt": "Ποιος μαθαίνει πρώτος για την εγκυμοσύνη;",
+      "options": {
+        "A": [
+          "Το λένε αμέσως στους γονείς",
+          "Η Ελένη κοίταξε το θετικό τεστ.\n\n— Θέλω να το πούμε στους γονείς μας.\n\n— Τώρα;\n\n— Ναι.\n\nΟ Αλέξανδρος σκέφτηκε τις πρώτες εβδομάδες, την αβεβαιότητα, όλα όσα δεν ήταν ακόμη δεδομένα.\n\n— Αν κάτι δεν πάει καλά;\n\nΗ Ελένη τον κοίταξε.\n\n— Τότε θα τους χρειαστώ πάλι. Δεν θέλω να πρέπει να προσποιηθώ ότι δεν είχε συμβεί.\n\nΑυτό άλλαξε την ερώτηση.\n\nΤηλεφώνησαν πρώτα στη μητέρα της. Χρειάστηκαν λίγα δευτερόλεπτα από τα κλάματα μέχρι το «παίρνεις φυλλικό οξύ;».\n\nΗ Ελένη γέλασε και της είπε να την αφήσει πρώτα να είναι έγκυος για δέκα λεπτά.\n\nΜετά πήραν τους γονείς του Αλέξανδρου. Η μητέρα του ρώτησε δύο φορές «αλήθεια;». Ο πατέρας του είπε απλώς «με το καλό», με μια φωνή που πρόδιδε περισσότερα από τις λέξεις.\n\nΜέσα σε μισή ώρα η εγκυμοσύνη είχε βγει από το δωμάτιό τους και είχε μπει σε τέσσερις ακόμη ζωές.\n\nΜαζί με τη χαρά μπήκαν και φόβοι που δεν ήταν δικοί τους.\n\nΗ επιλογή να μοιραστούν νωρίς τη νέα ζωή θα τους έδινε στήριξη.\n\nΚαι θα τους ανάγκαζε νωρίς να μάθουν ποια αγωνία ανήκει σε ποιον."
+        ],
+        "B": [
+          "Περιμένουν τον πρώτο έλεγχο",
+          "Η Ελένη κρατούσε το τεστ.\n\n— Σε ποιον θα το πούμε πρώτα;\n\nΟ Αλέξανδρος κοίταξε τις δύο γραμμές.\n\n— Σε κανέναν ακόμα.\n\nΗ Ελένη γύρισε.\n\n— Καθόλου;\n\n— Μέχρι να πάμε στον γιατρό. Θέλω πρώτα να είναι λίγο δικό μας.\n\nΗ Ελένη έμεινε σιωπηλή.\n\nΠαλιά θα είχε τηλεφωνήσει στη μητέρα της σχεδόν πριν προλάβει να στεγνώσει το τεστ. Τώρα κοίταξε τον Αλέξανδρο και μετά το χέρι της πάνω στην κοιλιά.\n\n— Εντάξει.\n\nΓια λίγες ημέρες κυκλοφορούσαν στον κόσμο με μια πληροφορία που κανείς άλλος δεν είχε.\n\nΣτο τραπέζι των γονιών της, η μητέρα της μιλούσε για κάτι άσχετο και η Ελένη κοιτούσε τον Αλέξανδρο με εκείνο το χαμόγελο που προσπαθεί να κρύψει μυστικό.\n\nΤο βράδυ γελούσαν.\n\n— Νιώθω σαν να κάνουμε κάτι παράνομο, είπε εκείνη.\n\n— Ιδιωτικότητα λέγεται.\n\n— Μην το παρακάνεις.\n\nΟ πρώτος έλεγχος δεν εξαφάνισε την αβεβαιότητα, αλλά τους έδωσε την πρώτη εικόνα.\n\nΚαι τότε άνοιξαν τον κύκλο.\n\nΗ οικογένεια μπήκε στη χαρά τους λίγο αργότερα — αφού πρώτα οι ίδιοι είχαν προλάβει να δημιουργήσουν μια μικρή, ιδιωτική μνήμη που δεν ανήκε σε κανέναν άλλο."
+        ],
+        "C": [
+          "Το λένε σε έναν μόνο κοντινό άνθρωπο",
+          "— Δεν θέλω να το πούμε ακόμη σε όλους, είπε η Ελένη.\n\nΟ Αλέξανδρος έγνεψε.\n\n— Αλλά δεν θέλω και να είμαι μόνη μου με αυτό αν τρομάξω.\n\nΣκέφτηκαν για λίγο.\n\nΤελικά διάλεξαν έναν άνθρωπο που εμπιστεύονταν απόλυτα.\n\nΗ είδηση βγήκε από το σπίτι τους, αλλά δεν έγινε ακόμη οικογενειακή ανακοίνωση.\n\nΗ αντίδραση ήταν ακριβώς όσο χρειαζόταν: χαρά, μια αγκαλιά, καμία λίστα συμβουλών.\n\nΓια τις επόμενες ημέρες η Ελένη είχε κάποιον να πάρει τηλέφωνο όταν ο Αλέξανδρος ήταν στο σχολείο και εκείνη ένιωθε τον φόβο να ανεβαίνει.\n\nΟ Αλέξανδρος, από την άλλη, ένιωθε ότι δεν είχαν παραδώσει ακόμη τη στιγμή στο συλλογικό βλέμμα των οικογενειών.\n\n— Είναι περίεργο, είπε ένα βράδυ.\n\n— Τι;\n\n— Να ξέρει κάποιος και να μη νιώθω ότι μπήκε μέσα.\n\nΗ Ελένη χαμογέλασε.\n\n— Μπορεί τελικά το πρόβλημα να μην ήταν ποτέ ότι μιλάμε σε άλλους.\n\n— Αλλά πώς και πότε.\n\nΈγνεψε.\n\nΟ μικρός κύκλος έγινε πρόβα.\n\nΌχι μόνο για την ανακοίνωση της εγκυμοσύνης, αλλά για κάτι που θα τους απασχολούσε ως γονείς ξανά και ξανά: πόσοι άνθρωποι χρειάζεται πραγματικά να βρίσκονται μέσα σε μια προσωπική στιγμή;"
+        ]
+      }
+    },
+    "18": {
+      "prompt": "Η μητέρα της Ελένης θέλει να αγοράσει όλο το βρεφικό δωμάτιο.",
+      "options": {
+        "A": [
+          "Δέχονται το δώρο, επιλέγουν οι ίδιοι",
+          "Η μητέρα της Ελένης είχε ήδη βρει κούνια, αλλαξιέρα, ντουλάπα και δύο καρότσια πριν εκείνοι αποφασίσουν καν χρώμα.\n\n— Μας βοηθάει πάρα πολύ, είπε ο Αλέξανδρος.\n\nΗ Ελένη περίμενε το «αλλά».\n\n— Αλλά θέλω να διαλέξουμε εμείς.\n\nΤην πήραν τηλέφωνο μαζί.\n\n— Μα εγώ για να σας βοηθήσω το κάνω, είπε εκείνη.\n\n— Το ξέρουμε, απάντησε η Ελένη. Και θέλουμε τη βοήθεια. Απλώς θέλουμε να το χαρούμε κι εμείς.\n\nΗ πρώτη αντίδραση ήταν μικρή απογοήτευση. Μετά διαπραγμάτευση. Μετά γέλιο όταν ο Αλέξανδρος είπε ότι θέλει «δικαίωμα βέτο στην αισθητική της κούνιας».\n\nΤελικά συμφώνησαν: εκείνοι θα επιλέξουν, εκείνη θα τους κάνει το δώρο.\n\nΌταν έκλεισαν, η Ελένη αναστέναξε.\n\n— Νιώθω αχάριστη όταν βάζω όριο σε κάποιον που προσφέρει.\n\n— Το όριο δεν ακυρώνει την προσφορά.\n\nΗ Ελένη χαμογέλασε.\n\nΗ βοήθεια παρέμεινε πραγματική.\n\nΚαι η απόφαση παρέμεινε στους γονείς.\n\nΉταν ίσως η πρώτη φορά που έκαναν πρόβα κάτι που θα χρειάζονταν εκατοντάδες φορές αργότερα: να λένε «σε χρειαζόμαστε» χωρίς αυτό να σημαίνει «αποφάσισε εσύ»."
+        ],
+        "B": [
+          "Την αφήνουν να αναλάβει",
+          "Η Ελένη έδειξε στον Αλέξανδρο τη λίστα που είχε στείλει η μητέρα της.\n\n— Ξέρεις τι; είπε εκείνος. Ας την αφήσουμε.\n\n— Σοβαρά;\n\n— Είναι πολλά λεφτά. Και έχει περάσει όλο αυτό. Ίσως πράγματι ξέρει τι χρειάζεται περισσότερο από εμάς.\n\nΗ Ελένη ένιωσε ανακούφιση.\n\n— Θα χαρεί πολύ.\n\nΧάρηκε πράγματι.\n\nΜέσα στις επόμενες ημέρες έστελνε φωτογραφίες, τιμές, συγκρίσεις, σχόλια από άλλες μητέρες. Σύντομα το βρεφικό δωμάτιο είχε σχεδόν σχεδιαστεί πριν ο Αλέξανδρος και η Ελένη το δουν ως σύνολο.\n\n— Πολύ ωραίο είναι, είπε η Ελένη.\n\nΚαι ήταν.\n\nΌταν όμως ο Αλέξανδρος πρότεινε διαφορετικό καρότσι, η απάντηση ήρθε αμέσως:\n\n— Αυτό που βρήκα εγώ είναι καλύτερο. Το έχω ψάξει.\n\nΟ Αλέξανδρος χαμογέλασε.\n\nΔεν υπήρχε κακή πρόθεση. Μόνο μια μικρή μετατόπιση.\n\nΕπειδή είχαν παραδώσει την έρευνα, άρχισαν να παραδίδουν και λίγο από το δικαίωμα να αμφισβητούν το αποτέλεσμα.\n\nΗ βοήθεια τους απάλλαξε από κόστος και κόπο.\n\nΤαυτόχρονα, η γιαγιά μπήκε στην πρώτη γονεϊκή τους απόφαση όχι ως σύμβουλος, αλλά σχεδόν ως project manager.\n\nΚανείς δεν ήξερε ακόμη αν αυτό θα ήταν πρόβλημα.\n\nΑλλά το προηγούμενο είχε δημιουργηθεί."
+        ],
+        "C": [
+          "Αρνούνται",
+          "— Θέλουμε να το στήσουμε μόνοι μας, είπε η Ελένη στη μητέρα της.\n\nΣτην άλλη άκρη υπήρξε σιωπή.\n\n— Δεν θέλετε τη βοήθειά μου;\n\n— Δεν είπα αυτό.\n\n— Αυτό ακούω.\n\nΟ Αλέξανδρος κοίταξε την Ελένη. Το όριο ήταν καθαρό. Ίσως υπερβολικά καθαρό.\n\n— Δεν θέλουμε να αναλάβεις το δωμάτιο, είπε. Θέλουμε να το κάνουμε εμείς.\n\nΗ μητέρα της απάντησε πιο ψυχρά απ’ ό,τι συνήθως και έκλεισαν.\n\nΗ Ελένη έμεινε με το κινητό στο χέρι.\n\n— Στενοχωρήθηκε.\n\n— Το ξέρω.\n\n— Και αισθάνομαι χάλια.\n\nΑργότερα αγόρασαν μόνοι τους την κούνια και τα βασικά. Ο προϋπολογισμός σφίχτηκε. Η διαδικασία όμως έγινε ολόκληρη δική τους: οι διαφωνίες, τα χρώματα, τα βράδια που διάβαζαν κριτικές.\n\nΜερικές εβδομάδες μετά η μητέρα της ήρθε και έφερε μια κουβέρτα που είχε αγοράσει μόνη της.\n\n— Αυτό επιτρέπεται; ρώτησε με μισό χαμόγελο.\n\nΗ Ελένη την αγκάλιασε.\n\n— Αυτό επιτρέπεται.\n\nΤο όριο είχε πληγώσει λίγο.\n\nΜετά όμως δημιούργησε χώρο για μια νέα μορφή συμμετοχής — λιγότερο απόλυτη, ίσως πιο καθαρή."
+        ]
+      }
+    },
+    "19": {
+      "prompt": "Πώς επιλέγουν το όνομα του αγοριού;",
+      "options": {
+        "A": [
+          "Τιμούν την οικογενειακή παράδοση",
+          "— Εγώ θα ήθελα να τιμήσουμε έναν από τους γονείς μας, είπε η Ελένη.\n\nΟ Αλέξανδρος την κοίταξε.\n\n— Κι εγώ.\n\n— Τόσο εύκολα;\n\n— Μου αρέσει η ιδέα ότι δεν εμφανίζεται από το πουθενά. Έρχεται μετά από ανθρώπους και ιστορίες.\n\nΗ Ελένη χαμογέλασε.\n\n— Ωραία. Άρα παππούς.\n\nΜετά κοιτάχτηκαν.\n\n— Ποιος;\n\nΟ Αλέξανδρος γέλασε.\n\nΝα λοιπόν το πραγματικό πρόβλημα. Δύο παππούδες. Δύο οικογένειες. Δύο πιθανές προσδοκίες που κανείς δεν είχε δηλώσει αλλά όλοι μπορούσαν να φανταστούν.\n\nΔεν αποφάσισαν εκείνο το βράδυ ποιο όνομα θα είναι.\n\nΑποφάσισαν κάτι προηγούμενο: ότι το παιδί τους θα κουβαλήσει ένα κομμάτι της οικογενειακής ιστορίας με τη θέλησή τους, όχι επειδή κάποιος το απαίτησε.\n\n— Άρα θα αρχίσει ο εμφύλιος, είπε η Ελένη.\n\n— Θα κάνουμε κλήρωση.\n\n— Δεν θα κάνουμε κλήρωση για το παιδί.\n\n— Δημοκρατική διαδικασία.\n\nΓέλασαν.\n\nΗ παράδοση είχε μπει στο σπίτι.\n\nΌχι ως νόμος.\n\nΩς κληρονομιά που εκείνοι επέλεγαν να κρατήσουν."
+        ],
+        "B": [
+          "Επιλέγουν μόνο όνομα που αγαπούν",
+          "Η Ελένη κοίταξε τη λίστα ονομάτων.\n\n— Των παππούδων;\n\nΟ Αλέξανδρος σκέφτηκε λίγο.\n\n— Δεν θέλω να ξεκινήσουμε από εκεί.\n\n— Γιατί;\n\n— Γιατί δεν θέλω το πρώτο πράγμα που θα κουβαλήσει το παιδί να είναι μια υποχρέωση που αποφασίστηκε πριν γεννηθεί.\n\nΗ Ελένη έγνεψε.\n\n— Άρα διαλέγουμε ό,τι αγαπάμε;\n\n— Ναι.\n\nΆρχισαν να πετούν ονόματα. Άλλα σοβαρά, άλλα εντελώς απαράδεκτα μόνο και μόνο για να εκνευρίσουν ο ένας τον άλλον.\n\nΌταν το θέμα έφτασε στις οικογένειες, οι αντιδράσεις ήταν μικρές αλλά ορατές.\n\n— Δεν θα βγάλετε κανέναν; ρώτησε η μητέρα της Ελένης.\n\n— Όχι απαραίτητα.\n\n— Ε, εσείς ξέρετε.\n\nΗ φράση ήταν ευγενική. Η απογοήτευση επίσης αληθινή.\n\nΟ Αλέξανδρος ένιωσε για λίγο ενοχή.\n\nΜετά κοίταξε την Ελένη.\n\nΤο όνομα του παιδιού θα ήταν μια απόφαση που ξεκινούσε από τους δύο.\n\nΔεν απέρριπταν την οικογένεια που προϋπήρχε.\n\nΑπλώς δεν θεωρούσαν ότι η συνέχεια χρειάζεται πάντα να μοιάζει με επανάληψη."
+        ],
+        "C": [
+          "Συνδυάζουν παράδοση και προσωπική επιλογή",
+          "— Δεν θέλω να αγνοήσουμε την παράδοση, είπε η Ελένη. Αλλά δεν θέλω και να διαλέξουμε όνομα μόνο επειδή «έτσι γίνεται».\n\nΟ Αλέξανδρος έγνεψε.\n\nΆρχισαν να ψάχνουν τρόπους να κρατήσουν και τα δύο.\n\nΔεύτερο όνομα. Μια παραλλαγή. Ένα όνομα με οικογενειακή σημασία που δεν ανήκε ακριβώς σε κανέναν παππού.\n\nΗ συζήτηση έγινε παράξενα δημιουργική.\n\n— Αυτό μου αρέσει, είπε κάποια στιγμή η Ελένη.\n\n— Κι εμένα.\n\n— Και έχει και κάτι από τον μπαμπά.\n\n— Χωρίς να είναι ίδιο.\n\nΧαμογέλασαν.\n\nΌταν το είπαν στις οικογένειες, κανείς δεν πήρε ακριβώς αυτό που ίσως περίμενε. Κανείς όμως δεν μπορούσε και να πει ότι η ιστορία του είχε αγνοηθεί.\n\nΟ Αλέξανδρος σκέφτηκε ότι ίσως αυτό ήταν ο ορισμός ενός καλού συμβιβασμού: όχι να είναι όλοι ενθουσιασμένοι, αλλά να μπορείς να αναγνωρίσεις μέσα του περισσότερους από έναν ανθρώπους χωρίς να χάνεται η δική σου επιλογή.\n\nΤο παιδί θα κουβαλούσε κάτι από πριν.\n\nΌχι ολόκληρο.\n\nΑρκετό για να θυμίζει ότι η καινούργια οικογένεια δεν γεννιέται σε κενό."
+        ]
+      }
+    },
+    "20": {
+      "prompt": "Στην πόρτα του μαιευτηρίου η Ελένη λέει «δεν ξέρω αν μπορώ».",
+      "options": {
+        "A": [
+          "Την καθησυχάζει",
+          "Στην είσοδο του μαιευτηρίου η Ελένη σταμάτησε.\n\n— Αλέξανδρε, δεν ξέρω αν μπορώ.\n\nΕκείνος την κοίταξε.\n\n— Μπορείς. Θα τα καταφέρεις.\n\n— Πού το ξέρεις;\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Δεν το ξέρω. Αλλά σε ξέρω. Κι όταν εσύ δεν μπορείς να το πιστέψεις, θα το πιστεύω εγώ για λίγο.\n\nΗ Ελένη πήρε μια ανάσα και μπήκαν.\n\nΏρες αργότερα, όταν ο πόνος και η κούραση είχαν αλλάξει εντελώς τη στιγμή, είπε ξανά:\n\n— Δεν μπορώ άλλο.\n\n— Μπορείς.\n\nΤο πρόσωπό της σκληρύνθηκε.\n\n— Μη μου λες συνέχεια ότι μπορώ! Δεν θέλω να πρέπει να μπορώ!\n\nΟ Αλέξανδρος σταμάτησε.\n\nΗ ίδια φράση που πριν την είχε στηρίξει τώρα ακουγόταν σαν απαίτηση.\n\nΠλησίασε.\n\n— Εντάξει. Δεν χρειάζεται να είσαι δυνατή για μένα.\n\n— Φοβάμαι.\n\n— Φοβήσου. Εγώ είμαι εδώ.\n\nΑυτό ήταν το μάθημα της ημέρας του πριν καν γίνει πατέρας: η στήριξη δεν είναι μία σωστή φράση.\n\nΕίναι να μπορείς να ακούσεις πότε η φράση που βοήθησε πριν δεν βοηθά πια."
+        ],
+        "B": [
+          "Υπόσχεται παρουσία",
+          "Η Ελένη σταμάτησε μπροστά στην είσοδο.\n\n— Δεν ξέρω αν μπορώ.\n\nΟ Αλέξανδρος έσφιξε το χέρι της.\n\n— Δεν ξέρω πώς θα είναι. Και δεν θα σου πω ότι ξέρω.\n\nΗ Ελένη τον κοίταξε.\n\n— Αλλά δεν θα είσαι μόνη ούτε λεπτό.\n\nΗ φράση δεν υποσχόταν ότι δεν θα πονέσει. Δεν υποσχόταν ότι όλα θα πάνε ακριβώς όπως είχαν σχεδιάσει.\n\nΥποσχόταν μόνο κάτι που μπορούσε πράγματι να ελέγξει.\n\nΜπήκαν.\n\nΚαθώς περνούσαν οι ώρες, ο Αλέξανδρος ανακάλυψε πόσο δύσκολο είναι να είσαι παρών όταν δεν μπορείς να διορθώσεις τίποτα.\n\nΈδινε νερό. Κρατούσε χέρι. Άκουγε οδηγίες. Σώπαινε όταν η Ελένη δεν ήθελε λόγια.\n\nΚάποια στιγμή εκείνη είπε:\n\n— Φοβάμαι.\n\n— Το ξέρω.\n\n— Κι αν κάτι πάει στραβά;\n\nΟ Αλέξανδρος δεν είπε «δεν θα πάει».\n\n— Θα είμαι εδώ.\n\nΗ ίδια υπόσχεση.\n\nΔεν ήταν μεγάλη.\n\nΉταν όμως αληθινή.\n\nΚαι ίσως η πατρότητα να ξεκινούσε ακριβώς από εκεί: όχι από τη δύναμη να εγγυηθείς το αποτέλεσμα, αλλά από την απόφαση να μη φύγεις από την αβεβαιότητα."
+        ],
+        "C": [
+          "Χρησιμοποιεί το χιούμορ",
+          "Στην πόρτα του μαιευτηρίου η Ελένη τον κοίταξε.\n\n— Δεν ξέρω αν μπορώ.\n\nΟ Αλέξανδρος πήρε το πιο σοβαρό ύφος που μπορούσε.\n\n— Εγώ πάντως δεν μπορώ σίγουρα, οπότε δυστυχώς πέφτει πάνω σου.\n\nΗ Ελένη τον κοίταξε για δύο δευτερόλεπτα.\n\nΜετά γέλασε παρά τον φόβο της.\n\n— Είσαι ηλίθιος.\n\n— Έχω άλλες χρήσιμες δεξιότητες.\n\n— Ποιες;\n\n— Οδηγώ. Κρατάω βαλίτσα. Πατάω κουμπιά ασανσέρ.\n\nΗ Ελένη γέλασε ξανά.\n\nΗ ένταση έσπασε αρκετά ώστε να μπορέσει να κάνει το επόμενο βήμα.\n\nΤο χιούμορ συνέχισε να τους βοηθά μέσα στις πρώτες ώρες.\n\nΜέχρι τη στιγμή που δεν μπορούσε.\n\nΌταν η κούραση έγινε πραγματικά βαριά, ο Αλέξανδρος δοκίμασε άλλη μια ατάκα.\n\nΗ Ελένη δεν χαμογέλασε.\n\n— Όχι τώρα.\n\nΟ Αλέξανδρος έγνεψε αμέσως.\n\nΚάθισε δίπλα της και της έδωσε το χέρι.\n\nΤο χιούμορ ήταν ένας από τους τρόπους που είχαν μάθει να αναπνέουν μαζί.\n\nΌχι ο μόνος.\n\nΚι εκείνη τη μέρα έπρεπε να μάθει και πότε να το αφήνει στην άκρη."
+        ]
+      }
+    },
+    "21": {
+      "prompt": "Μετά τη γέννηση, πώς θα βοηθήσει η γιαγιά;",
+      "options": {
+        "A": [
+          "Μένει μαζί τους",
+          "Λίγες ώρες μετά τη γέννηση, η μητέρα της Ελένης είπε στο τηλέφωνο:\n\n— Όταν βγείτε, θα έρθω να μείνω μαζί σας τις πρώτες μέρες.\n\nΗ Ελένη κοίταξε τον Αλέξανδρο. Ήταν εξαντλημένη. Εκείνος ήταν ήδη τρομαγμένος από το πόσα πράγματα δεν ήξεραν.\n\n— Ναι, είπε τελικά η Ελένη. Έλα.\n\nΗ ανακούφιση ήταν άμεση. Θα υπήρχε στο σπίτι ένας άνθρωπος που είχε ξανακρατήσει νεογέννητο, που ήξερε να μαγειρέψει όταν εκείνοι δεν θα θυμούνταν καν τι ώρα ήταν, που μπορούσε να τους δώσει λίγες ώρες ύπνου.\n\nΟ Αλέξανδρος ένιωσε ευγνωμοσύνη. Μαζί της ήρθε και μια δεύτερη σκέψη: η πρώτη τους νύχτα ως γονείς δεν θα ανήκε μόνο στους τρεις τους.\n\nΚανείς δεν είχε κάνει λάθος. Είχαν απλώς επιλέξει περισσότερη υποστήριξη και λιγότερη ιδιωτικότητα για τις πρώτες ημέρες. Το πραγματικό όριο θα έπρεπε να βρεθεί αργότερα, μέσα στην πράξη."
+        ],
+        "B": [
+          "Έρχεται καθημερινά αλλά δεν μένει",
+          "Η μητέρα της Ελένης είπε:\n\n— Θα έρθω και θα μείνω δύο τρεις μέρες. Θα σας βοηθήσω.\n\nΗ Ελένη κοίταξε τον Αλέξανδρο.\n\n— Θα σε χρειαστούμε, είπε. Αλλά δεν χρειάζεται να μείνεις.\n\nΣτην άλλη άκρη υπήρξε μια μικρή σιωπή.\n\n— Θα κουραστείς.\n\n— Το ξέρω. Έλα το πρωί. Βοήθησέ μας με φαγητό, σπίτι, ό,τι μπορείς. Αλλά το βράδυ θέλω να είμαστε εμείς.\n\n— Μόνοι σας;\n\nΗ Ελένη κοίταξε το μωρό.\n\n— Οι τρεις μας.\n\nΗ φράση ακούστηκε για πρώτη φορά. Δεν αρνήθηκαν τη βοήθεια. Της έδωσαν ώρες, χώρο και πραγματική χρησιμότητα. Κράτησαν όμως τις νύχτες ως τον πρώτο ιδιωτικό χρόνο της νέας οικογένειας.\n\nΉταν ένα ενδιάμεσο όριο: «σε χρειαζόμαστε» χωρίς να σημαίνει «μείνε μέσα σε όλα»."
+        ],
+        "C": [
+          "Οι πρώτες δύο μέρες είναι μόνο οι τρεις",
+          "Η Ελένη κοίταξε τον Αλέξανδρο μετά την πρόταση της μητέρας της να μείνει μαζί τους.\n\n— Θέλω τις πρώτες δύο μέρες να είμαστε μόνοι μας, είπε.\n\nΟ Αλέξανδρος ξαφνιάστηκε.\n\n— Σίγουρα;\n\n— Όχι.\n\nΧαμογέλασε κουρασμένα.\n\n— Αλλά θέλω να μπούμε στο σπίτι και να καταλάβουμε ποιοι είμαστε τώρα πριν γεμίσει κόσμο.\n\nΤο είπαν στη μητέρα της. Η πρώτη της αντίδραση ήταν ανησυχία, όχι θυμός.\n\n— Αν χρειαστείτε κάτι;\n\n— Θα σε πάρουμε.\n\n— Οποιαδήποτε ώρα.\n\n— Το ξέρω.\n\nΔιάλεξαν την περισσότερη δυνατή αυτονομία στην πιο άπειρη στιγμή τους. Ήξεραν ότι αυτό θα είχε κόστος: κούραση, αβεβαιότητα, ίσως και πανικό στις τέσσερις το πρωί.\n\nΑλλά ήθελαν οι πρώτες ώρες στο σπίτι να είναι ένας χώρος όπου θα αναγκάζονταν να γίνουν ομάδα πριν ζητήσουν από άλλους να μπουν μέσα."
+        ]
+      }
+    }
+  },
+  "effects": {
+    "1": {
+      "A": {
+        "TRUST": 1,
+        "INTIMACY": 1
+      },
+      "B": {
+        "PACING": 1
+      },
+      "C": {
+        "SELF_PROTECTION": 1,
+        "PACING": 1
+      }
+    },
+    "2": {
+      "A": {
+        "AUTONOMY": 1,
+        "INTIMACY": 1
+      },
+      "B": {
+        "PACING": 1
+      },
+      "C": {
+        "SELF_PROTECTION": 1,
+        "INTIMACY": 1
+      }
+    },
+    "3": {
+      "A": {
+        "INTIMACY": 2,
+        "TRUST": 1
+      },
+      "B": {
+        "SELF_PROTECTION": 1
+      },
+      "C": {
+        "PACING": 1,
+        "SELF_PROTECTION": 1
+      }
+    },
+    "4": {
+      "A": {
+        "INTIMACY": 2
+      },
+      "B": {
+        "TRUST": 1,
+        "BOUNDARIES": 1
+      },
+      "C": {
+        "PACING": 2,
+        "SELF_PROTECTION": 1
+      }
+    },
+    "5": {
+      "A": {
+        "BOUNDARIES": 2,
+        "TRUST": 1
+      },
+      "B": {
+        "UNSPOKEN": 1,
+        "FAMILY_ENMESHMENT": 1
+      },
+      "C": {
+        "CONFLICT": 1,
+        "BOUNDARIES": 1
+      }
+    },
+    "6": {
+      "A": {
+        "BOUNDARIES": 1,
+        "TRUST": 1
+      },
+      "B": {
+        "SELF_PROTECTION": 1
+      },
+      "C": {
+        "UNSPOKEN": 1,
+        "RESENTMENT": 1
+      }
+    },
+    "7": {
+      "A": {
+        "REPAIR": 1,
+        "CONFLICT": 1
+      },
+      "B": {
+        "REPAIR": 2,
+        "PACING": 1
+      },
+      "C": {
+        "SPACE_NEED": 1,
+        "REPAIR": 1,
+        "PACING": 1
+      }
+    },
+    "8": {
+      "A": {
+        "INTIMACY": 1,
+        "PACING": -1
+      },
+      "B": {
+        "TRUST": 1,
+        "AUTONOMY": 1,
+        "BOUNDARIES": 1
+      },
+      "C": {
+        "AUTONOMY": 2,
+        "PACING": 1
+      }
+    },
+    "9": {
+      "A": {
+        "TRUST": 1
+      },
+      "B": {
+        "UNSPOKEN": 1,
+        "RESENTMENT": 1
+      },
+      "C": {
+        "CONFLICT": 2,
+        "RESENTMENT": 1
+      }
+    },
+    "10": {
+      "A": {
+        "REPAIR": 2,
+        "BOUNDARIES": 1
+      },
+      "B": {
+        "REPAIR": 1,
+        "UNSPOKEN": 1
+      },
+      "C": {
+        "REPAIR": 2,
+        "INTIMACY": 1,
+        "TRUST": 1
+      }
+    },
+    "11": {
+      "A": {
+        "BOUNDARIES": 1,
+        "AUTONOMY": 1
+      },
+      "B": {
+        "TRUST": 2,
+        "INTIMACY": 1
+      },
+      "C": {
+        "UNSPOKEN": 1,
+        "RESENTMENT": 1
+      }
+    },
+    "12": {
+      "A": {
+        "INTIMACY": 1,
+        "AUTONOMY": -1,
+        "RESENTMENT": 1
+      },
+      "B": {
+        "AUTONOMY": 2,
+        "BOUNDARIES": 1
+      },
+      "C": {
+        "CONFLICT": 2,
+        "RESENTMENT": 1
+      }
+    },
+    "13": {
+      "A": {
+        "TRUST": 2,
+        "INTIMACY": 1
+      },
+      "B": {
+        "AUTONOMY": 1
+      },
+      "C": {
+        "AUTONOMY": 2,
+        "SELF_PROTECTION": 1
+      }
+    },
+    "14": {
+      "A": {
+        "TRUST": 1,
+        "CONFLICT": 1
+      },
+      "B": {
+        "TRUST": 2,
+        "INTIMACY": 1
+      },
+      "C": {
+        "UNSPOKEN": 2,
+        "SELF_PROTECTION": 1
+      }
+    },
+    "15": {
+      "A": {
+        "TRUST": 1,
+        "INTIMACY": 2
+      },
+      "B": {
+        "TRUST": 3,
+        "REPAIR": 2
+      },
+      "C": {
+        "SELF_PROTECTION": 1,
+        "PACING": 1
+      }
+    },
+    "16": {
+      "A": {
+        "AUTONOMY": 1,
+        "PACING": 1
+      },
+      "B": {
+        "AUTONOMY": 2,
+        "SHARED_PARENTAL_AGENCY": 1,
+        "TRUST": 1
+      },
+      "C": {
+        "INTIMACY": 2,
+        "PACING": -1
+      }
+    },
+    "17": {
+      "A": {
+        "FAMILY_ENMESHMENT": 1,
+        "INTIMACY": 1
+      },
+      "B": {
+        "BOUNDARIES": 2,
+        "INTIMACY": 1
+      },
+      "C": {
+        "BOUNDARIES": 1,
+        "TRUST": 1
+      }
+    },
+    "18": {
+      "A": {
+        "BOUNDARIES": 2,
+        "FAMILY_ENMESHMENT": -1,
+        "SHARED_PARENTAL_AGENCY": 1
+      },
+      "B": {
+        "FAMILY_ENMESHMENT": 2,
+        "AUTONOMY": -1
+      },
+      "C": {
+        "AUTONOMY": 2,
+        "CONFLICT": 1
+      }
+    },
+    "19": {
+      "A": {
+        "INTIMACY": 1
+      },
+      "B": {
+        "AUTONOMY": 2
+      },
+      "C": {
+        "AUTONOMY": 1,
+        "BOUNDARIES": 1
+      }
+    },
+    "20": {
+      "A": {
+        "INTIMACY": 1,
+        "TRUST": 1
+      },
+      "B": {
+        "TRUST": 2,
+        "REPAIR": 1
+      },
+      "C": {
+        "INTIMACY": 1,
+        "PACING": 1
+      }
+    },
+    "21": {
+      "A": {
+        "FAMILY_ENMESHMENT": 2
+      },
+      "B": {
+        "BOUNDARIES": 2,
+        "SHARED_PARENTAL_AGENCY": 2
+      },
+      "C": {
+        "AUTONOMY": 2,
+        "SHARED_PARENTAL_AGENCY": 2
+      }
+    }
+  },
+  "flags": {
+    "5A": [
+      "MOTHER_BOUNDARY_ESTABLISHED",
+      true
+    ],
+    "7C": [
+      "DELAYED_REPAIR_PATTERN",
+      true
+    ],
+    "10B": [
+      "HOUSEHOLD_ISSUE_UNRESOLVED",
+      true
+    ],
+    "11C": [
+      "HOUSEHOLD_ISSUE_UNRESOLVED",
+      true
+    ],
+    "12A": [
+      "PERSONAL_TIME_SACRIFICED",
+      true
+    ],
+    "13C": [
+      "MARRIAGE_UNCERTAINTY",
+      true
+    ],
+    "14C": [
+      "NEGATIVE_TEST_UNTOLD",
+      true
+    ],
+    "15B": [
+      "NEGATIVE_TEST_UNTOLD",
+      false
+    ],
+    "16B": [
+      "CAREER_AND_PARENTING_PARALLEL",
+      true
+    ],
+    "17A": [
+      "PREGNANCY_SHARED_EARLY",
+      true
+    ],
+    "18A": [
+      "GRANDMOTHER_HELP_WITH_PARENTAL_BOUNDARY",
+      true
+    ],
+    "19A": [
+      "FAMILY_NAME_TRADITION",
+      true
+    ],
+    "21B": [
+      "GRANDMOTHER_DAILY_NO_OVERNIGHT",
+      true
+    ],
+    "6A": [
+      "MOTHER_BOUNDARY_ESTABLISHED",
+      true
+    ],
+    "16A": [
+      "CHILD_PLAN_POSTPONED",
+      true
+    ],
+    "18B": [
+      "GRANDMOTHER_PROJECT_MANAGER",
+      true
+    ],
+    "18C": [
+      "GRANDMOTHER_HELP_REJECTED",
+      true
+    ],
+    "9B": [
+      "HOUSEHOLD_COMPLAINT_UNSPOKEN",
+      true
+    ],
+    "10A": [
+      "HOUSEHOLD_COMPLAINT_UNSPOKEN",
+      false
+    ],
+    "10C": [
+      "HOUSEHOLD_COMPLAINT_UNSPOKEN",
+      false
+    ]
+  },
+  "echoes": {
+    "NEGATIVE_TEST_UNTOLD": {
+      "before": 15,
+      "text": "Το παλιό αρνητικό τεστ δεν είχε εξαφανιστεί από τη σχέση. Είχε απλώς μείνει χωρίς τη μία λέξη που ο Αλέξανδρος δεν είπε τότε: ανακούφιση."
+    },
+    "MOTHER_BOUNDARY_ESTABLISHED": {
+      "before": 17,
+      "text": "Κάποτε η Ελένη μοιραζόταν σχεδόν τα πάντα με τη μητέρα της. Τώρα, πριν ανοίξει ο κύκλος γύρω από την εγκυμοσύνη, υπάρχει ήδη μια κοινή ιστορία ορίων."
+    },
+    "PERSONAL_TIME_SACRIFICED": {
+      "before": 13,
+      "text": "Οι μικρές ακυρώσεις του Αλέξανδρου δεν είχαν γίνει ακόμη παράπονο. Είχαν όμως αρχίσει να του θυμίζουν ότι το «εμείς» χρειάζεται χώρο και για το «εγώ»."
+    },
+    "HOUSEHOLD_ISSUE_UNRESOLVED": {
+      "before": 12,
+      "text": "Το σπίτι είχε βρει έναν τρόπο να λειτουργεί χωρίς να έχει βρει ακριβώς έναν τρόπο να μοιράζεται. Κάποιες εκκρεμότητες δεν φώναζαν· επαναλαμβάνονταν."
+    },
+    "DELAYED_REPAIR_PATTERN": {
+      "before": 9,
+      "text": "Είχαν ήδη μάθει κάτι δύσκολο: ο χρόνος μπορεί να είναι χώρος και όχι εγκατάλειψη, αλλά μόνο αν κάποιος επιστρέψει πραγματικά μετά. Η καθημερινότητα θα δοκίμαζε αν αυτό το μάθημα είχε γίνει συνήθεια."
+    },
+    "MARRIAGE_UNCERTAINTY": {
+      "before": 15,
+      "text": "Η παλιότερη συζήτηση για τον γάμο δεν είχε καταλήξει σε κοινό χρονοδιάγραμμα. Η σημερινή ερώτηση όμως ήταν πιο συγκεκριμένη: όχι «ποιο είναι το επόμενο βήμα;», αλλά «όταν βλέπεις οικογένεια, υπάρχω μέσα της;»"
+    },
+    "GRANDMOTHER_HELP_WITH_PARENTAL_BOUNDARY": {
+      "before": 21,
+      "text": "Είχαν ήδη δοκιμάσει να δεχτούν τη βοήθεια της γιαγιάς χωρίς να της παραδώσουν την απόφαση. Τώρα το ίδιο όριο δεν αφορούσε ένα έπιπλο ή ένα καρότσι, αλλά τις πρώτες νύχτες με το μωρό."
+    },
+    "GRANDMOTHER_PROJECT_MANAGER": {
+      "before": 21,
+      "text": "Στο βρεφικό δωμάτιο είχαν ήδη αφήσει τη γιαγιά να πάρει μεγάλο μέρος της οργάνωσης. Η βοήθεια είχε αποδειχθεί πραγματικά χρήσιμη — κι έτσι η επόμενη πρότασή της έφτανε σε ένα σπίτι όπου η παρουσία της είχε ήδη αποκτήσει βάρος."
+    },
+    "GRANDMOTHER_HELP_REJECTED": {
+      "before": 21,
+      "text": "Όταν έστησαν μόνοι το βρεφικό δωμάτιο, είχαν ήδη πληγώσει λίγο τη γιαγιά για να προστατεύσουν την αυτονομία τους. Τώρα ήξεραν ότι ένα ακόμη «όχι» θα είχε διαφορετικό συναισθηματικό κόστος."
+    }
+  },
+  "order": [
+    {
+      "type": "chapter",
+      "chapter": "C01"
+    },
+    {
+      "type": "choice",
+      "choice": 1
+    },
+    {
+      "type": "choice",
+      "choice": 2
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C01"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C02"
+    },
+    {
+      "type": "choice",
+      "choice": 3
+    },
+    {
+      "type": "choice",
+      "choice": 4
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C02"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C03"
+    },
+    {
+      "type": "choice",
+      "choice": 5
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR05"
+    },
+    {
+      "type": "choice",
+      "choice": 6
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR06"
+    },
+    {
+      "type": "choice",
+      "choice": 7
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR07"
+    },
+    {
+      "type": "choice",
+      "choice": 8
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C03"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C04"
+    },
+    {
+      "type": "choice",
+      "choice": 9
+    },
+    {
+      "type": "choice",
+      "choice": 10
+    },
+    {
+      "type": "choice",
+      "choice": 11
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C04"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C05"
+    },
+    {
+      "type": "choice",
+      "choice": 12
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR12"
+    },
+    {
+      "type": "choice",
+      "choice": 13
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR13"
+    },
+    {
+      "type": "choice",
+      "choice": 14
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C05"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C06"
+    },
+    {
+      "type": "choice",
+      "choice": 15
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C06"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C07"
+    },
+    {
+      "type": "choice",
+      "choice": 16
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR16"
+    },
+    {
+      "type": "choice",
+      "choice": 17
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C07"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C08"
+    },
+    {
+      "type": "choice",
+      "choice": 18
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR18"
+    },
+    {
+      "type": "choice",
+      "choice": 19
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C08"
+    },
+    {
+      "type": "chapter",
+      "chapter": "C09"
+    },
+    {
+      "type": "choice",
+      "choice": 20
+    },
+    {
+      "type": "bridge",
+      "bridge": "BR20"
+    },
+    {
+      "type": "choice",
+      "choice": 21
+    },
+    {
+      "type": "chapter_outro",
+      "chapter": "C09"
+    },
+    {
+      "type": "ending"
+    }
+  ],
+  "ending": "Το ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΣτάθηκαν μπροστά στην πόρτα. Ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε. Πόσες φορές είχε περάσει από εκεί μόνος, μαζί της, θυμωμένος, ερωτευμένος, με ψώνια, με φίλους; Αυτή τη φορά θα περνούσε ως πατέρας.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε. Ίσως αυτό να ήταν το σημαντικότερο πράγμα που είχαν μάθει: δεν αγαπάς έναν άνθρωπο επειδή τον γνωρίζεις ολοκληρωτικά. Τον αγαπάς και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί. Το σπίτι ήταν το ίδιο και όχι το ίδιο. Η κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη.\n\nΓια λίγα δευτερόλεπτα υπήρξε απόλυτη ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε.",
+  "production": {
+    "fullBranchStatus": {
+      "C01": "complete",
+      "C02": "complete",
+      "C03": "complete",
+      "C04": "complete",
+      "C05": "complete",
+      "C06": "complete",
+      "C07": "complete",
+      "C08": "complete",
+      "C09": "complete"
+    },
+    "branchWritingVersion": "0.7",
+    "fullBook1Branching": true
+  },
+  "branchVariants": {
+    "15B": {
+      "dependsOn": 14,
+      "variants": {
+        "C": "Ο Αλέξανδρος κοίταξε την Ελένη.\n\n— Ναι. Εσένα βλέπω.\n\nΤο πρόσωπό της μαλάκωσε. Εκείνος όμως δεν σταμάτησε.\n\n— Και πρέπει να σου πω κάτι. Θυμάσαι τότε με το τεστ;\n\n— Ναι.\n\n— Όταν με ρώτησες τι ένιωσα και σου είπα ότι δεν ήξερα;\n\nΈγνεψε.\n\n— Ήξερα. Ανακουφίστηκα.\n\nΗ λέξη έμεινε ανάμεσά τους.\n\n— Και δεν μου το είπες.\n\n— Όχι. Φοβήθηκα ότι θα ακούσεις «δεν θέλω παιδί μαζί σου».\n\n— Δεν μπορούσες να μου το πεις έτσι τότε;\n\nΟ Αλέξανδρος χαμογέλασε πικρά.\n\n— Προφανώς μπορούσα. Απλώς τότε ήξερα περισσότερο πώς να προστατεύσω τη στιγμή παρά πώς να σου δείξω ολόκληρο αυτό που ένιωθα.\n\nΗ Ελένη χαμήλωσε το βλέμμα.\n\n— Αν μου το είχες πει τότε θα στενοχωριόμουν. Αλλά τώρα στενοχωριέμαι λίγο περισσότερο που δεν μου το είπες.\n\nΟ Αλέξανδρος δεν αμύνθηκε.\n\n— Έχεις δίκιο.\n\n— Αυτό φοβάμαι καμιά φορά σε σένα. Ότι μπορεί να ζούμε το ίδιο πράγμα κι εσύ να έχεις μια δεύτερη εκδοχή του μέσα στο κεφάλι σου.\n\nΗ φράση τον άγγιξε.\n\n— Τότε η δουλειά είναι δική μου, είπε. Να μην περιμένω να με ανακαλύπτεις.\n\nΜια παλιά αλήθεια βγήκε επιτέλους από το κλειστό δωμάτιο. Δεν ακύρωσε τον χρόνο που είχε μείνει εκεί. Αλλά από εκείνο το βράδυ δεν ήταν πια κρυφή.",
+        "default": "Ο Αλέξανδρος κοίταξε την Ελένη.\n\n— Ναι. Εσένα βλέπω.\n\nΤο πρόσωπό της μαλάκωσε. Εκείνος όμως συνέχισε.\n\n— Θέλω να γυρίσω για λίγο σε εκείνο το αρνητικό τεστ.\n\nΗ Ελένη έγνεψε. Η ανακούφιση που είχε νιώσει τότε δεν ήταν μυστικό ανάμεσά τους.\n\n— Νομίζω ότι τώρα καταλαβαίνω κάτι που τότε δεν καταλάβαινα, είπε. Πίστευα ότι για να πω «ναι» σε κάτι τόσο μεγάλο έπρεπε πρώτα να σταματήσω να φοβάμαι.\n\n— Και τώρα;\n\n— Τώρα νομίζω ότι ο φόβος δεν είναι απόδειξη ότι δεν το θέλω. Είναι απόδειξη ότι καταλαβαίνω λίγο περισσότερο τι σημαίνει.\n\nΗ Ελένη τον κοίταξε.\n\n— Αυτό είναι διαφορετικό.\n\n— Ναι. Και μάλλον μου πήρε πολύ χρόνο.\n\nΔεν αποκάλυπτε κάτι που εκείνη δεν ήξερε. Έδινε όμως νέο νόημα σε μια παλιά στιγμή.\n\nΗ ίδια ανάμνηση που κάποτε είχε σημαίνει «δεν είμαι έτοιμος» μπορούσε πλέον να σημαίνει και κάτι άλλο: «θέλω, αλλά δεν περιμένω πια να εξαφανιστεί κάθε αμφιβολία πριν το παραδεχτώ»."
+      }
+    }
+  },
+  "conditionalEffects": [
+    {
+      "choice": 15,
+      "option": "B",
+      "ifFlag": "NEGATIVE_TEST_UNTOLD",
+      "effects": {
+        "UNSPOKEN": -2
+      }
+    },
+    {
+      "choice": 10,
+      "option": "A",
+      "ifFlag": "HOUSEHOLD_COMPLAINT_UNSPOKEN",
+      "effects": {
+        "UNSPOKEN": -1
+      }
+    },
+    {
+      "choice": 10,
+      "option": "C",
+      "ifFlag": "HOUSEHOLD_COMPLAINT_UNSPOKEN",
+      "effects": {
+        "UNSPOKEN": -1
+      }
+    }
+  ],
+  "bridges": {
+    "BR05": {
+      "dependsOn": 5,
+      "variants": {
+        "A": "Λίγες ημέρες αργότερα πήγαν για πρώτη φορά στο σπίτι των γονιών της Ελένης. Η μητέρα της τούς υποδέχτηκε με εκείνο το «επιτέλους» που έκανε τον Αλέξανδρο να καταλάβει ότι η γνωριμία είχε προηγηθεί από απόσταση. Ο πατέρας της ήταν πιο συγκρατημένος, πρακτικός στις ερωτήσεις του.\n\nΚάποια στιγμή η μητέρα της ανέφερε γελώντας ότι η Ελένη έλεγε πάντα πως θα ήθελε παιδί πριν τα τριάντα.\n\n— Μαμά, είπε η Ελένη. Δεν χρειάζεται να τα λες όλα.\n\nΗ φράση ήταν μικρή, αλλά ο Αλέξανδρος την άκουσε. Το όριο που είχαν συζητήσει δεν είχε μείνει μόνο μεταξύ τους· η Ελένη είχε αρχίσει να το δοκιμάζει και προς τα έξω.\n\nΣτο τέλος ο πατέρας της τον χτύπησε ελαφρά στον ώμο.\n\n— Να την προσέχεις.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Θα προσπαθώ να της φέρομαι καλά.\n\nΔεν ήταν ακριβώς η απάντηση που περίμενε ο άλλος. Ήταν όμως η δική του.",
+        "default": "Λίγες ημέρες αργότερα πήγαν για πρώτη φορά στο σπίτι των γονιών της Ελένης. Η μητέρα της τούς υποδέχτηκε με εκείνο το «επιτέλους» που έκανε τον Αλέξανδρο να καταλάβει ότι η γνωριμία είχε προηγηθεί από απόσταση. Ο πατέρας της ήταν πιο συγκρατημένος, πρακτικός στις ερωτήσεις του.\n\nΚατά τη διάρκεια του φαγητού εμφανίστηκαν μικρές πληροφορίες που ο Αλέξανδρος δεν θυμόταν να έχει πει σε κανέναν από τους δύο: λεπτομέρειες για το σχολείο, για τη μουσική, για το πώς χρειάζεται χρόνο όταν πιέζεται. Καμία δεν ήταν από μόνη της σημαντική. Όλες μαζί όμως δημιουργούσαν την αίσθηση ότι έμπαινε σε μια συζήτηση που είχε αρχίσει πριν φτάσει.\n\nΣτο τέλος ο πατέρας της τον χτύπησε ελαφρά στον ώμο.\n\n— Να την προσέχεις.\n\nΟ Αλέξανδρος χαμογέλασε.\n\n— Θα προσπαθώ να της φέρομαι καλά.\n\nΣτο αυτοκίνητο, η Ελένη περίμενε να ακούσει πώς του φάνηκαν. Και εκεί το παλιό, ακαθόριστο θέμα με τα όρια έπρεπε πλέον να πάρει λέξεις — ή να μείνει πάλι μέσα του."
+      }
+    },
+    "BR06": {
+      "text": "Τέσσερις μήνες περίπου μετά τη γνωριμία τους είχαν κανονίσει συναυλία. Την ίδια ημέρα ο Αλέξανδρος είχε περάσει μια εξαντλητική εβδομάδα στο σχολείο, με ένα παιδί που αντιμετώπιζε σοβαρή δυσκολία στο σπίτι και αλλεπάλληλες συζητήσεις με γονείς και διεύθυνση.\n\nΑκύρωσε. Η Ελένη στενοχωρήθηκε περισσότερο από όσο περίμενε.\n\n— Όταν πιέζεσαι, κλείνεις, είπε.\n\n— Χρειάζομαι λίγο χρόνο.\n\n— Κι εγώ πού είμαι μέσα σε αυτόν τον χρόνο;\n\nΗ κουβέντα ανέβηκε γρήγορα. Κάποια στιγμή ο Αλέξανδρος είπε πιο σκληρά απ’ όσο ήθελε:\n\n— Δεν μπορώ να κάνω τέτοιες κουβέντες επειδή εσύ αποφάσισες ότι πρέπει να γίνουν τώρα.\n\nΗ γραμμή έκλεισε.\n\nΓια πρώτη φορά δεν είχαν μπροστά τους απλώς μια διαφορά. Είχαν μπροστά τους τον κύκλο που θα τους ακολουθούσε για χρόνια: εκείνη πλησίαζε όταν φοβόταν, εκείνος ζητούσε χώρο όταν πιεζόταν. Και τώρα έπρεπε να αποφασίσει πώς — και πότε — θα επιστρέψει."
+    },
+    "BR07": {
+      "text": "Μερικούς μήνες αργότερα η σχέση είχε γίνει καθημερινότητα. Η Ελένη περνούσε ήδη τις περισσότερες νύχτες στο σπίτι του. Τότε ο ιδιοκτήτης της ανακοίνωσε αύξηση στο ενοίκιο και το συμβόλαιό της έληγε σε δύο μήνες.\n\nΞαφνικά κάτι που μέχρι τότε υπήρχε ως υπονοούμενο απέκτησε πρακτικό βάρος. Μπορούσαν να μείνουν μαζί. Το ερώτημα ήταν αν θα το έκαναν επειδή το ήθελαν ή επειδή η ζωή είχε βρει βολικό τρόπο να τους σπρώξει εκεί."
+    },
+    "BR12": {
+      "text": "Λίγους μήνες αργότερα, η σχέση πλησίαζε τα τρία χρόνια. Σε ένα τραπέζι φίλων, ένα ζευγάρι ανακοίνωσε τον αρραβώνα του. Κάποιος γύρισε προς τον Αλέξανδρο και την Ελένη.\n\n— Εσείς; Τρία χρόνια μαζί. Δεν το έχετε συζητήσει;\n\nΗ Ελένη γέλασε.\n\n— Έχουμε συζητήσει.\n\n— Όχι ακριβώς, είπε την ίδια στιγμή ο Αλέξανδρος.\n\nΤο τραπέζι γέλασε. Στο αυτοκίνητο της επιστροφής, όμως, η διαφορά ανάμεσα στις δύο απαντήσεις δεν είχε τίποτα αστείο. Η Ελένη δεν ζητούσε ημερομηνία. Ζητούσε να ξέρει αν το μέλλον που θεωρούσε κοινό ήταν πράγματι κοινό."
+    },
+    "BR13": {
+      "text": "Λίγους μήνες μετά, ένα βράδυ, η Ελένη βγήκε από το μπάνιο κρατώντας ένα τεστ εγκυμοσύνης. Είχε τέσσερις ημέρες καθυστέρηση.\n\nΠερίμεναν δύο λεπτά που έμοιαζαν πολύ μεγαλύτερα. Για πρώτη φορά το «κάποτε» είχε γίνει «ίσως τώρα».\n\nΤο τεστ έδειξε μία γραμμή. Αρνητικό.\n\nΗ Ελένη άφησε έναν μεγάλο αέρα. Ο Αλέξανδρος ένιωσε μια καθαρή, σχεδόν σωματική ανακούφιση. Μετά την κοίταξε και κατάλαβε ότι δεν ήξερε ακόμη τι είχε αισθανθεί εκείνη.\n\n— Εσύ; τη ρώτησε. Χάρηκες;\n\n— Ναι… αλλά για λίγα λεπτά το φαντάστηκα. Εμάς. Με παιδί.\n\nΈπειτα γύρισε την ερώτηση προς εκείνον.\n\n— Εσύ τι ένιωσες;"
+    },
+    "BR16": {
+      "dependsOn": 16,
+      "variants": {
+        "A": "Η Ελένη πήρε τη θέση. Για ένα διάστημα το παιδί επέστρεψε στο μελλοντικό. Όχι ως άρνηση· ως αναβολή.\n\nΌταν ο καινούργιος ρόλος έπαψε να είναι καινούργιος και η καθημερινότητα βρήκε έναν πρώτο ρυθμό, άνοιξαν ξανά τη συζήτηση. Αυτή τη φορά δεν υπήρχε κάποια εξωτερική προθεσμία.\n\n— Το θέλεις ακόμη; ρώτησε η Ελένη.\n\nΟ Αλέξανδρος έγνεψε.\n\n— Ναι.\n\nΆρχισαν να προσπαθούν τότε. Μερικούς μήνες αργότερα, μια συνηθισμένη Τρίτη, η Ελένη τον περίμενε στο μπάνιο με ένα τεστ στο χέρι. Δύο γραμμές. Αυτή τη φορά η ανακούφιση δεν ήρθε. Ήρθε φόβος, χαρά και η αίσθηση ότι κάτι που είχαν αναβάλει είχε επιτέλους γίνει παρόν.",
+        "default": "Η απόφαση δεν άλλαξε το σπίτι την επόμενη ημέρα. Πήγαν στις δουλειές τους, έφαγαν, έβαλαν πλυντήριο. Μόνο που μέσα στην κοινή τους ζωή είχε προστεθεί ένα αόρατο «ίσως».\n\nΤους πρώτους μήνες η προσπάθεια άρχισε να αποκτά ημερομηνίες και άγχος. Κάποια στιγμή συμφώνησαν να μην αφήσουν ένα παιδί που δεν υπήρχε ακόμη να γίνει το μοναδικό θέμα της σχέσης τους.\n\nΜερικούς μήνες αργότερα, μια συνηθισμένη Τρίτη, η Ελένη τον περίμενε στο μπάνιο με ένα τεστ στο χέρι.\n\nΔύο γραμμές.\n\nΟ Αλέξανδρος θυμήθηκε αμέσως την πρώτη φορά που είχε κρατήσει ένα τέτοιο τεστ. Τότε μία γραμμή τού είχε φέρει ανακούφιση. Τώρα οι δύο γραμμές τού έφεραν φόβο, χαρά και μια παράξενη ηρεμία.\n\n— Πες κάτι, είπε η Ελένη.\n\n— Είναι… σίγουρο;\n\nΓέλασαν και οι δύο, σχεδόν πανικόβλητοι. Και ύστερα αγκαλιάστηκαν."
+      }
+    },
+    "BR18": {
+      "text": "Καθώς οι μήνες προχωρούσαν, το μικρό δωμάτιο άδειαζε. Το γραφείο μετακινήθηκε, τα κουτιά άνοιξαν και η κιθάρα του Αλέξανδρου έχασε τη θέση που είχε για χρόνια.\n\n— Με πειράζει λίγο, παραδέχτηκε. Ήταν ο χώρος μου.\n\nΗ Ελένη τον κοίταξε.\n\n— Δεν χρειάζεται να εξαφανιστείς εσύ για να χωρέσει εκείνο.\n\nΛίγες εβδομάδες αργότερα ένιωσε για πρώτη φορά το μωρό να κλωτσά κάτω από την παλάμη του. Και λίγο μετά έμαθαν ότι ήταν αγόρι.\n\nΤο βράδυ μίλησαν για το πώς θα ήθελαν να είναι ως γονείς. Η Ελένη τού ζήτησε ένα πράγμα: όταν διαφωνούν για το παιδί, να μη χρησιμοποιήσει ποτέ το «ξέρω από παιδιά» ως τελική αυθεντία.\n\n— Κι εσύ δεν θα λες «είμαι η μάνα του», απάντησε.\n\n— Θα είμαι η μάνα του.\n\n— Κι εγώ ο πατέρας του.\n\nΚοιτάχτηκαν και γέλασαν. Για πρώτη φορά φαντάστηκαν όχι μωρό, αλλά ένα παιδί που κάποτε θα είχε γνώμη, πόρτες που κλείνουν και δικές του συγκρούσεις μαζί τους.\n\nΚαι τότε εμφανίστηκε η επόμενη συμβολική απόφαση: το όνομα."
+    },
+    "BR20": {
+      "text": "Οι ώρες μέσα στο μαιευτήριο έχασαν τη σειρά τους. Ο Αλέξανδρος έμαθε ότι υπάρχουν στιγμές στις οποίες δεν μπορείς να οργανώσεις, να εξηγήσεις ή να διορθώσεις τίποτα. Μπορείς μόνο να δίνεις νερό, να κρατάς χέρι και να μην εξαφανίζεσαι.\n\nΚαι μετά ήρθε ένας ήχος.\n\nΈνα κλάμα.\n\nΗ Ελένη έκλαιγε κι εκείνη.\n\n— Είναι καλά;\n\nΚάποιος είπε ότι όλα ήταν καλά. Ο Αλέξανδρος άφησε έναν αέρα που δεν ήξερε ότι κρατούσε.\n\nΛίγο αργότερα τον κράτησε για πρώτη φορά. Αδέξια, με όλους τους μυς του σώματός του σε επιφυλακή. Το μωρό έκλεισε τα μάτια.\n\n— Γεια σου, είπε.\n\nΗ φωνή του έσπασε.\n\n— Είμαι ο μπαμπάς σου.\n\nΗ λέξη, που μέχρι τότε περιέγραφε πάντα κάποιον άλλο, περιέγραφε εκείνον.\n\nΜερικές ώρες μετά, ενώ το μωρό κοιμόταν, άρχισαν να φτάνουν μηνύματα και τηλεφωνήματα. Και μαζί με τις ευχές ήρθε η πρώτη πρακτική πρόταση της νέας τους ζωής: η μητέρα της Ελένης ήθελε να μείνει μαζί τους τις πρώτες ημέρες για να βοηθήσει."
+    }
+  },
+  "endingVariants": {
+    "dependsOn": 21,
+    "variants": {
+      "A": "Η μητέρα της Ελένης τους περίμενε στο σπίτι με μια μικρή βαλίτσα, φαγητό και την αποφασιστικότητα ανθρώπου που είχε ήδη βάλει τον εαυτό του σε υπηρεσία. Ο Αλέξανδρος ένιωσε ανακούφιση όταν την είδε. Και μαζί μια παράξενη επίγνωση: η πρώτη πόρτα της νέας τους ζωής θα άνοιγε για τέσσερις.\n\nΤο ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΣτάθηκαν μπροστά στην πόρτα. Ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε. Πόσες φορές είχε περάσει από εκεί μόνος, μαζί της, θυμωμένος, ερωτευμένος, με ψώνια, με φίλους; Αυτή τη φορά θα περνούσε ως πατέρας.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε. Ίσως αυτό να ήταν το σημαντικότερο πράγμα που είχαν μάθει: δεν αγαπάς έναν άνθρωπο επειδή τον γνωρίζεις ολοκληρωτικά. Τον αγαπάς και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί. Το σπίτι ήταν το ίδιο και όχι το ίδιο. Η κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη.\n\nΓια λίγα δευτερόλεπτα υπήρξε απόλυτη ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε.",
+      "B": "Λίγο πριν φτάσουν, ήρθε μήνυμα από τη μητέρα της Ελένης: «Έφτιαξα φαγητό. Να έρθω;»\n\nΗ Ελένη έδειξε το κινητό στον Αλέξανδρο και πληκτρολόγησε: «Έλα το απόγευμα. Θέλουμε πρώτα να μπούμε λίγο μόνοι μας».\n\nΗ απάντηση ήρθε σχεδόν αμέσως: «Εντάξει ❤️».\n\nΗ βοήθεια θα ερχόταν. Αλλά η πρώτη είσοδος θα ήταν δική τους.\n\nΤο ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΣτάθηκαν μπροστά στην πόρτα. Ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε. Πόσες φορές είχε περάσει από εκεί μόνος, μαζί της, θυμωμένος, ερωτευμένος, με ψώνια, με φίλους; Αυτή τη φορά θα περνούσε ως πατέρας.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε. Ίσως αυτό να ήταν το σημαντικότερο πράγμα που είχαν μάθει: δεν αγαπάς έναν άνθρωπο επειδή τον γνωρίζεις ολοκληρωτικά. Τον αγαπάς και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί. Το σπίτι ήταν το ίδιο και όχι το ίδιο. Η κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη.\n\nΓια λίγα δευτερόλεπτα υπήρξε απόλυτη ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε.",
+      "C": "Λίγο πριν φτάσουν, η μητέρα της Ελένης έστειλε: «Είστε καλά; Να έρθω;»\n\nΗ Ελένη κοίταξε τον Αλέξανδρο. «Θα σε πάρουμε αν χρειαστεί. Σήμερα θέλουμε να μπούμε μόνοι μας».\n\nΓια πρώτη φορά η απόφαση ακουγόταν πιο τρομακτική τώρα που το σπίτι βρισκόταν λίγα τετράγωνα μακριά. Δεν υπήρχε έμπειρος άνθρωπος να τους περιμένει. Μόνο δύο άπειροι γονείς και ένα μωρό που δεν γνώριζε τίποτα από συμφωνίες.\n\nΤο ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΣτάθηκαν μπροστά στην πόρτα. Ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε. Πόσες φορές είχε περάσει από εκεί μόνος, μαζί της, θυμωμένος, ερωτευμένος, με ψώνια, με φίλους; Αυτή τη φορά θα περνούσε ως πατέρας.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε. Ίσως αυτό να ήταν το σημαντικότερο πράγμα που είχαν μάθει: δεν αγαπάς έναν άνθρωπο επειδή τον γνωρίζεις ολοκληρωτικά. Τον αγαπάς και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί. Το σπίτι ήταν το ίδιο και όχι το ίδιο. Η κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη.\n\nΓια λίγα δευτερόλεπτα υπήρξε απόλυτη ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε.",
+      "default": "Το ασανσέρ ανέβαινε αργά. Ο Αλέξανδρος κοίταζε τους αριθμούς των ορόφων. Η Ελένη κρατούσε το μωρό.\n\n— Τι σκέφτεσαι; τον ρώτησε.\n\n— Ότι την πρώτη φορά που ήρθες σπίτι μου κρατούσες μια τσάντα.\n\nΗ Ελένη κοίταξε τον γιο τους.\n\n— Κι αυτή τη φορά;\n\n— Κάτι λίγο πιο μόνιμο.\n\nΣτάθηκαν μπροστά στην πόρτα. Ο Αλέξανδρος έβαλε το κλειδί στην κλειδαριά και σταμάτησε. Πόσες φορές είχε περάσει από εκεί μόνος, μαζί της, θυμωμένος, ερωτευμένος, με ψώνια, με φίλους; Αυτή τη φορά θα περνούσε ως πατέρας.\n\n— Πριν σχεδόν πέντε χρόνια δεν σε ήξερα, είπε.\n\n— Κι εγώ δεν σε ήξερα.\n\nΚοίταξαν το μωρό.\n\n— Κι αυτόν ακόμη δεν τον ξέρουμε, είπε η Ελένη.\n\nΟ Αλέξανδρος χαμογέλασε. Ίσως αυτό να ήταν το σημαντικότερο πράγμα που είχαν μάθει: δεν αγαπάς έναν άνθρωπο επειδή τον γνωρίζεις ολοκληρωτικά. Τον αγαπάς και μετά συνεχίζεις να τον γνωρίζεις.\n\nΓύρισε το κλειδί. Το σπίτι ήταν το ίδιο και όχι το ίδιο. Η κούνια περίμενε. Η κιθάρα είχε βρει άλλη θέση δίπλα στη βιβλιοθήκη.\n\nΓια λίγα δευτερόλεπτα υπήρξε απόλυτη ησυχία.\n\nΎστερα το μωρό άρχισε να κλαίει.\n\nΟ Αλέξανδρος κοίταξε την Ελένη.\n\n— Τι κάνουμε;\n\nΗ Ελένη πήρε μια ανάσα.\n\n— Τώρα;\n\nΤο κλάμα δυνάμωσε.\n\nΧαμογέλασε.\n\n— Τώρα μαθαίνουμε."
+    }
+  }
+};
+
+</script>
+<script>
+const DATA = window.STORY_DATA;
+const CHAPTER_META = {
+ C01:{time:'Αθήνα · Χρόνος 0',word:'ΓΝΩΡΙΜΙΑ',visual:'v1'},
+ C02:{time:'Λίγες ημέρες αργότερα',word:'ΕΓΓΥΤΗΤΑ',visual:'v2'},
+ C03:{time:'2–10 μήνες',word:'ΟΡΙΑ',visual:'v3'},
+ C04:{time:'1–2 χρόνια',word:'ΚΑΘΗΜΕΡΙΝΟΤΗΤΑ',visual:'v4'},
+ C05:{time:'3 χρόνια',word:'ΔΕΣΜΕΥΣΗ',visual:'v5'},
+ C06:{time:'4 χρόνια',word:'ΑΛΗΘΕΙΑ',visual:'v6'},
+ C07:{time:'Προς το 5ο έτος',word:'ΕΠΙΛΟΓΗ',visual:'v7'},
+ C08:{time:'Η εγκυμοσύνη',word:'ΟΙΚΟΓΕΝΕΙΑ',visual:'v8'},
+ C09:{time:'38 εβδομάδες + 2 ημέρες',word:'ΠΑΡΟΥΣΙΑ',visual:'v9'}
+};
+const SERIES_ID = 'osa_giname_mazi';
+const BOOK_ID = 'book1';
+const PASSPORT_FORMAT = 'OGM-STORY-PASSPORT';
+const PASSPORT_SCHEMA = 1;
+const STORE = 'ogm_series_book1_v01';
+const LEGACY_STORE = 'ogm_book1_mvp_v03';
+const SETTINGS = 'ogm_reader_settings_v03';
+const vars = ['TRUST','INTIMACY','CONFLICT','REPAIR','BOUNDARIES','AUTONOMY','UNSPOKEN','RESENTMENT','SELF_PROTECTION','PACING','SPACE_NEED','FAMILY_ENMESHMENT','SHARED_PARENTAL_AGENCY'];
+const orderKey=item=>!item?'ending':item.type==='chapter'?`chapter:${item.chapter}`:item.type==='choice'?`choice:${item.choice}`:item.type==='bridge'?`bridge:${item.bridge}`:item.type==='chapter_outro'?`outro:${item.chapter}`:item.type;
+const LEGACY_ORDER_V07=['chapter:C01','choice:1','choice:2','outro:C01','chapter:C02','choice:3','choice:4','outro:C02','chapter:C03','choice:5','choice:6','choice:7','choice:8','outro:C03','chapter:C04','choice:9','choice:10','choice:11','outro:C04','chapter:C05','choice:12','choice:13','choice:14','outro:C05','chapter:C06','choice:15','outro:C06','chapter:C07','choice:16','choice:17','outro:C07','chapter:C08','choice:18','choice:19','outro:C08','chapter:C09','choice:20','choice:21','outro:C09','ending'];
+const indexForKey=key=>DATA.order.findIndex(x=>orderKey(x)===key);
+const blankState = () => ({saveFormatVersion:2,cursor:0,positionKey:'chapter:C01',choices:{}, state:Object.fromEntries(vars.map(v=>[v,0])), flags:{}, started:false, finished:false, passportId:null, completedAt:null});
+let save = loadSave();
+let settings = loadSettings();
+const main = document.querySelector('#main');
+const chapterMini = document.querySelector('#chapterMini');
+const progressBar = document.querySelector('#progressBar');
+const settingsDialog = document.querySelector('#settingsDialog');
+
+function normalizeSave(raw){
+ const base=blankState();
+ const merged={...base,...(raw||{})};
+ merged.choices={...(raw?.choices||{})};
+ merged.state={...base.state,...(raw?.state||{})};
+ merged.flags={...(raw?.flags||{})};
+ let key=raw?.positionKey;
+ if(!key && Number.isInteger(raw?.cursor)) key=LEGACY_ORDER_V07[raw.cursor]||null;
+ if(key){const idx=indexForKey(key);if(idx>=0)merged.cursor=idx;}
+ merged.positionKey=orderKey(DATA.order[merged.cursor]||DATA.order[0]);
+ merged.saveFormatVersion=2;
+ if(!merged.passportId) merged.passportId=makePassportId();
+ return merged;
+}
+function loadSave(){
+ try{
+   const current=localStorage.getItem(STORE);
+   if(current) return normalizeSave(JSON.parse(current));
+   const legacy=localStorage.getItem(LEGACY_STORE);
+   if(legacy){
+     const migrated=normalizeSave(JSON.parse(legacy));
+     try{localStorage.setItem(STORE,JSON.stringify(migrated))}catch(e){}
+     return migrated;
+   }
+ }catch(e){}
+ return normalizeSave(blankState());
+}
+function persist(){
+ if(!save.passportId)save.passportId=makePassportId();
+ save.positionKey=orderKey(DATA.order[save.cursor]||{type:'ending'});
+ save.saveFormatVersion=2;
+ try{localStorage.setItem(STORE,JSON.stringify(save))}catch(e){}
+}
+
+function makePassportId(){
+ const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+ let out='OGM-B1-';
+ if(globalThis.crypto?.getRandomValues){
+   const a=new Uint8Array(8);crypto.getRandomValues(a);
+   for(const x of a)out+=chars[x%chars.length];
+ }else{
+   for(let i=0;i<8;i++)out+=chars[Math.floor(Math.random()*chars.length)];
+ }
+ return out.slice(0,10)+'-'+out.slice(10);
+}
+function utf8ToBase64(str){
+ const bytes=new TextEncoder().encode(str);let bin='';
+ for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
+ return btoa(bin);
+}
+function base64ToUtf8(b64){
+ const bin=atob(b64);const bytes=new Uint8Array(bin.length);
+ for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+ return new TextDecoder().decode(bytes);
+}
+function checksum32(str){
+ let h=2166136261;
+ for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}
+ return (h>>>0).toString(16).padStart(8,'0');
+}
+function buildPassport(){
+ if(!save.passportId)save.passportId=makePassportId();
+ const now=new Date().toISOString();
+ const safeSave=JSON.parse(JSON.stringify(save));
+ const payloadObj={
+   seriesId:SERIES_ID,
+   bookSaves:{[BOOK_ID]:safeSave},
+   seriesMemory:{
+     choices:{[BOOK_ID]:safeSave.choices},
+     flags:{[BOOK_ID]:safeSave.flags},
+     state:{[BOOK_ID]:safeSave.state}
+   }
+ };
+ const payload=utf8ToBase64(JSON.stringify(payloadObj));
+ return {
+   format:PASSPORT_FORMAT,
+   schemaVersion:PASSPORT_SCHEMA,
+   seriesId:SERIES_ID,
+   passportId:save.passportId,
+   createdBy:'Πριν γίνουμε τρεις · Book I',
+   exportedAt:now,
+   completedBooks:save.finished?[BOOK_ID]:[],
+   activeBook:BOOK_ID,
+   payload,
+   checksum:checksum32(payload)
+ };
+}
+function downloadPassport(){
+ const passport=buildPassport();
+ const blob=new Blob([JSON.stringify(passport,null,2)],{type:'application/octet-stream'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;a.download=`${passport.passportId}.ogmstory`;
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+ showToast(save.finished?'Το Διαβατήριο Ιστορίας αποθηκεύτηκε':'Αποθηκεύτηκε αντίγραφο της διαδρομής');
+}
+function parsePassportObject(obj){
+ if(!obj||obj.format!==PASSPORT_FORMAT)throw new Error('Το αρχείο δεν είναι Διαβατήριο Ιστορίας της σειράς.');
+ if(obj.schemaVersion!==PASSPORT_SCHEMA)throw new Error('Η έκδοση του Διαβατηρίου δεν υποστηρίζεται από αυτό το βιβλίο.');
+ if(obj.seriesId!==SERIES_ID)throw new Error('Το Διαβατήριο ανήκει σε διαφορετική σειρά.');
+ if(typeof obj.payload!=='string'||checksum32(obj.payload)!==obj.checksum)throw new Error('Το αρχείο φαίνεται κατεστραμμένο ή αλλοιωμένο.');
+ const payload=JSON.parse(base64ToUtf8(obj.payload));
+ if(payload.seriesId!==SERIES_ID)throw new Error('Μη συμβατά δεδομένα σειράς.');
+ return {passport:obj,payload};
+}
+function restoreFromPassport(parsed){
+ const incoming=parsed.payload?.bookSaves?.[BOOK_ID];
+ if(!incoming)throw new Error('Το Διαβατήριο δεν περιέχει αποθηκευμένη διαδρομή για το Βιβλίο I.');
+ const normalized=normalizeSave(incoming);
+ normalized.passportId=parsed.passport.passportId||normalized.passportId;
+ save=normalized;
+ persist();
+ renderLanding();
+}
+async function handlePassportFile(file){
+ const status=document.querySelector('#importStatus');
+ try{
+   const text=await file.text();
+   const parsed=parsePassportObject(JSON.parse(text));
+   const existing=save.started||Object.keys(save.choices||{}).length>0;
+   if(existing&&!confirm('Η φόρτωση θα αντικαταστήσει την τρέχουσα διαδρομή αυτού του βιβλίου. Συνέχεια;'))return;
+   restoreFromPassport(parsed);
+   if(status)status.textContent=`Φορτώθηκε: ${parsed.passport.passportId}`;
+   settingsDialog.open&&settingsDialog.close();
+   showToast('Η ιστορία σου φορτώθηκε');
+ }catch(err){
+   console.error(err);
+   if(status)status.textContent=String(err.message||err);
+   alert('Δεν ήταν δυνατή η φόρτωση του Διαβατηρίου: '+String(err.message||err));
+ }
+}
+function openPassportPicker(){
+ const input=document.querySelector('#passportFileInput');
+ input.value='';
+ input.click();
+}
+
+function loadSettings(){try{return {theme:'dark',font:'medium',ambience:false,...JSON.parse(localStorage.getItem(SETTINGS)||'{}')}}catch{return {theme:'dark',font:'medium',ambience:false}}}
+function persistSettings(){try{localStorage.setItem(SETTINGS,JSON.stringify(settings))}catch(e){}}
+function applySettings(){document.body.classList.toggle('paper',settings.theme==='paper');document.body.classList.remove('font-small','font-medium','font-large');document.body.classList.add('font-'+settings.font);document.querySelector('#ambienceToggle').checked=settings.ambience;document.querySelectorAll('[data-theme]').forEach(b=>b.classList.toggle('active',b.dataset.theme===settings.theme));document.querySelectorAll('[data-font]').forEach(b=>b.classList.toggle('active',b.dataset.font===settings.font));}
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function paragraphs(text, cls='story-text'){return `<div class="${cls}">`+text.trim().split(/\n\n+/).map(p=>`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('')+'</div>'}
+function getChapter(id){return DATA.chapters.find(c=>c.id===id)}
+function currentItem(){return DATA.order[save.cursor]}
+function updateProgress(){const pct=Math.max(0,Math.min(100,(save.cursor/(DATA.order.length-1))*100));progressBar.style.width=pct+'%'}
+function showToast(t){const el=document.querySelector('#toast');el.textContent=t;el.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>el.classList.remove('show'),1800)}
+function maybeEcho(choiceNum){const parts=[];for(const [flag,e] of Object.entries(DATA.echoes)){if(e.before===choiceNum && save.flags[flag]) parts.push(`<aside class="literary-echo">${esc(e.text)}</aside>`)}return parts.join('')}
+function chapterHeader(ch){const m=CHAPTER_META[ch.id]||{time:'',word:'',visual:'v1'};return `<div class="chapter-visual ${m.visual}" aria-hidden="true"><span class="visual-word">${esc(m.word)}</span></div><section class="chapter-card"><div class="chapter-no">${esc(ch.id.replace('C','ΚΕΦΑΛΑΙΟ '))}</div><h1>${esc(ch.title)}</h1><div class="chapter-subtitle">${esc(ch.subtitle)}</div><span class="time-stamp">${esc(m.time)}</span></section>`}
+function renderLanding(){
+ chapterMini.textContent='ΠΡΙΝ ΓΙΝΟΥΜΕ ΤΡΕΙΣ';
+ progressBar.style.width='0%';
+ const has=save.started && !save.finished;
+ const finished=save.finished;
+ const startLabel=finished?'Επιστροφή στο τέλος':has?'Συνέχισε την ιστορία':'Ξεκίνα την ιστορία';
+ const newPath=(has||finished)?`<button class="secondary-btn new-path-btn" id="newPathLanding">Νέα διαδρομή από την αρχή</button>`:'';
+ const exportBtn=(has||finished)?`<button class="secondary-btn" id="savePassportLanding">Αποθήκευσε αντίγραφο διαδρομής</button>`:'';
+ main.innerHTML=`<section class="landing">
+   <div class="eyebrow">Όσα γίναμε μαζί · Βιβλίο I</div>
+   <div class="hero-copy">
+     <h1>Πριν γίνουμε<br>τρεις</h1>
+     <p class="tagline">${esc(DATA.book.tagline)}</p>
+   </div>
+   <div class="landing-actions">
+     <button class="primary-btn" id="startBtn">${startLabel}</button>
+     ${newPath}
+     <button class="secondary-btn" id="loadPassportLanding">Φόρτωσε Διαβατήριο Ιστορίας</button>
+     ${exportBtn}
+   </div>
+   <div class="cover-art home-cover" aria-hidden="true">
+     <span class="cover-third"></span><span class="cover-line"></span>
+     <span class="cover-caption">δύο άνθρωποι · μία κοινή ιστορία</span>
+   </div>
+   <p class="landing-note">Διάβασε με τον δικό σου ρυθμό. Όταν έρθει μια δύσκολη στιγμή, επίλεξε τι θα κάνει ο ήρωας. Η ιστορία δεν θα σου πει αν είχες δίκιο· απλώς θα συνεχίσει να θυμάται.</p><p class="landing-note local-file-note">Σε iPhone: χρησιμοποίησε το HTTPS link της δημοσιευμένης εφαρμογής. Το preview αρχείων του iOS δεν είναι πλήρες JavaScript runtime.</p>
+   <p class="landing-note">Κωδικός διαδρομής: <strong>${esc(save.passportId||'')}</strong></p>
+ </section>`;
+ const start=document.querySelector('#startBtn');
+ start.onclick=()=>{
+   if(finished){save.cursor=DATA.order.length-1;persist();renderCurrent();return;}
+   if(!save.started){save.started=true;persist();}
+   renderCurrent();
+ };
+ const fresh=document.querySelector('#newPathLanding');
+ if(fresh)fresh.onclick=restart;
+ document.querySelector('#loadPassportLanding').onclick=openPassportPicker;
+ const exp=document.querySelector('#savePassportLanding');
+ if(exp)exp.onclick=downloadPassport;
+ window.scrollTo({top:0,behavior:'auto'});
+}
+function renderCurrent(){if(!save.started)return renderLanding();if(save.finished)return renderEnding();updateProgress();const item=currentItem();if(!item){save.finished=true;persist();return renderEnding()}
+ if(item.type==='chapter')return renderChapter(item.chapter);
+ if(item.type==='choice')return renderChoice(item.choice);
+ if(item.type==='bridge')return renderBridge(item.bridge);
+ if(item.type==='chapter_outro')return renderOutro(item.chapter);
+ if(item.type==='ending'){save.finished=true;persist();return renderEnding()}
+}
+function renderChapter(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=chapterHeader(ch)+paragraphs(ch.intro)+`<button class="continue-btn" id="continue">Συνέχισε</button>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
+function renderChoice(n){const c=DATA.choices[n];const ch=DATA.chapters.find(x=>x.choices.includes(n));chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · Επιλογή ${n}`;let selected=save.choices[n];let html=maybeEcho(n)+`<section class="choice-wrap"><div class="choice-kicker">Επιλογή ${n} από 21</div><h2>${esc(c.prompt)}</h2><div class="choices">`;
+ for(const k of ['A','B','C']){html+=`<button class="choice-btn ${selected===k?'selected':''}" data-choice="${k}" ${selected?'disabled':''}><span class="choice-letter">${k}</span>${esc(c.options[k][0])}</button>`}html+='</div></section>';
+ if(selected) html+=`<div class="selected-path">Η προηγούμενη επιλογή σου: <strong>${selected}</strong></div>`+branchHtml(n,selected);
+ main.innerHTML=html;document.querySelectorAll('.choice-btn:not([disabled])').forEach(b=>b.onclick=()=>choose(n,b.dataset.choice));if(selected){const cont=document.querySelector('#continue');if(cont)cont.onclick=next;}window.scrollTo({top:0,behavior:'smooth'});}
+function resolvedVariant(spec){if(!spec)return '';const dep=spec.dependsOn;const key=dep?save.choices[dep]:null;return (spec.variants&&(spec.variants[key]||spec.variants.default))||spec.text||''}
+function branchText(n,k){const spec=DATA.branchVariants?.[String(n)+k];return spec?resolvedVariant(spec):DATA.choices[n].options[k][1]}
+function branchHtml(n,k){const text=branchText(n,k);return `<section class="branch-card">${paragraphs(text)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`}
+function renderBridge(id){const b=DATA.bridges?.[id];if(!b)return next();const text=resolvedVariant(b);main.innerHTML=`<section class="bridge-card">${paragraphs(text)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
+function choose(n,k){if(save.choices[n])return;save.choices[n]=k;for(const [v,d] of Object.entries(DATA.effects[n][k]||{}))save.state[v]=(save.state[v]||0)+d;for(const rule of (DATA.conditionalEffects||[])){if(rule.choice===n&&rule.option===k&&(!rule.ifFlag||save.flags[rule.ifFlag]))for(const [v,d] of Object.entries(rule.effects||{}))save.state[v]=(save.state[v]||0)+d;}const rule=DATA.flags[String(n)+k];if(rule)save.flags[rule[0]]=rule[1];persist();renderChoice(n);requestAnimationFrame(()=>{const b=document.querySelector('.branch-card');if(b)b.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('#continue').onclick=next});showToast('Η ιστορία συνεχίζεται');}
+function renderOutro(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=paragraphs(ch.outro)+`<button class="continue-btn" id="continue">Επόμενο κεφάλαιο</button>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
+function endingVariation(){const c21=save.choices[21];if(c21==='A')return 'Όταν επιστρέψουν, η γιαγιά θα μπει μαζί τους στο σπίτι και θα μείνει τις πρώτες νύχτες.';if(c21==='B')return 'Η γιαγιά θα έρχεται καθημερινά, αλλά όταν πέφτει η νύχτα το σπίτι θα μένει στους τρεις τους.';if(c21==='C')return 'Για τις πρώτες δύο ημέρες, η πόρτα θα κλείσει πίσω από τους τρεις τους και κανείς άλλος δεν θα μπει.';return ''}
+function renderEnding(){
+ chapterMini.textContent='ΤΕΛΟΣ ΒΙΒΛΙΟΥ I';progressBar.style.width='100%';
+ if(!save.completedAt)save.completedAt=new Date().toISOString();
+ save.finished=true;persist();
+ const endSpec=DATA.endingVariants;const endText=endSpec?resolvedVariant(endSpec):DATA.ending;
+ main.innerHTML=`<section class="end-card"><div class="eyebrow">Οσα γίναμε μαζί · Βιβλίο I</div><h1>Από δύο,<br>τρεις.</h1>${paragraphs(endText)}<div class="end-quote">«Τώρα μαθαίνουμε.»</div><div class="end-divider"></div><div class="end-meta"><strong>Η ιστορία σου συνεχίζεται από εδώ.</strong><br>${esc(endingVariation())}<br><br>Το Βιβλίο II, <em>Τώρα είμαστε τρεις</em>, θα ξεκινά από τις συνθήκες που δημιούργησαν οι επιλογές αυτής της διαδρομής.</div><section class="passport-card"><h3>Διαβατήριο Ιστορίας</h3><p>Αποθήκευσε τη διαδρομή σου σε ένα μικρό φορητό αρχείο. Όταν κυκλοφορήσει το επόμενο βιβλίο, θα μπορεί να διαβάσει τις επιλογές και τις μνήμες που δημιούργησες εδώ — ακόμη και σε άλλη συσκευή.</p><div class="passport-id">${esc(save.passportId)}</div><div class="passport-actions"><button class="primary-btn" id="downloadPassport" style="width:100%">Αποθήκευσε το Διαβατήριο Ιστορίας</button><button class="secondary-btn" id="loadAnotherPassport" style="width:100%">Φόρτωσε άλλο Διαβατήριο</button></div><div class="passport-note">Το αρχείο έχει κατάληξη <strong>.ogmstory</strong>. Δεν χρειάζεται να υπάρχει ήδη το Βιβλίο II για να διατηρήσει τις επιλογές σου.</div></section><button class="secondary-btn" style="width:100%;margin-top:18px" id="again">Διάβασε νέα διαδρομή</button></section>`;
+ document.querySelector('#downloadPassport').onclick=downloadPassport;
+ document.querySelector('#loadAnotherPassport').onclick=openPassportPicker;
+ document.querySelector('#again').onclick=restart;
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function next(){save.cursor++;persist();renderCurrent()}
+function restart(){if(!confirm('Να διαγραφεί η τρέχουσα διαδρομή και να ξεκινήσεις από την αρχή;'))return;save=normalizeSave(blankState());save.started=true;persist();settingsDialog.open&&settingsDialog.close();renderCurrent()}
+
+document.querySelector('#homeBtn').onclick=renderLanding;
+document.querySelector('#settingsBtn').onclick=()=>{if(settingsDialog.showModal)settingsDialog.showModal();else settingsDialog.setAttribute('open','open')};
+document.querySelector('#restartBtn').onclick=restart;
+document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{settings.theme=b.dataset.theme;persistSettings();applySettings()});
+document.querySelectorAll('[data-font]').forEach(b=>b.onclick=()=>{settings.font=b.dataset.font;persistSettings();applySettings()});
+document.querySelector('#exportPassportBtn').onclick=downloadPassport;
+document.querySelector('#importPassportBtn').onclick=openPassportPicker;
+document.querySelector('#passportFileInput').onchange=e=>{const f=e.target.files?.[0];if(f)handlePassportFile(f)};
+document.querySelector('#ambienceToggle').onchange=e=>{settings.ambience=e.target.checked;persistSettings();showToast(settings.ambience?'Ambience ενεργό όταν προστεθούν αρχεία':'Ambience ανενεργό')};
+function bootReader(){
+ try{
+   if(location.protocol==='file:'){document.body.classList.add('local-file-mode');}
+   if(!DATA)throw new Error('Δεν φορτώθηκαν τα δεδομένα της ιστορίας.');
+   applySettings();
+   renderLanding();
+   if(window.__bootStartRequested){
+     window.__bootStartRequested=false;
+     const btn=document.querySelector('#startBtn');
+     if(btn)btn.click();
+   }
+ }catch(err){
+   console.error(err);
+   main.innerHTML='<section class="landing"><div class="eyebrow">Σφάλμα εκκίνησης</div><h1>Η ιστορία δεν φόρτωσε.</h1><p class="tagline">'+esc(String(err.message||err))+'</p><p class="landing-note">Κλείσε το αρχείο και άνοιξέ το ξανά με Chrome, Edge ή Safari.</p></section>';
+ }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootReader,{once:true});else bootReader();
+if('serviceWorker' in navigator && location.protocol==='https:'){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}),{once:true});
+}
+
+
+</script>
+</div>
+</body>
+</html>
