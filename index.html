@@ -130,6 +130,103 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;z-
 }
 @media(min-width:900px){.cinema-cover{width:500px}.main{padding-top:58px}}
 
+
+/* v0.12 — Cover Gate: the cover is the doorway, the reader UI starts afterwards */
+body.cover-mode{overflow:auto;background:#090a0b}
+.cover-mode .topbar{display:none}
+.cover-mode .main{width:100%;max-width:none;margin:0;padding:0}
+.cover-gate{
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:max(12px,env(safe-area-inset-top)) 18px calc(30px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 50% 16%,rgba(190,140,79,.12),transparent 34%),
+    linear-gradient(180deg,#08090a 0%,#0c0d0e 100%);
+}
+.cover-gate-art{
+  width:min(100%,470px);
+  margin:0 auto;
+  border-radius:0 0 20px 20px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.46);
+  background:#101010;
+}
+.cover-gate-art img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:cover;
+}
+.cover-guide{
+  width:min(100%,470px);
+  margin:21px auto 0;
+  text-align:center;
+}
+.cover-guide .guide-kicker{
+  font:700 9px/1.4 var(--sans);
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:#c99f69;
+}
+.cover-guide h2{
+  margin:8px 0 12px;
+  font:400 clamp(24px,6.5vw,31px)/1.1 var(--serif);
+  letter-spacing:-.025em;
+  color:#eee6dc;
+}
+.cover-guide .guide-copy{
+  margin:0 auto;
+  max-width:430px;
+  font:500 13.5px/1.65 var(--sans);
+  color:#aaa096;
+}
+.cover-guide .guide-steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:18px 0 19px;
+}
+.cover-guide .guide-step{
+  padding:12px 8px;
+  border:1px solid rgba(215,185,139,.13);
+  border-radius:15px;
+  background:rgba(255,255,255,.025);
+  font:600 11px/1.4 var(--sans);
+  color:#c8beb3;
+}
+.cover-guide .guide-step b{
+  display:block;
+  margin-bottom:4px;
+  color:#d7ad76;
+  font-size:13px;
+}
+.cover-gate-actions{
+  display:grid;
+  gap:10px;
+  width:100%;
+}
+.cover-gate-actions .primary-btn,
+.cover-gate-actions .secondary-btn{width:100%}
+.cover-small{
+  margin:13px 0 0;
+  font:500 11px/1.55 var(--sans);
+  color:#766f68;
+}
+@media(max-width:430px){
+  .cover-gate{padding-left:12px;padding-right:12px}
+  .cover-gate-art{width:100%;border-radius:0 0 17px 17px}
+  .cover-guide{margin-top:17px}
+  .cover-guide .guide-steps{gap:6px}
+  .cover-guide .guide-step{padding:10px 5px;font-size:10.5px}
+}
+@media(min-width:760px){
+  .cover-gate{padding-top:26px;padding-bottom:42px}
+  .cover-gate-art{border-radius:24px}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -138,7 +235,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;z-
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Πριν γίνουμε τρεις">
 </head>
-<body class="font-medium">
+<body class="font-medium cover-mode">
 <div id="app">
 <header class="topbar">
 <button id="homeBtn" class="icon-btn" aria-label="Αρχική">⌂</button>
@@ -146,17 +243,22 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;z-
 <button id="settingsBtn" class="icon-btn" aria-label="Ρυθμίσεις">Aa</button>
 </header>
 <main id="main" class="main">
-<section class="landing" id="bootLanding">
-<div class="eyebrow">Όσα γίναμε μαζί · Βιβλίο I</div>
-<div class="hero-copy">
-<h1>Πριν γίνουμε<br>τρεις</h1>
-<p class="tagline">Μια ιστορία που θυμάται πώς την έζησες.</p>
+<section class="cover-gate" id="bootLanding">
+<figure class="cover-gate-art"><img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις"></figure>
+<section class="cover-guide">
+<div class="guide-kicker">Πριν ξεκινήσεις</div>
+<h2>Η ιστορία αλλάζει μαζί με τις επιλογές σου.</h2>
+<p class="guide-copy">Διάβασε χωρίς να ψάχνεις τη «σωστή» απάντηση. Σε ορισμένες στιγμές θα αποφασίζεις τι κάνει ο Αλέξανδρος — και η ιστορία θα θυμάται.</p>
+<div class="guide-steps">
+<div class="guide-step"><b>1</b>Διάβασε</div>
+<div class="guide-step"><b>2</b>Επίλεξε</div>
+<div class="guide-step"><b>3</b>Συνέχισε</div>
 </div>
-<div class="landing-actions">
-<button class="primary-btn" id="bootStartBtn" type="button" onclick="window.__bootStartRequested=true">Ξεκίνα την ιστορία</button>
+<div class="cover-gate-actions">
+<button class="primary-btn" id="bootStartBtn" type="button" onclick="window.__bootStartRequested=true">Μπες στην ιστορία</button>
 </div>
-<figure class="cinema-cover"><img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις"><figcaption>Αθήνα · δύο άνθρωποι · μία κοινή ιστορία</figcaption></figure>
-<p class="landing-note">Διάβασε. Επίλεξε. Η ιστορία συνεχίζει να θυμάται.</p><p class="landing-note local-file-note">Σε iPhone: άνοιξέ το από το HTTPS link της δημοσιευμένης εφαρμογής — όχι ως αρχείο μέσα από Files/Quick Look.</p>
+<p class="cover-small">Δεν υπάρχουν βαθμοί ή σωστές επιλογές. Στο τέλος, αν θέλεις, μπορείς να δεις τον αναστοχαστικό «Καθρέφτη της διαδρομής σου».</p>
+</section>
 </section>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -179,7 +281,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;z-
 <noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το από το δημοσιευμένο HTTPS link σε Safari ή Chrome και επίτρεψε JavaScript.</div></noscript>
 <script>
 window.STORY_DATA = {
-  "version": "0.10-reflection-mirror",
+  "version": "0.12-cover-gate",
   "book": {
     "series": "Όσα γίναμε μαζί",
     "title": "Πριν γίνουμε τρεις",
@@ -1535,31 +1637,39 @@ function showToast(t){const el=document.querySelector('#toast');el.textContent=t
 function maybeEcho(choiceNum){const parts=[];for(const [flag,e] of Object.entries(DATA.echoes)){if(e.before===choiceNum && save.flags[flag]) parts.push(`<aside class="literary-echo">${esc(e.text)}</aside>`)}return parts.join('')}
 function chapterHeader(ch){const m=CHAPTER_META[ch.id]||{time:'',word:'',visual:'v1'};return `<div class="chapter-visual ${m.visual}" aria-hidden="true"><span class="visual-word">${esc(m.word)}</span></div><section class="chapter-card"><div class="chapter-no">${esc(ch.id.replace('C','ΚΕΦΑΛΑΙΟ '))}</div><h1>${esc(ch.title)}</h1><div class="chapter-subtitle">${esc(ch.subtitle)}</div><span class="time-stamp">${esc(m.time)}</span></section>`}
 function renderLanding(){
+ document.body.classList.add('cover-mode');
  chapterMini.textContent='ΠΡΙΝ ΓΙΝΟΥΜΕ ΤΡΕΙΣ';
  progressBar.style.width='0%';
  const has=save.started && !save.finished;
  const finished=save.finished;
- const startLabel=finished?'Επιστροφή στο τέλος':has?'Συνέχισε την ιστορία':'Ξεκίνα την ιστορία';
- const newPath=(has||finished)?`<button class="secondary-btn new-path-btn" id="newPathLanding">Νέα διαδρομή από την αρχή</button>`:'';
- const exportBtn=(has||finished)?`<button class="secondary-btn" id="savePassportLanding">Αποθήκευσε αντίγραφο διαδρομής</button>`:'';
- main.innerHTML=`<section class="landing">
-   <div class="eyebrow">Όσα γίναμε μαζί · Βιβλίο I</div>
-   <div class="hero-copy">
-     <h1>Πριν γίνουμε<br>τρεις</h1>
-     <p class="tagline">${esc(DATA.book.tagline)}</p>
-   </div>
-   <div class="landing-actions">
-     <button class="primary-btn" id="startBtn">${startLabel}</button>
-     ${newPath}
-     <button class="secondary-btn" id="loadPassportLanding">Φόρτωσε Διαβατήριο Ιστορίας</button>
-     ${exportBtn}
-   </div>
-   <figure class="cinema-cover"><img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις"><figcaption>Αθήνα · δύο άνθρωποι · μία κοινή ιστορία</figcaption></figure>
-   <p class="landing-note">Διάβασε με τον δικό σου ρυθμό. Όταν έρθει μια δύσκολη στιγμή, επίλεξε τι θα κάνει ο ήρωας. Η ιστορία δεν θα σου πει αν είχες δίκιο· απλώς θα συνεχίσει να θυμάται.</p><p class="landing-note local-file-note">Σε iPhone: χρησιμοποίησε το HTTPS link της δημοσιευμένης εφαρμογής. Το preview αρχείων του iOS δεν είναι πλήρες JavaScript runtime.</p>
-   <p class="landing-note">Κωδικός διαδρομής: <strong>${esc(save.passportId||'')}</strong></p>
+ const startLabel=finished?'Επιστροφή στο τέλος':has?'Συνέχισε την ιστορία':'Μπες στην ιστορία';
+ const newPath=(has||finished)?`<button class="secondary-btn" id="newPathLanding">Νέα διαδρομή από την αρχή</button>`:'';
+ const passport=(has||finished)?`<button class="secondary-btn" id="savePassportLanding">Αποθήκευσε τη διαδρομή σου</button>`:'';
+ main.innerHTML=`<section class="cover-gate">
+   <figure class="cover-gate-art">
+     <img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις">
+   </figure>
+   <section class="cover-guide">
+     <div class="guide-kicker">Πριν ξεκινήσεις</div>
+     <h2>Η ιστορία αλλάζει μαζί με τις επιλογές σου.</h2>
+     <p class="guide-copy">Διάβασε χωρίς να ψάχνεις τη «σωστή» απάντηση. Σε ορισμένες στιγμές θα αποφασίζεις τι κάνει ο Αλέξανδρος — και η ιστορία θα θυμάται.</p>
+     <div class="guide-steps">
+       <div class="guide-step"><b>1</b>Διάβασε</div>
+       <div class="guide-step"><b>2</b>Επίλεξε</div>
+       <div class="guide-step"><b>3</b>Συνέχισε</div>
+     </div>
+     <div class="cover-gate-actions">
+       <button class="primary-btn" id="startBtn">${startLabel}</button>
+       ${newPath}
+       <button class="secondary-btn" id="loadPassportLanding">Φόρτωσε Διαβατήριο Ιστορίας</button>
+       ${passport}
+     </div>
+     <p class="cover-small">Δεν υπάρχουν βαθμοί ή σωστές επιλογές. Στο τέλος, αν θέλεις, μπορείς να δεις τον αναστοχαστικό «Καθρέφτη της διαδρομής σου».</p>
+   </section>
  </section>`;
  const start=document.querySelector('#startBtn');
  start.onclick=()=>{
+   document.body.classList.remove('cover-mode');
    if(finished){save.cursor=DATA.order.length-1;persist();renderCurrent();return;}
    if(!save.started){save.started=true;persist();}
    renderCurrent();
@@ -1571,7 +1681,7 @@ function renderLanding(){
  if(exp)exp.onclick=downloadPassport;
  window.scrollTo({top:0,behavior:'auto'});
 }
-function renderCurrent(){if(!save.started)return renderLanding();if(save.finished)return renderEnding();updateProgress();const item=currentItem();if(!item){save.finished=true;persist();return renderEnding()}
+function renderCurrent(){document.body.classList.remove('cover-mode');if(!save.started)return renderLanding();if(save.finished)return renderEnding();updateProgress();const item=currentItem();if(!item){save.finished=true;persist();return renderEnding()}
  if(item.type==='chapter')return renderChapter(item.chapter);
  if(item.type==='choice')return renderChoice(item.choice);
  if(item.type==='bridge')return renderBridge(item.bridge);
@@ -1733,7 +1843,7 @@ function renderEnding(){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function next(){save.cursor++;persist();renderCurrent()}
-function restart(){if(!confirm('Να διαγραφεί η τρέχουσα διαδρομή και να ξεκινήσεις από την αρχή;'))return;save=normalizeSave(blankState());save.started=true;persist();settingsDialog.open&&settingsDialog.close();renderCurrent()}
+function restart(){document.body.classList.remove('cover-mode');if(!confirm('Να διαγραφεί η τρέχουσα διαδρομή και να ξεκινήσεις από την αρχή;'))return;save=normalizeSave(blankState());save.started=true;persist();settingsDialog.open&&settingsDialog.close();renderCurrent()}
 
 document.querySelector('#homeBtn').onclick=renderLanding;
 document.querySelector('#settingsBtn').onclick=()=>{if(settingsDialog.showModal)settingsDialog.showModal();else settingsDialog.setAttribute('open','open')};

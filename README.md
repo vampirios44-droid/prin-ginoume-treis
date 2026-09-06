@@ -1,19 +1,15 @@
-# Πριν γίνουμε τρεις — v0.11 Visual / UI Polish
+# Πριν γίνουμε τρεις — v0.12 Cover Gate
 
-Development candidate για GitHub → Netlify.
+Development candidate.
 
-## Upload
-Ανέβασε **όλα** τα αρχεία αυτού του φακέλου στο branch `development`, ώστε να προστεθεί και το νέο `cover-v1.png`.
+## Νέα ροή
+1. Ανοίγει μόνο το εξώφυλλο.
+2. Ο αναγνώστης βλέπει πολύ σύντομες οδηγίες.
+3. Πατά «Μπες στην ιστορία» ή «Συνέχισε την ιστορία».
+4. Τότε εμφανίζεται το visual-book reader UI.
 
-Commit:
-`v0.11 Cinematic Visual UI Polish`
-
-Μετά έλεγξε στο development Netlify URL:
-- landing / cover σε iPhone
-- έναρξη και resume
-- chapter header
-- A/B/C επιλογές
-- Reflection Mirror
-- Story Passport export/import
-
-Μόνο μετά από έγκριση γίνεται merge στο `main`.
+## Deployment
+Ανέβασε τα περιεχόμενα του ZIP στο branch `development`.
+Commit: `v0.12 Cover Gate`
+Έλεγξε στο Netlify development URL, ιδίως σε iPhone.
+Αν εγκριθεί: merge `development` → `main`.
