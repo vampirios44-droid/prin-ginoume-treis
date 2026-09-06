@@ -1,9 +1,10 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.8.2",
-  "channel": "production-candidate",
-  "deployment": "GitHub -> Netlify",
-  "production_branch": "main",
-  "preview_branch": "development"
+  "version": "0.10",
+  "channel": "development-candidate",
+  "focus": "reflection mirror / συμβουλευτικό ένθετο",
+  "engineCompatibility": "v0.9",
+  "storyPassportCompatibility": "preserved",
+  "reflectionClaim": "narrative reflection only; not psychometric assessment"
 }
