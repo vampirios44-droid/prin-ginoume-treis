@@ -4,8 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#11100f">
-<meta name="description" content="Πριν γίνουμε τρεις — διαδραστικό μυθιστόρημα επιλογών">
-<title>Πριν γίνουμε τρεις — Interactive Web-Book v0.11 · Visual Edition</title>
+<meta name="description" content="Πριν γίνουμε τρεις — ένα διαδραστικό μυθιστόρημα που θυμάται πώς το έζησες.">
+<meta name="color-scheme" content="dark light">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Πριν γίνουμε τρεις">
+<meta name="application-name" content="Πριν γίνουμε τρεις">
+<link rel="preload" href="cover-v1.jpg" as="image" fetchpriority="high">
+<title>Πριν γίνουμε τρεις — Όσα γίναμε μαζί</title>
 <style>
 :root{
  --bg:#11100f;--surface:#181614;--surface2:#211e1b;--text:#eee8df;--muted:#9e968d;--line:#302b26;
@@ -1010,6 +1018,9 @@ body.paper:not(.cover-mode){
   .series-handoff{padding:21px 16px 18px}
 }
 
+
+/* v0.18 Release Candidate */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.install-panel{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 0}.install-panel strong{display:block;font:650 13px/1.35 var(--sans)}.install-panel small{display:block;margin-top:4px;color:var(--muted);font:500 10.5px/1.45 var(--sans);max-width:330px}.install-panel .utility-btn{margin:0;white-space:nowrap}.rc-version{margin-top:16px;text-align:center;font:600 8.5px/1.4 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted);opacity:.65}.offline-badge{display:none;position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:80;padding:7px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font:650 9px/1 var(--sans)}body.is-offline .offline-badge{display:block}@media(max-width:430px){.install-panel{grid-template-columns:1fr}.install-panel .utility-btn{width:100%}}
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -1027,7 +1038,7 @@ body.paper:not(.cover-mode){
 </header>
 <main id="main" class="main">
 <section class="cover-gate" id="bootLanding">
-<figure class="cover-gate-art"><img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις"></figure>
+<figure class="cover-gate-art"><img src="cover-v1.jpg" alt="Εξώφυλλο του Πριν γίνουμε τρεις" decoding="async" fetchpriority="high"></figure>
 <section class="cover-guide">
 <div class="guide-kicker">Πριν ξεκινήσεις</div>
 <h2>Η ιστορία αλλάζει μαζί με τις επιλογές σου.</h2>
@@ -1045,6 +1056,7 @@ body.paper:not(.cover-mode){
 </section>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div class="offline-badge" role="status">Εκτός σύνδεσης · το βιβλίο παραμένει διαθέσιμο</div>
 
 <dialog id="readerMenuDialog" class="settings-dialog reader-menu-dialog">
 <form method="dialog">
@@ -1055,24 +1067,26 @@ body.paper:not(.cover-mode){
 
 <dialog id="settingsDialog" class="settings-dialog">
 <form method="dialog">
-<div class="dialog-head"><h2>Ανάγνωση</h2><button class="close-btn" value="cancel">×</button></div>
+<div class="dialog-head"><h2>Ανάγνωση</h2><button class="close-btn" value="cancel" aria-label="Κλείσιμο ρυθμίσεων">×</button></div>
 <label>Μέγεθος γραμματοσειράς</label>
 <div class="segmented"><button type="button" data-font="small">Α</button><button type="button" data-font="medium">Α</button><button type="button" data-font="large">Α</button></div>
 <label>Εμφάνιση</label>
 <div class="segmented"><button type="button" data-theme="dark">Νύχτα</button><button type="button" data-theme="paper">Χαρτί</button></div>
-<label class="switch-row"><span>Ήπιο ambience <small>(όταν προστεθούν αρχεία)</small></span><input id="ambienceToggle" type="checkbox"></label>
+<hr>
+<div class="install-panel" id="installPanel"><div><strong>Χρήση σαν εφαρμογή</strong><small id="installHelp">Μπορείς να κρατήσεις το βιβλίο στην αρχική οθόνη της συσκευής σου.</small></div><button type="button" class="utility-btn" id="installBtn" hidden>Εγκατάσταση</button></div>
 <hr>
 <button type="button" id="exportPassportBtn" class="utility-btn">Αποθήκευση Διαβατηρίου Ιστορίας</button>
 <button type="button" id="importPassportBtn" class="utility-btn">Φόρτωση Διαβατηρίου Ιστορίας</button>
 <div id="importStatus" class="import-status"></div>
 <hr><button type="button" id="restartBtn" class="danger-btn">Νέα διαδρομή από την αρχή</button>
+<div class="rc-version">Book I · Release Candidate v0.18</div>
 </form>
 </dialog>
 <input id="passportFileInput" type="file" accept=".ogmstory,application/json" hidden>
 <noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το από το δημοσιευμένο HTTPS link σε Safari ή Chrome και επίτρεψε JavaScript.</div></noscript>
 <script>
 window.STORY_DATA = {
-  "version": "0.17-reader-series",
+  "version": "0.18-release-candidate",
   "book": {
     "series": "Όσα γίναμε μαζί",
     "title": "Πριν γίνουμε τρεις",
@@ -2407,18 +2421,12 @@ const readerMenuDialog = document.querySelector('#readerMenuDialog');
 const readerMenuContent = document.querySelector('#readerMenuContent');
 
 function normalizeSave(raw){
- const base=blankState();
- const merged={...base,...(raw||{})};
- merged.choices={...(raw?.choices||{})};
- merged.state={...base.state,...(raw?.state||{})};
- merged.flags={...(raw?.flags||{})};
- let key=raw?.positionKey;
- if(!key && Number.isInteger(raw?.cursor)) key=LEGACY_ORDER_V07[raw.cursor]||null;
- if(key){const idx=indexForKey(key);if(idx>=0)merged.cursor=idx;}
- merged.positionKey=orderKey(DATA.order[merged.cursor]||DATA.order[0]);
- merged.saveFormatVersion=2;
- if(!merged.passportId) merged.passportId=makePassportId();
- return merged;
+ const base=blankState(),source=(raw&&typeof raw==='object')?raw:{},merged={...base,...source},validChoices={};
+ for(const [n,k] of Object.entries(source.choices||{})){if(DATA.choices?.[n]&&['A','B','C'].includes(k))validChoices[n]=k;}merged.choices=validChoices;
+ merged.state={...base.state};for(const key of Object.keys(base.state)){const v=Number(source.state?.[key]);if(Number.isFinite(v))merged.state[key]=v;}
+ merged.flags={};for(const [k,v] of Object.entries(source.flags||{})){if(typeof k==='string'&&(typeof v==='boolean'||typeof v==='string'||Number.isFinite(v)))merged.flags[k]=v;}
+ merged.started=Boolean(source.started);merged.finished=Boolean(source.finished);let key=source.positionKey;if(!key&&Number.isInteger(source.cursor))key=LEGACY_ORDER_V07[source.cursor]||null;if(key){const idx=indexForKey(key);if(idx>=0)merged.cursor=idx;}
+ merged.cursor=Math.max(0,Math.min(DATA.order.length-1,Number.isInteger(merged.cursor)?merged.cursor:0));merged.positionKey=orderKey(DATA.order[merged.cursor]||DATA.order[0]);merged.saveFormatVersion=2;merged.passportId=typeof source.passportId==='string'&&source.passportId.length<80?source.passportId:makePassportId();return merged;
 }
 function loadSave(){
  try{
@@ -2544,9 +2552,9 @@ function openPassportPicker(){
  input.click();
 }
 
-function loadSettings(){try{return {theme:'dark',font:'medium',ambience:false,...JSON.parse(localStorage.getItem(SETTINGS)||'{}')}}catch{return {theme:'dark',font:'medium',ambience:false}}}
+function loadSettings(){try{return {theme:'dark',font:'medium',...JSON.parse(localStorage.getItem(SETTINGS)||'{}')}}catch{return {theme:'dark',font:'medium'}}}
 function persistSettings(){try{localStorage.setItem(SETTINGS,JSON.stringify(settings))}catch(e){}}
-function applySettings(){document.body.classList.toggle('paper',settings.theme==='paper');document.body.classList.remove('font-small','font-medium','font-large');document.body.classList.add('font-'+settings.font);document.querySelector('#ambienceToggle').checked=settings.ambience;document.querySelectorAll('[data-theme]').forEach(b=>b.classList.toggle('active',b.dataset.theme===settings.theme));document.querySelectorAll('[data-font]').forEach(b=>b.classList.toggle('active',b.dataset.font===settings.font));}
+function applySettings(){document.body.classList.toggle('paper',settings.theme==='paper');document.body.classList.remove('font-small','font-medium','font-large');document.body.classList.add('font-'+settings.font);document.querySelector('meta[name=theme-color]')?.setAttribute('content',settings.theme==='paper'?'#f1eadf':'#11100f');document.querySelectorAll('[data-theme]').forEach(b=>b.classList.toggle('active',b.dataset.theme===settings.theme));document.querySelectorAll('[data-font]').forEach(b=>b.classList.toggle('active',b.dataset.font===settings.font));}
 function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 function paragraphs(text, cls='story-text'){return `<div class="${cls}">`+text.trim().split(/\n\n+/).map(p=>`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('')+'</div>'}
 function getChapter(id){return DATA.chapters.find(c=>c.id===id)}
@@ -2600,7 +2608,7 @@ function renderReaderMenu(){
  const map=DATA.chapters.map((c,i)=>{
    const status=save.finished||i<reachedIdx?'done':i===currentIdx?'current':'locked';
    const label=status==='done'?'Πέρασε':status==='current'?'Τώρα':'Μπροστά';
-   return `<div class="chapter-map-item ${status}">
+   return `<div class="chapter-map-item ${status}" ${status==='current'?'aria-current="step"':''}>
      <div class="chapter-map-num">${String(i+1).padStart(2,'0')}</div>
      <div class="chapter-map-copy"><strong>${esc(c.title)}</strong><small>${esc(c.subtitle)}</small></div>
      <div class="chapter-map-status">${label}</div>
@@ -2682,7 +2690,7 @@ function renderLanding(){
  const passport=(has||finished)?`<button class="secondary-btn" id="savePassportLanding">Αποθήκευσε τη διαδρομή σου</button>`:'';
  main.innerHTML=`<section class="cover-gate">
    <figure class="cover-gate-art">
-     <img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις">
+     <img src="cover-v1.jpg" alt="Εξώφυλλο του Πριν γίνουμε τρεις" decoding="async" fetchpriority="high">
    </figure>
    <section class="cover-guide">
      <div class="guide-kicker">Πριν ξεκινήσεις</div>
@@ -2725,7 +2733,7 @@ function renderCurrent(){document.body.classList.remove('cover-mode');if(!save.s
 }
 function renderChapter(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=chapterHeader(ch)+`<section class="chapter-reading">${paragraphs(ch.intro)}<button class="continue-btn" id="continue">Συνέχισε</button></section>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
 function renderChoice(n){const c=DATA.choices[n];const ch=DATA.chapters.find(x=>x.choices.includes(n));chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')}`;let selected=save.choices[n];let html=maybeEcho(n)+`<section class="choice-wrap"><div class="choice-kicker">Η στιγμή της επιλογής</div><h2>${esc(c.prompt)}</h2><div class="choices">`;
- for(const k of ['A','B','C']){html+=`<button class="choice-btn ${selected===k?'selected':''}" data-choice="${k}" ${selected?'disabled':''}>${esc(c.options[k][0])}</button>`}html+='</div></section>';
+ for(const k of ['A','B','C']){html+=`<button class="choice-btn ${selected===k?'selected':''}" data-choice="${k}" aria-pressed="${selected===k?'true':'false'}" ${selected?'disabled':''}>${esc(c.options[k][0])}</button>`}html+='</div></section>';
  if(selected) html+=branchHtml(n,selected);
  main.innerHTML=html;document.querySelectorAll('.choice-btn:not([disabled])').forEach(b=>b.onclick=()=>choose(n,b.dataset.choice));if(selected){const cont=document.querySelector('#continue');if(cont)cont.onclick=next;}window.scrollTo({top:0,behavior:'smooth'});}
 function resolvedVariant(spec){if(!spec)return '';const dep=spec.dependsOn;const key=dep?save.choices[dep]:null;return (spec.variants&&(spec.variants[key]||spec.variants.default))||spec.text||''}
@@ -2888,12 +2896,14 @@ document.querySelectorAll('[data-font]').forEach(b=>b.onclick=()=>{settings.font
 document.querySelector('#exportPassportBtn').onclick=downloadPassport;
 document.querySelector('#importPassportBtn').onclick=openPassportPicker;
 document.querySelector('#passportFileInput').onchange=e=>{const f=e.target.files?.[0];if(f)handlePassportFile(f)};
-document.querySelector('#ambienceToggle').onchange=e=>{settings.ambience=e.target.checked;persistSettings();showToast(settings.ambience?'Ambience ενεργό όταν προστεθούν αρχεία':'Ambience ανενεργό')};
+let deferredInstallPrompt=null;function setupInstallExperience(){const btn=document.querySelector('#installBtn'),help=document.querySelector('#installHelp');const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1),standalone=window.matchMedia?.('(display-mode: standalone)').matches||navigator.standalone===true;if(standalone){if(help)help.textContent='Το βιβλίο λειτουργεί ήδη σαν εφαρμογή σε αυτή τη συσκευή.';return;}if(isiOS&&help)help.textContent='Σε iPhone/iPad: άνοιξε το μενού Κοινοποίησης και επίλεξε «Προσθήκη στην οθόνη Αφετηρίας».';window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;if(btn)btn.hidden=false;if(help)help.textContent='Η συσκευή σου επιτρέπει εγκατάσταση του βιβλίου σαν εφαρμογή.';});if(btn)btn.onclick=async()=>{if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();try{await deferredInstallPrompt.userChoice}catch{}deferredInstallPrompt=null;btn.hidden=true;};}function updateOnlineState(){document.body.classList.toggle('is-offline',!navigator.onLine)}
 function bootReader(){
  try{
    if(location.protocol==='file:'){document.body.classList.add('local-file-mode');}
    if(!DATA)throw new Error('Δεν φορτώθηκαν τα δεδομένα της ιστορίας.');
    applySettings();
+   setupInstallExperience();
+   updateOnlineState();
    renderLanding();
    if(window.__bootStartRequested){
      window.__bootStartRequested=false;
@@ -2906,6 +2916,10 @@ function bootReader(){
  }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootReader,{once:true});else bootReader();
+window.addEventListener('online',updateOnlineState);
+window.addEventListener('offline',updateOnlineState);
+window.addEventListener('pagehide',()=>{if(save?.started)persist()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&save?.started)persist()});
 if('serviceWorker' in navigator && location.protocol==='https:'){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}),{once:true});
 }

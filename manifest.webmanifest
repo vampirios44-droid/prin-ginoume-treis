@@ -1,7 +1,7 @@
 {
   "name": "Πριν γίνουμε τρεις — Όσα γίναμε μαζί",
   "short_name": "Πριν γίνουμε τρεις",
-  "description": "Διαδραστικό μυθιστόρημα επιλογών",
+  "description": "Μια διαδραστική ιστορία που θυμάται πώς την έζησες.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,24 @@
   "theme_color": "#11100f",
   "lang": "el",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "categories": [
+    "books",
+    "entertainment"
   ]
 }

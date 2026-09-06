@@ -1,18 +1,5 @@
-# Πριν γίνουμε τρεις — v0.17 Reader Experience & Series Architecture
+# v0.18 Release Candidate
 
-## Τι να ελέγξεις
-1. Μέσα στην ανάγνωση πάτησε το αριστερό `☰`.
-2. Πρέπει να εμφανίζεται:
-   - το τρέχον κεφάλαιο,
-   - η πρόοδος,
-   - ο χάρτης των 9 κεφαλαίων,
-   - ένδειξη autosave.
-3. Κλείσε το menu και συνέχισε κανονικά.
-4. Στο τέλος του Βιβλίου I έλεγξε την ενότητα **«Τι περνά στο Βιβλίο II»**.
-5. Δοκίμασε δύο διαφορετικές διαδρομές: οι τρεις μνήμες του Book II πρέπει να αλλάζουν.
-6. Story Passport export/import πρέπει να λειτουργεί όπως πριν.
+Commit: `v0.18 Book I Release Candidate`
 
-## Deployment
-Branch: `development`
-Commit:
-`v0.17 Reader Experience and Series Architecture`
+Τελικός smoke test στο Netlify development: cover, resume, menu/settings, passport, ending/mirror και offline μετά από μία online φόρτωση.

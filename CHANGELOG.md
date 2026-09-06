@@ -1,20 +1,9 @@
 # Changelog
 
-## v0.17 — Reader Experience & Series Architecture
+## v0.18 — Book I Release Candidate
 
-### Reader experience
-- Το αριστερό κουμπί της topbar γίνεται πραγματικό menu βιβλίου.
-- Νέο reader menu με τρέχον κεφάλαιο, συνολική πρόοδο και χάρτη 9 κεφαλαίων.
-- Τα κεφάλαια εμφανίζονται ως περασμένα / τρέχον / επόμενα χωρίς game-like badges.
-- Εμφανίζεται σαφής ένδειξη ότι θέση και επιλογές αποθηκεύονται αυτόματα.
-- Από το menu υπάρχει πρόσβαση σε συνέχεια ανάγνωσης, εξώφυλλο και Story Passport.
-
-### Series architecture
-- Στο τέλος προστέθηκε δυναμικό «Τι περνά στο Βιβλίο II».
-- Οι μνήμες βασίζονται σε πραγματικές επιλογές της διαδρομής (π.χ. πρώτη βοήθεια στο σπίτι, οικογενειακή εμπλοκή, repair pattern, καθημερινότητα).
-- Δεν εμφανίζονται scores, τύποι προσωπικότητας ή ψυχολογικές ετικέτες.
-- Η ενότητα εξηγεί ότι το Book II συνεχίζει από συγκεκριμένες συνθήκες της ιστορίας.
-- Story Passport schema, Choice IDs, hidden state και save schema παραμένουν αμετάβλητα.
-
-### Technical
-- PWA cache bump: `ogm-book1-v0170`.
+- Production hardening, accessibility και PWA/offline βελτιώσεις.
+- Αφαιρέθηκε το ανενεργό ambience placeholder.
+- Cover: 2061 KB → 183 KB.
+- Story Passport / Choice IDs / save schema αμετάβλητα.
+- Cache: `ogm-book1-v0180`.

@@ -1,9 +1,9 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.17",
-  "channel": "development-candidate",
-  "focus": "reader experience + series architecture",
+  "version": "0.18",
+  "channel": "release-candidate",
+  "focus": "production hardening",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
@@ -33,5 +33,9 @@
     "9-chapter progress map",
     "autosave status",
     "dynamic Book II memory handoff"
-  ]
+  ],
+  "coverOptimization": {
+    "fromBytes": 2110147,
+    "toBytes": 187784
+  }
 }
