@@ -1,14 +1,14 @@
 # Changelog
 
-## v0.8.2 — HTTPS / PWA production candidate
-- Deployment-ready για κανονικό HTTPS hosting.
-- PWA manifest και service worker.
-- iPhone/Safari runtime μέσω hosted URL.
-- Story Passport / autosave.
-- Continuity fixes από v0.8.
-- Home/mobile fixes από v0.8.1.
+## v0.10 — Reflection Mirror
+- Προστέθηκε προαιρετικός **«Καθρέφτης της διαδρομής σου»** μετά το τέλος του Book I.
+- 5 δυναμικοί θεματικοί καθρέφτες βάσει hidden narrative state.
+- Έως 3 εξατομικευμένες «στιγμές που βάρυναν» βάσει πραγματικών επιλογών.
+- 4 δυναμικές ερωτήσεις αναστοχασμού.
+- Ρητή επιστημονική δικλείδα: narrative reflection, όχι ψυχομετρική/ψυχολογική αξιολόγηση.
+- Print / Save as PDF για το ένθετο.
+- Καμία αλλαγή στο Story Passport schema ή στα choice IDs.
+- PWA cache bumped σε `ogm-book1-v0100`.
 
-## Κανόνας εκδόσεων
-- `development`: δοκιμές και νέες εκδόσεις.
-- `main`: μόνο έκδοση που έχουμε εγκρίνει για production.
-- Κάθε merge στο `main` ενεργοποιεί αυτόματο production deploy στο Netlify.
+### Deployment
+Ανέβασε πρώτα στο `development`, δοκίμασε το branch URL και μετά κάνε merge στο `main` μόνο αν εγκριθεί.

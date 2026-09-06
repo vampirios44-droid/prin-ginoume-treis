@@ -1,44 +1,17 @@
-# Πριν γίνουμε τρεις
-## Interactive Web-Book — GitHub → Netlify
+# Πριν γίνουμε τρεις — v0.10 Reflection Mirror
 
-### Repository structure
-Όλα τα αρχεία του site βρίσκονται στη ρίζα του repository. Δεν υπάρχει build step.
+Development candidate πάνω στη v0.9.
 
-### Production workflow
+## Τι να δοκιμάσεις
+1. Ολοκλήρωσε μια διαδρομή.
+2. Στο τέλος πάτησε **«Δες τον καθρέφτη της διαδρομής σου»**.
+3. Έλεγξε ότι εμφανίζονται 5 καθρέφτες, 3 σημαντικές στιγμές και 4 ερωτήσεις.
+4. Κάνε δεύτερη, αρκετά διαφορετική διαδρομή και επιβεβαίωσε ότι αλλάζει το ένθετο.
+5. Δοκίμασε **Εκτύπωση / Αποθήκευση ως PDF**.
+6. Έλεγξε ότι Story Passport export/import και resume συνεχίζουν να λειτουργούν.
 
-`development`
-→ νέα έκδοση / δοκιμές
-→ Netlify Branch Deploy ή Deploy Preview
-→ έλεγχος σε desktop + iPhone Safari
-→ merge στο `main`
-→ Netlify production deploy
-→ **ίδιο production URL**
+## GitHub / Netlify
+Αντικατέστησε τα αντίστοιχα αρχεία στο branch `development` και κάνε commit:
+`v0.10 Reflection Mirror`
 
-### Netlify setup
-1. Netlify → **Add new project** → **Import an existing project**.
-2. Git provider: **GitHub**.
-3. Επίλεξε αυτό το repository.
-4. Production branch: `main`.
-5. Build command: άδειο.
-6. Publish directory: `.`.
-7. Publish.
-
-Το `netlify.toml` στη ρίζα δηλώνει ήδη `publish = "."`.
-
-### Κάθε νέα έκδοση
-Δεν κάνουμε νέο Netlify site και δεν αλλάζουμε link.
-Ανεβάζουμε/κάνουμε commit τα νέα αρχεία στο GitHub:
-- πρώτα στο `development` για δοκιμή,
-- μετά merge στο `main`.
-
-Το Netlify ανανεώνει αυτόματα το production site.
-
-### iPhone
-Το interactive βιβλίο πρέπει να ανοίγει από το HTTPS Netlify URL στο Safari.
-Δεν χρησιμοποιούμε το local `.html` μέσω Files/Quick Look για λειτουργικό test.
-
-Μετά:
-Safari → Share → **Add to Home Screen**.
-
-### Story Passport
-Τα `.ogmstory` αρχεία παραμένουν φορητά και δεν εξαρτώνται από το Netlify URL.
+Μην κάνεις merge στο `main` πριν τη δοκιμή στο Netlify development URL.
