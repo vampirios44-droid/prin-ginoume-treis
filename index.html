@@ -807,6 +807,209 @@ body.paper:not(.cover-mode){
   html{scroll-behavior:auto!important}
 }
 
+
+/* v0.17 — Reader Experience & Series Architecture */
+.menu-icon-btn{
+  font:700 19px/1 var(--sans);
+  letter-spacing:-.08em;
+}
+.reader-menu-dialog{
+  width:min(92vw,520px);
+  max-height:min(88svh,760px);
+}
+.reader-menu-dialog form{
+  max-height:min(84svh,720px);
+  overflow:auto;
+  scrollbar-width:thin;
+}
+.menu-series{
+  font:700 8px/1.3 var(--sans);
+  letter-spacing:.22em;
+  color:var(--accent);
+  margin-bottom:5px;
+}
+.reader-menu-progress{
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 100% 0%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 45%),
+    var(--surface);
+  margin:8px 0 18px;
+}
+.reader-menu-progress .book-label{
+  font:700 9px/1.3 var(--sans);
+  letter-spacing:.17em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.reader-menu-progress h3{
+  margin:6px 0 5px;
+  font:500 26px/1.1 var(--serif);
+}
+.reader-menu-progress p{
+  margin:0;
+  font:500 12px/1.55 var(--sans);
+  color:var(--muted);
+}
+.menu-progress-track{
+  height:3px;
+  overflow:hidden;
+  border-radius:99px;
+  background:var(--line);
+  margin-top:14px;
+}
+.menu-progress-fill{
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+}
+.chapter-map-title{
+  margin:20px 0 10px;
+  font:700 9px/1.4 var(--sans);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.chapter-map{
+  display:grid;
+  gap:7px;
+}
+.chapter-map-item{
+  display:grid;
+  grid-template-columns:32px 1fr auto;
+  align-items:center;
+  gap:10px;
+  min-height:54px;
+  padding:9px 10px;
+  border-radius:14px;
+  border:1px solid transparent;
+}
+.chapter-map-item.done{
+  color:color-mix(in srgb,var(--text) 75%,var(--muted));
+}
+.chapter-map-item.current{
+  border-color:color-mix(in srgb,var(--accent) 38%,var(--line));
+  background:color-mix(in srgb,var(--surface) 91%,var(--accent) 9%);
+}
+.chapter-map-item.locked{
+  opacity:.42;
+}
+.chapter-map-num{
+  display:grid;
+  place-items:center;
+  width:28px;height:28px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  font:700 10px/1 var(--sans);
+  color:var(--accent);
+}
+.chapter-map-item.done .chapter-map-num{
+  background:var(--surface2);
+}
+.chapter-map-copy strong{
+  display:block;
+  font:600 13px/1.25 var(--serif);
+}
+.chapter-map-copy small{
+  display:block;
+  margin-top:2px;
+  font:600 9px/1.25 var(--sans);
+  letter-spacing:.07em;
+  color:var(--muted);
+}
+.chapter-map-status{
+  font:700 8px/1.2 var(--sans);
+  letter-spacing:.1em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.reader-menu-actions{
+  display:grid;
+  gap:9px;
+  margin-top:19px;
+}
+.reader-menu-actions button{
+  width:100%;
+}
+.autosave-note{
+  margin:15px 2px 0;
+  font:500 10px/1.5 var(--sans);
+  color:var(--muted);
+  text-align:center;
+}
+.autosave-dot{
+  display:inline-block;
+  width:6px;height:6px;border-radius:50%;
+  background:#7f9c78;
+  margin-right:6px;
+  box-shadow:0 0 0 3px color-mix(in srgb,#7f9c78 14%,transparent);
+}
+
+/* Book II handoff */
+.series-handoff{
+  margin:30px 0 24px;
+  padding:24px 20px 20px;
+  border-radius:20px;
+  border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+  background:
+    radial-gradient(circle at 100% 0%,color-mix(in srgb,var(--accent) 11%,transparent),transparent 42%),
+    linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--surface2) 70%,var(--surface)));
+}
+.series-handoff .series-kicker{
+  font:700 9px/1.3 var(--sans);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.series-handoff h3{
+  margin:8px 0 10px;
+  font:500 27px/1.08 var(--serif);
+}
+.series-handoff > p{
+  margin:0 0 18px;
+  font:500 13px/1.58 var(--sans);
+  color:var(--muted);
+}
+.series-memory-list{
+  display:grid;
+  gap:9px;
+}
+.series-memory{
+  position:relative;
+  padding:14px 14px 14px 39px;
+  border-radius:14px;
+  background:color-mix(in srgb,var(--surface) 86%,transparent);
+  border:1px solid color-mix(in srgb,var(--line) 82%,transparent);
+  font:500 12.5px/1.48 var(--sans);
+}
+.series-memory::before{
+  content:"";
+  position:absolute;
+  left:16px;top:19px;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--accent2);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent2) 10%,transparent);
+}
+.series-handoff small{
+  display:block;
+  margin-top:14px;
+  font:500 10px/1.45 var(--sans);
+  color:var(--muted);
+}
+.book-two-teaser{
+  margin-top:12px;
+  padding-top:13px;
+  border-top:1px solid var(--line);
+  font:italic 500 14px/1.5 var(--serif);
+  color:color-mix(in srgb,var(--text) 82%,var(--muted));
+}
+@media(max-width:430px){
+  .reader-menu-dialog{width:94vw}
+  .series-handoff{padding:21px 16px 18px}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -818,7 +1021,7 @@ body.paper:not(.cover-mode){
 <body class="font-medium cover-mode">
 <div id="app">
 <header class="topbar">
-<button id="homeBtn" class="icon-btn" aria-label="Αρχική">⌂</button>
+<button id="menuBtn" class="icon-btn menu-icon-btn" aria-label="Μενού βιβλίου">☰</button>
 <div class="topbar-center"><span id="chapterMini">ΠΡΙΝ ΓΙΝΟΥΜΕ ΤΡΕΙΣ</span><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div></div>
 <button id="settingsBtn" class="icon-btn" aria-label="Ρυθμίσεις">Aa</button>
 </header>
@@ -842,6 +1045,14 @@ body.paper:not(.cover-mode){
 </section>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<dialog id="readerMenuDialog" class="settings-dialog reader-menu-dialog">
+<form method="dialog">
+<div class="dialog-head"><div><div class="menu-series">ΟΣΑ ΓΙΝΑΜΕ ΜΑΖΙ</div><h2>Η διαδρομή σου</h2></div><button class="close-btn" value="cancel" aria-label="Κλείσιμο">×</button></div>
+<div id="readerMenuContent"></div>
+</form>
+</dialog>
+
 <dialog id="settingsDialog" class="settings-dialog">
 <form method="dialog">
 <div class="dialog-head"><h2>Ανάγνωση</h2><button class="close-btn" value="cancel">×</button></div>
@@ -861,7 +1072,7 @@ body.paper:not(.cover-mode){
 <noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το από το δημοσιευμένο HTTPS link σε Safari ή Chrome και επίτρεψε JavaScript.</div></noscript>
 <script>
 window.STORY_DATA = {
-  "version": "0.16-motion-memory-audit",
+  "version": "0.17-reader-series",
   "book": {
     "series": "Όσα γίναμε μαζί",
     "title": "Πριν γίνουμε τρεις",
@@ -2192,6 +2403,8 @@ const main = document.querySelector('#main');
 const chapterMini = document.querySelector('#chapterMini');
 const progressBar = document.querySelector('#progressBar');
 const settingsDialog = document.querySelector('#settingsDialog');
+const readerMenuDialog = document.querySelector('#readerMenuDialog');
+const readerMenuContent = document.querySelector('#readerMenuContent');
 
 function normalizeSave(raw){
  const base=blankState();
@@ -2317,7 +2530,7 @@ async function handlePassportFile(file){
    if(existing&&!confirm('Η φόρτωση θα αντικαταστήσει την τρέχουσα διαδρομή αυτού του βιβλίου. Συνέχεια;'))return;
    restoreFromPassport(parsed);
    if(status)status.textContent=`Φορτώθηκε: ${parsed.passport.passportId}`;
-   settingsDialog.open&&settingsDialog.close();
+   settingsDialog.open&&settingsDialog.close();readerMenuDialog.open&&readerMenuDialog.close();
    showToast('Η ιστορία σου φορτώθηκε');
  }catch(err){
    console.error(err);
@@ -2343,6 +2556,121 @@ function showToast(t){const el=document.querySelector('#toast');el.textContent=t
 const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)');const sceneObserver=new MutationObserver(()=>{if(reduceMotion?.matches)return;main.classList.remove('motion-enter');requestAnimationFrame(()=>main.classList.add('motion-enter'));});sceneObserver.observe(main,{childList:true});
 function maybeEcho(choiceNum){const parts=[];for(const [flag,e] of Object.entries(DATA.echoes||{})){if(e.before===choiceNum&&save.flags[flag])parts.push(e.text)}for(const e of (DATA.choiceEchoes||[])){if(e.before!==choiceNum)continue;const k=save.choices[e.dependsOn];const text=e.variants?.[k]||e.text||'';if(text)parts.push(text)}return parts.map(text=>`<aside class="literary-echo memory-echo"><span class="memory-kicker">Κάτι που έμεινε</span>${esc(text)}</aside>`).join('')}
 function chapterHeader(ch){const m=CHAPTER_META[ch.id]||{time:'',word:'',visual:'v1'};const photo=m.image?` has-photo`:'';const mood=m.mood?` mood-${m.mood}`:'';const style=m.image?` style="--hero:url('${m.image}');--focus:${m.focus||'center 46%'}"`:'';return `<section class="chapter-opening ${m.visual}${photo}${mood}"${style}><div class="chapter-opening-bg" aria-hidden="true"></div><span class="visual-word">${esc(m.word)}</span><div class="chapter-opening-content"><div class="chapter-opening-no">${esc(ch.id.replace('C','ΚΕΦΑΛΑΙΟ '))}</div><h1>${esc(ch.title)}</h1><div class="chapter-opening-subtitle">${esc(ch.subtitle)}</div><div class="chapter-opening-meta"><span>${esc(m.time)}</span><span class="dot"></span><span>Όσα γίναμε μαζί</span></div></div></section>`}
+
+function chapterIndexForCursor(cursor=save.cursor){
+ const item=DATA.order[cursor]||DATA.order[0];
+ if(item?.chapter){
+   const idx=DATA.chapters.findIndex(c=>c.id===item.chapter);
+   if(idx>=0)return idx;
+ }
+ if(item?.type==='chapter'||item?.type==='outro'){
+   const idx=DATA.chapters.findIndex(c=>c.id===item.id);
+   if(idx>=0)return idx;
+ }
+ if(Number.isInteger(item?.choice)){
+   const idx=DATA.chapters.findIndex(c=>c.choices.includes(item.choice));
+   if(idx>=0)return idx;
+ }
+ if(save.finished)return DATA.chapters.length-1;
+ for(let i=Math.min(cursor,DATA.order.length-1);i>=0;i--){
+   const it=DATA.order[i];
+   if(it?.type==='chapter'){
+     const idx=DATA.chapters.findIndex(c=>c.id===it.id);
+     if(idx>=0)return idx;
+   }
+ }
+ return 0;
+}
+function chapterStartCursor(chapterId){
+ return DATA.order.findIndex(it=>it.type==='chapter'&&it.id===chapterId);
+}
+function reachedChapterIndex(){
+ if(save.finished)return DATA.chapters.length-1;
+ return chapterIndexForCursor(save.cursor);
+}
+function progressPercent(){
+ if(save.finished)return 100;
+ return Math.max(0,Math.min(100,(save.cursor/(DATA.order.length-1))*100));
+}
+function renderReaderMenu(){
+ const currentIdx=chapterIndexForCursor();
+ const reachedIdx=reachedChapterIndex();
+ const ch=DATA.chapters[currentIdx]||DATA.chapters[0];
+ const pct=Math.round(progressPercent());
+ const map=DATA.chapters.map((c,i)=>{
+   const status=save.finished||i<reachedIdx?'done':i===currentIdx?'current':'locked';
+   const label=status==='done'?'Πέρασε':status==='current'?'Τώρα':'Μπροστά';
+   return `<div class="chapter-map-item ${status}">
+     <div class="chapter-map-num">${String(i+1).padStart(2,'0')}</div>
+     <div class="chapter-map-copy"><strong>${esc(c.title)}</strong><small>${esc(c.subtitle)}</small></div>
+     <div class="chapter-map-status">${label}</div>
+   </div>`;
+ }).join('');
+ const statusText=save.finished?'Το Βιβλίο I ολοκληρώθηκε.':save.started?`Βρίσκεσαι στο Κεφάλαιο ${currentIdx+1} από 9.`:'Δεν έχει ξεκινήσει ακόμη η διαδρομή.';
+ readerMenuContent.innerHTML=`<section class="reader-menu-progress">
+   <div class="book-label">Βιβλίο I · Πριν γίνουμε τρεις</div>
+   <h3>${save.finished?'Η διαδρομή ολοκληρώθηκε':esc(ch.title)}</h3>
+   <p>${statusText}</p>
+   <div class="menu-progress-track"><div class="menu-progress-fill" style="width:${pct}%"></div></div>
+ </section>
+ <div class="chapter-map-title">Τα εννέα κεφάλαια</div>
+ <div class="chapter-map">${map}</div>
+ <div class="reader-menu-actions">
+   <button type="button" class="primary-btn" id="menuContinue">${save.finished?'Επιστροφή στο τέλος':'Συνέχισε την ανάγνωση'}</button>
+   <button type="button" class="secondary-btn" id="menuCover">Εξώφυλλο / αρχική</button>
+   <button type="button" class="secondary-btn" id="menuPassport">${save.started||save.finished?'Αποθήκευσε Διαβατήριο Ιστορίας':'Φόρτωσε Διαβατήριο Ιστορίας'}</button>
+ </div>
+ <div class="autosave-note"><span class="autosave-dot"></span>Η θέση και οι επιλογές σου αποθηκεύονται αυτόματα σε αυτή τη συσκευή.</div>`;
+ document.querySelector('#menuContinue').onclick=()=>{readerMenuDialog.close();renderCurrent()};
+ document.querySelector('#menuCover').onclick=()=>{readerMenuDialog.close();renderLanding()};
+ document.querySelector('#menuPassport').onclick=()=>{readerMenuDialog.close();(save.started||save.finished)?downloadPassport():openPassportPicker()};
+}
+function openReaderMenu(){
+ renderReaderMenu();
+ if(readerMenuDialog.showModal)readerMenuDialog.showModal();else readerMenuDialog.setAttribute('open','open');
+}
+function bookIIMemories(){
+ const c=save.choices||{};
+ const memories=[];
+ const home={
+  A:'Τις πρώτες ημέρες στο σπίτι η γιαγιά μένει μαζί τους.',
+  B:'Η γιαγιά βοηθά καθημερινά, αλλά το βράδυ το σπίτι επιστρέφει στους τρεις.',
+  C:'Οι πρώτες δύο ημέρες στο σπίτι ανήκουν μόνο στους τρεις.'
+ }[c[21]];
+ if(home)memories.push(home);
+ const family={
+  A:'Η εγκυμοσύνη μπήκε από νωρίς στον οικογενειακό κύκλο.',
+  B:'Οι πρώτες εβδομάδες της εγκυμοσύνης προστατεύτηκαν ως δικός τους χώρος.',
+  C:'Στην αρχή το νέο μοιράστηκε μόνο με έναν πολύ κοντινό άνθρωπο.'
+ }[c[17]];
+ if(family)memories.push(family);
+ const repair={
+  A:'Στις δύσκολες στιγμές ο Αλέξανδρος έχει μάθει να επιστρέφει γρήγορα στην επαφή.',
+  B:'Έχουν δοκιμάσει το «σήμα + χρόνος + επιστροφή» ως τρόπο να μη χάνεται η σύνδεση μέσα στην ένταση.',
+  C:'Η ανάγκη για χώρο έχει ήδη αφήσει ίχνος· η επιστροφή μετά τη σιωπή παραμένει μέρος της σχέσης τους.'
+ }[c[7]];
+ if(repair)memories.push(repair);
+ const household={
+  A:'Για το κοινό σπίτι έχουν δοκιμάσει να μοιράζουν πιο συγκεκριμένες ευθύνες.',
+  B:'Έχουν ονομάσει ότι η φροντίδα του σπιτιού περιλαμβάνει και αόρατο φορτίο.',
+  C:'Η καλή πρόθεση υπάρχει, αλλά το μοίρασμα της καθημερινότητας παραμένει λιγότερο συγκεκριμένο.'
+ }[c[11]];
+ if(household)memories.push(household);
+ return memories.slice(0,3);
+}
+function seriesHandoffHtml(){
+ const memories=bookIIMemories();
+ const rows=memories.map(x=>`<div class="series-memory">${esc(x)}</div>`).join('');
+ return `<section class="series-handoff">
+   <div class="series-kicker">Η σειρά θυμάται</div>
+   <h3>Τι περνά στο Βιβλίο II</h3>
+   <p>Δεν μεταφέρονται «βαθμοί». Μεταφέρονται συγκεκριμένες συνθήκες, συμφωνίες και εκκρεμότητες της ιστορίας που δημιούργησες.</p>
+   <div class="series-memory-list">${rows}</div>
+   <small>Οι μνήμες αποθηκεύονται και στο Διαβατήριο Ιστορίας ώστε το επόμενο βιβλίο να μπορεί να συνεχίσει από αυτές.</small>
+   <div class="book-two-teaser"><strong>Βιβλίο II — Τώρα είμαστε τρεις.</strong><br>Η επόμενη ιστορία αρχίζει το επόμενο δευτερόλεπτο.</div>
+ </section>`;
+}
+
 function renderLanding(){
  document.body.classList.add('cover-mode');
  chapterMini.textContent='ΠΡΙΝ ΓΙΝΟΥΜΕ ΤΡΕΙΣ';
@@ -2542,7 +2870,7 @@ function renderEnding(){
  if(!save.completedAt)save.completedAt=new Date().toISOString();
  save.finished=true;persist();
  const endSpec=DATA.endingVariants;const endText=endSpec?resolvedVariant(endSpec):DATA.ending;
- main.innerHTML=`<section class="end-card"><div class="eyebrow">Όσα γίναμε μαζί · Βιβλίο I</div><h1>Από δύο,<br>τρεις.</h1>${paragraphs(endText)}<div class="end-quote">«Τώρα μαθαίνουμε.»</div><div class="end-divider"></div><div class="end-meta"><strong>Η ιστορία σου συνεχίζεται από εδώ.</strong><br>${esc(endingVariation())}<br><br>Το Βιβλίο II, <em>Τώρα είμαστε τρεις</em>, θα ξεκινά από τις συνθήκες που δημιούργησαν οι επιλογές αυτής της διαδρομής.</div><section class="mirror-invite"><div class="mirror-symbol">◌</div><h3>Ο καθρέφτης της διαδρομής σου</h3><p>Δες πώς συνδέθηκαν οι επιλογές σου σε πέντε σχεσιακά μοτίβα και ποιες ερωτήσεις αφήνει ανοιχτές η δική σου εκδοχή της ιστορίας.</p><button class="primary-btn" id="openMirror" style="width:100%">Δες τον καθρέφτη της διαδρομής σου</button><small>Προαιρετικό ένθετο αναστοχασμού · όχι ψυχολογικό τεστ ή διάγνωση.</small></section><section class="passport-card"><h3>Διαβατήριο Ιστορίας</h3><p>Αποθήκευσε τη διαδρομή σου σε ένα μικρό φορητό αρχείο. Όταν κυκλοφορήσει το επόμενο βιβλίο, θα μπορεί να διαβάσει τις επιλογές και τις μνήμες που δημιούργησες εδώ — ακόμη και σε άλλη συσκευή.</p><div class="passport-id">${esc(save.passportId)}</div><div class="passport-actions"><button class="primary-btn" id="downloadPassport" style="width:100%">Αποθήκευσε το Διαβατήριο Ιστορίας</button><button class="secondary-btn" id="loadAnotherPassport" style="width:100%">Φόρτωσε άλλο Διαβατήριο</button></div><div class="passport-note">Το αρχείο έχει κατάληξη <strong>.ogmstory</strong>. Δεν χρειάζεται να υπάρχει ήδη το Βιβλίο II για να διατηρήσει τις επιλογές σου.</div></section><button class="secondary-btn" style="width:100%;margin-top:18px" id="again">Διάβασε νέα διαδρομή</button></section>`;
+ main.innerHTML=`<section class="end-card"><div class="eyebrow">Όσα γίναμε μαζί · Βιβλίο I</div><h1>Από δύο,<br>τρεις.</h1>${paragraphs(endText)}<div class="end-quote">«Τώρα μαθαίνουμε.»</div><div class="end-divider"></div><div class="end-meta"><strong>Η ιστορία σου συνεχίζεται από εδώ.</strong><br>${esc(endingVariation())}<br><br>Το Βιβλίο II, <em>Τώρα είμαστε τρεις</em>, θα ξεκινά από τις συνθήκες που δημιούργησαν οι επιλογές αυτής της διαδρομής.</div>${seriesHandoffHtml()}<section class="mirror-invite"><div class="mirror-symbol">◌</div><h3>Ο καθρέφτης της διαδρομής σου</h3><p>Δες πώς συνδέθηκαν οι επιλογές σου σε πέντε σχεσιακά μοτίβα και ποιες ερωτήσεις αφήνει ανοιχτές η δική σου εκδοχή της ιστορίας.</p><button class="primary-btn" id="openMirror" style="width:100%">Δες τον καθρέφτη της διαδρομής σου</button><small>Προαιρετικό ένθετο αναστοχασμού · όχι ψυχολογικό τεστ ή διάγνωση.</small></section><section class="passport-card"><h3>Διαβατήριο Ιστορίας</h3><p>Αποθήκευσε τη διαδρομή σου σε ένα μικρό φορητό αρχείο. Όταν κυκλοφορήσει το επόμενο βιβλίο, θα μπορεί να διαβάσει τις επιλογές και τις μνήμες που δημιούργησες εδώ — ακόμη και σε άλλη συσκευή.</p><div class="passport-id">${esc(save.passportId)}</div><div class="passport-actions"><button class="primary-btn" id="downloadPassport" style="width:100%">Αποθήκευσε το Διαβατήριο Ιστορίας</button><button class="secondary-btn" id="loadAnotherPassport" style="width:100%">Φόρτωσε άλλο Διαβατήριο</button></div><div class="passport-note">Το αρχείο έχει κατάληξη <strong>.ogmstory</strong>. Δεν χρειάζεται να υπάρχει ήδη το Βιβλίο II για να διατηρήσει τις επιλογές σου.</div></section><button class="secondary-btn" style="width:100%;margin-top:18px" id="again">Διάβασε νέα διαδρομή</button></section>`;
  document.querySelector('#openMirror').onclick=renderMirror;
  document.querySelector('#downloadPassport').onclick=downloadPassport;
  document.querySelector('#loadAnotherPassport').onclick=openPassportPicker;
@@ -2550,9 +2878,9 @@ function renderEnding(){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function next(){save.cursor++;persist();renderCurrent()}
-function restart(){document.body.classList.remove('cover-mode');if(!confirm('Να διαγραφεί η τρέχουσα διαδρομή και να ξεκινήσεις από την αρχή;'))return;save=normalizeSave(blankState());save.started=true;persist();settingsDialog.open&&settingsDialog.close();renderCurrent()}
+function restart(){document.body.classList.remove('cover-mode');if(!confirm('Να διαγραφεί η τρέχουσα διαδρομή και να ξεκινήσεις από την αρχή;'))return;save=normalizeSave(blankState());save.started=true;persist();settingsDialog.open&&settingsDialog.close();readerMenuDialog.open&&readerMenuDialog.close();renderCurrent()}
 
-document.querySelector('#homeBtn').onclick=renderLanding;
+document.querySelector('#menuBtn').onclick=openReaderMenu;
 document.querySelector('#settingsBtn').onclick=()=>{if(settingsDialog.showModal)settingsDialog.showModal();else settingsDialog.setAttribute('open','open')};
 document.querySelector('#restartBtn').onclick=restart;
 document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{settings.theme=b.dataset.theme;persistSettings();applySettings()});

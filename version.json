@@ -1,13 +1,13 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.16",
+  "version": "0.17",
   "channel": "development-candidate",
-  "focus": "memory-echo audit + motion & microinteractions",
+  "focus": "reader experience + series architecture",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
-  "engineCompatibility": "v0.15",
+  "engineCompatibility": "v0.16",
   "visualAssets": {
     "chapters": [
       "chapter-01.jpg",
@@ -27,5 +27,11 @@
     "existingFlagEchoesRetained": 4,
     "choiceDependentHooksAdded": 16,
     "note": "Hidden state, Choice IDs, branch logic and save schema unchanged."
-  }
+  },
+  "features": [
+    "reader/series menu",
+    "9-chapter progress map",
+    "autosave status",
+    "dynamic Book II memory handoff"
+  ]
 }

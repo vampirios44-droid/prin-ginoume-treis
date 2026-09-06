@@ -1,22 +1,20 @@
 # Changelog
 
-## v0.16 — Motion & Memory Audit
+## v0.17 — Reader Experience & Series Architecture
 
-### Continuity / memory audit
-- Έγινε δεύτερος έλεγχος του `index.html` απέναντι στο αρχικό Choice & Consequence Map.
-- Διαπιστώθηκε ότι το hidden state ήταν σωστό, αλλά αρκετά long-term echoes δεν είχαν ορατό λογοτεχνικό callback.
-- Προστέθηκαν 16 choice-dependent memory hooks χωρίς να εμφανίζονται A/B/C ή scores.
-- Τα callbacks εμφανίζονται ως διακριτικό «Κάτι που έμεινε».
-- Διατηρούνται τα υπάρχοντα unresolved-household και grandmother delayed echoes.
-- Δεν αλλάζουν Choice IDs, effects, branch logic, Story Passport ή save schema.
+### Reader experience
+- Το αριστερό κουμπί της topbar γίνεται πραγματικό menu βιβλίου.
+- Νέο reader menu με τρέχον κεφάλαιο, συνολική πρόοδο και χάρτη 9 κεφαλαίων.
+- Τα κεφάλαια εμφανίζονται ως περασμένα / τρέχον / επόμενα χωρίς game-like badges.
+- Εμφανίζεται σαφής ένδειξη ότι θέση και επιλογές αποθηκεύονται αυτόματα.
+- Από το menu υπάρχει πρόσβαση σε συνέχεια ανάγνωσης, εξώφυλλο και Story Passport.
 
-### Motion & microinteractions
-- Soft scene fade/slide σε κάθε αλλαγή οθόνης.
-- Πολύ αργό cinematic settling στα chapter hero visuals.
-- Staggered είσοδος των τριών choice cards.
-- Branch reveal animation μετά την επιλογή.
-- Micro-press feedback σε buttons/cards.
-- Ομαλότερη κίνηση της progress line.
-- Motion σε memory echoes, ending και Reflection Mirror.
-- Πλήρης υποστήριξη `prefers-reduced-motion`.
-- PWA cache bump σε `v0160`.
+### Series architecture
+- Στο τέλος προστέθηκε δυναμικό «Τι περνά στο Βιβλίο II».
+- Οι μνήμες βασίζονται σε πραγματικές επιλογές της διαδρομής (π.χ. πρώτη βοήθεια στο σπίτι, οικογενειακή εμπλοκή, repair pattern, καθημερινότητα).
+- Δεν εμφανίζονται scores, τύποι προσωπικότητας ή ψυχολογικές ετικέτες.
+- Η ενότητα εξηγεί ότι το Book II συνεχίζει από συγκεκριμένες συνθήκες της ιστορίας.
+- Story Passport schema, Choice IDs, hidden state και save schema παραμένουν αμετάβλητα.
+
+### Technical
+- PWA cache bump: `ogm-book1-v0170`.
