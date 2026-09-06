@@ -1,13 +1,13 @@
 # Changelog
 
-## v0.14 — Cinematic Reader
-- Νέο cinematic chapter-opening system.
-- Το chapter title, subtitle και χρονική ένδειξη ενσωματώνονται πλέον στο visual hero.
-- Νέα translucent / glass topbar.
-- Νέα κινηματογραφική ροή intro → ανάγνωση → επιλογή → συνέπεια.
-- Πιο εκδοτικές choice cards με διακριτικό directional cue.
-- Νέο chapter outro treatment.
-- Το Κεφάλαιο 2 χρησιμοποιεί πραγματικό φωτογραφικό hero (`chapter-02.jpg`) ως pilot.
-- Τα υπόλοιπα κεφάλαια χρησιμοποιούν προσωρινά cinematic atmospheric treatments μέχρι να μπουν τα τελικά 9 chapter artworks.
-- Καμία αλλαγή σε story engine, Choice IDs, hidden state, Story Passport ή Reflection Mirror.
-- PWA cache bump σε v0140.
+## v0.15 — Full Atmospheric Visual Pass
+
+- Πραγματικό hero visual και στα 9 κεφάλαια.
+- Κάθε κεφάλαιο έχει δικό του focal point και συναισθηματικό visual mood.
+- Νέο filmic overlay / vignette / πολύ διακριτικό grain για οπτική συνοχή.
+- Πιο βαθύ atmospheric background στον reader.
+- Νέα λογοτεχνική έναρξη κειμένου με drop cap.
+- Βελτιωμένες choice cards, branch scenes και chapter outros.
+- Όλες οι εικόνες έχουν γίνει optimized progressive JPEG για γρηγορότερο mobile loading.
+- PWA cache ενημερώθηκε ώστε όλα τα chapter visuals να λειτουργούν και μετά το πρώτο load.
+- Καμία αλλαγή σε narrative engine, Choice IDs, branches, hidden state, Story Passport ή Reflection Mirror.

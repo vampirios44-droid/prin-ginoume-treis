@@ -1,15 +1,25 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.14",
+  "version": "0.15",
   "channel": "development-candidate",
-  "focus": "cinematic reader and chapter opening system",
+  "focus": "full 9-chapter visual pass + atmospheric reader",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
-  "engineCompatibility": "v0.13",
+  "engineCompatibility": "v0.14",
   "visualAssets": {
-    "cover": "cover-v1.png",
-    "chapterPilot": "chapter-02.jpg"
-  }
+    "chapters": [
+      "chapter-01.jpg",
+      "chapter-02.jpg",
+      "chapter-03.jpg",
+      "chapter-04.jpg",
+      "chapter-05.jpg",
+      "chapter-06.jpg",
+      "chapter-07.jpg",
+      "chapter-08.jpg",
+      "chapter-09.jpg"
+    ]
+  },
+  "notes": "No changes to Choice IDs, hidden state, branch logic, or Reflection Mirror."
 }
