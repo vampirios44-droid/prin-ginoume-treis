@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#11100f">
 <meta name="description" content="Πριν γίνουμε τρεις — διαδραστικό μυθιστόρημα επιλογών">
-<title>Πριν γίνουμε τρεις — Interactive Web-Book v0.10 · Καθρέφτης Διαδρομής</title>
+<title>Πριν γίνουμε τρεις — Interactive Web-Book v0.11 · Visual Edition</title>
 <style>
 :root{
  --bg:#11100f;--surface:#181614;--surface2:#211e1b;--text:#eee8df;--muted:#9e968d;--line:#302b26;
@@ -73,6 +73,63 @@ button{font:inherit}.topbar{position:sticky;top:0;z-index:20;height:68px;padding
 @media(min-width:800px){.main{padding-top:55px}.choice-btn{font-size:17px}.topbar{padding-left:24px;padding-right:24px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
+
+/* ===== v0.11 · CINEMATIC EDITORIAL UI ===== */
+:root{
+ --bg:#0c0e10;--surface:#151413;--surface2:#201c18;--text:#f2ece4;--muted:#aaa096;--line:#342e28;
+ --accent:#d0aa74;--accent2:#916d45;--max:730px;
+}
+body{
+ background:
+  radial-gradient(circle at 50% -10%,rgba(181,132,73,.10),transparent 34rem),
+  linear-gradient(180deg,#0d0f11 0%,#0c0d0e 45%,#0b0c0d 100%);
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;z-index:-1;background-image:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.012) 4px);mix-blend-mode:soft-light}
+.topbar{height:64px;background:rgba(12,14,16,.82);border-bottom:1px solid rgba(208,170,116,.13);backdrop-filter:blur(18px) saturate(120%);-webkit-backdrop-filter:blur(18px) saturate(120%)}
+.icon-btn{border-radius:999px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.055);font-weight:600}.icon-btn:active{transform:scale(.97)}
+.topbar-center span{font-size:10px;letter-spacing:.19em;color:#b7ada2}.progress-track{background:rgba(255,255,255,.08);height:1px}.progress-bar{background:linear-gradient(90deg,#987046,#dbb57d)}
+.main{padding-top:42px}
+.eyebrow{letter-spacing:.23em;font-size:10px;color:#c9a16d}
+.landing{align-content:start;padding-top:clamp(14px,4vh,42px)}
+.landing .hero-copy{text-align:center;margin-top:20px}
+.landing h1{font-size:clamp(49px,12vw,78px);font-weight:400;line-height:.91;letter-spacing:-.052em;text-wrap:balance;text-shadow:0 10px 35px rgba(0,0,0,.35)}
+.tagline{margin:0 auto;color:#b9aea3;font-size:18px;line-height:1.55;max-width:430px;font-style:italic}
+.landing-actions{margin:30px auto 0;width:100%;max-width:470px}
+.primary-btn{border-radius:999px;padding:17px 23px;background:linear-gradient(135deg,#deb982,#c6965e);box-shadow:0 13px 36px rgba(117,76,35,.22);transition:transform .18s ease,box-shadow .18s ease}.primary-btn:hover{transform:translateY(-1px);box-shadow:0 16px 42px rgba(117,76,35,.28)}
+.secondary-btn{border-radius:999px;background:rgba(255,255,255,.035);border-color:rgba(218,185,141,.18);color:#e9e1d8}
+.cinema-cover{position:relative;width:min(100%,520px);margin:34px auto 24px;border-radius:26px;overflow:hidden;border:1px solid rgba(218,185,141,.24);box-shadow:0 36px 90px rgba(0,0,0,.48),0 0 0 1px rgba(255,255,255,.02) inset;background:#111}
+.cinema-cover:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 64%,rgba(8,8,8,.27));box-shadow:inset 0 0 80px rgba(0,0,0,.13)}
+.cinema-cover img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center}
+.cinema-cover figcaption{position:absolute;left:20px;right:20px;bottom:16px;z-index:1;text-align:center;font:650 9px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,248,240,.7)}
+.landing-note{text-align:center;margin-left:auto;margin-right:auto;color:#9f958b;max-width:540px}
+.chapter-visual{aspect-ratio:2.75/1;border-radius:26px;border-color:rgba(208,170,116,.18);box-shadow:0 24px 65px rgba(0,0,0,.2);margin-bottom:34px}
+.chapter-visual:before,.chapter-visual:after{opacity:.75}
+.chapter-visual .visual-word{left:21px;bottom:18px;letter-spacing:.24em;font-size:9px;color:rgba(239,226,208,.48)}
+.chapter-card{padding:0 0 28px;margin-bottom:34px;border-bottom:1px solid rgba(208,170,116,.16)}
+.chapter-no{font-size:9px;letter-spacing:.24em;color:#c69c67}
+.chapter-card h1{font-size:clamp(38px,9.6vw,58px);font-weight:400;line-height:.97;letter-spacing:-.045em;margin-top:14px;text-wrap:balance}
+.chapter-subtitle{font:500 13px/1.5 var(--sans);letter-spacing:.015em;color:#aaa096}.time-stamp{font-size:9px;letter-spacing:.16em}
+.story-text{line-height:1.86}.story-text p{margin-bottom:1.45em}.story-text p:first-child::first-letter{font-size:3.7em;line-height:.72;margin-right:.10em;color:#d1aa73}
+.literary-echo{margin:42px 0;padding:23px 4px;border-color:rgba(208,170,116,.22);font-size:calc(var(--reader) - 1px);color:#c8bdb1}
+.choice-wrap{margin:50px 0 16px;padding-top:4px}.choice-kicker{font-size:9px;letter-spacing:.24em;color:#c69c67}.choice-wrap h2{font-size:clamp(29px,7.4vw,39px);font-weight:400;letter-spacing:-.025em;margin-bottom:25px}
+.choices{gap:13px}.choice-btn{position:relative;padding:20px 20px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.018));border:1px solid rgba(215,185,139,.15);border-radius:20px;font-family:var(--serif);font-size:17px;line-height:1.5;box-shadow:0 9px 25px rgba(0,0,0,.10)}
+.choice-btn:hover,.choice-btn:focus-visible{border-color:rgba(215,185,139,.55);background:rgba(208,170,116,.055)}
+.choice-letter{float:left;width:31px;height:31px;margin:0 12px 0 0;border-radius:50%;background:transparent;border:1px solid rgba(208,170,116,.34);font:700 11px/1 var(--sans);color:#d6ac76}
+.choice-btn.selected{background:linear-gradient(145deg,rgba(208,170,116,.13),rgba(208,170,116,.06));border-color:#b88c59;box-shadow:0 14px 34px rgba(92,60,29,.12)}
+.continue-btn{border-radius:999px!important;min-height:54px;background:rgba(208,170,116,.10)!important;border:1px solid rgba(208,170,116,.28)!important;color:#e8d5bc!important;letter-spacing:.04em}
+.end-card h1{font-weight:400;letter-spacing:-.045em}.end-quote{font-size:clamp(31px,8vw,48px);font-style:italic;color:#d9b37e}.passport-card,.mirror-invite{border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015));border-color:rgba(208,170,116,.22)}
+/* Reflection layer: intentionally feels like a quiet paper insert */
+.mirror-page{background:linear-gradient(155deg,#f1eadf,#e9ded0);color:#2d2822;margin:-10px -8px 0;padding:clamp(27px,6vw,48px);border-radius:28px;box-shadow:0 30px 90px rgba(0,0,0,.28)}
+.mirror-page .eyebrow,.mirror-page .mirror-section-title{color:#8a6540}.mirror-page h1{color:#29231e;font-weight:400}.mirror-page .mirror-lead{color:#6f665d}.mirror-page .mirror-disclaimer,.mirror-page .mirror-card{background:rgba(255,255,255,.42);border-color:rgba(96,73,50,.17)}
+.mirror-page .mirror-disclaimer,.mirror-page .mirror-card p,.mirror-page .mirror-card .mirror-caution,.mirror-page .mirror-code{color:#665d54}.mirror-page .mirror-disclaimer strong,.mirror-page .mirror-card h2{color:#2d2822}.mirror-page .mirror-card .mirror-axis{color:#8a6540}.mirror-page .reflection-questions li{border-color:rgba(96,73,50,.18);background:rgba(255,255,255,.23)}.mirror-page .reflection-questions li:before{color:#8a6540}.mirror-page .mirror-closing{border-color:rgba(96,73,50,.2)}.mirror-page .secondary-btn{color:#3b3025;background:rgba(255,255,255,.38);border-color:rgba(96,73,50,.22)}
+@media(max-width:600px){
+ .main{padding-left:18px;padding-right:18px;padding-top:26px}
+ .landing{padding-top:8px}.landing h1{font-size:clamp(48px,15vw,69px)}.tagline{font-size:17px}.cinema-cover{margin-top:26px;border-radius:22px}.cinema-cover img{aspect-ratio:4/5}
+ .chapter-visual{border-radius:20px;margin-left:-2px;margin-right:-2px}.chapter-card h1{font-size:clamp(37px,12vw,50px)}
+ .choice-btn{padding:18px 17px;font-size:16.5px}.mirror-page{margin:-8px -5px 0;padding:27px 20px;border-radius:23px}
+}
+@media(min-width:900px){.cinema-cover{width:500px}.main{padding-top:58px}}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -98,7 +155,7 @@ button{font:inherit}.topbar{position:sticky;top:0;z-index:20;height:68px;padding
 <div class="landing-actions">
 <button class="primary-btn" id="bootStartBtn" type="button" onclick="window.__bootStartRequested=true">Ξεκίνα την ιστορία</button>
 </div>
-<div class="cover-art home-cover" aria-hidden="true"><span class="cover-third"></span><span class="cover-line"></span><span class="cover-caption">δύο άνθρωποι · μία κοινή ιστορία</span></div>
+<figure class="cinema-cover"><img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις"><figcaption>Αθήνα · δύο άνθρωποι · μία κοινή ιστορία</figcaption></figure>
 <p class="landing-note">Διάβασε. Επίλεξε. Η ιστορία συνεχίζει να θυμάται.</p><p class="landing-note local-file-note">Σε iPhone: άνοιξέ το από το HTTPS link της δημοσιευμένης εφαρμογής — όχι ως αρχείο μέσα από Files/Quick Look.</p>
 </section>
 </main>
@@ -1497,10 +1554,7 @@ function renderLanding(){
      <button class="secondary-btn" id="loadPassportLanding">Φόρτωσε Διαβατήριο Ιστορίας</button>
      ${exportBtn}
    </div>
-   <div class="cover-art home-cover" aria-hidden="true">
-     <span class="cover-third"></span><span class="cover-line"></span>
-     <span class="cover-caption">δύο άνθρωποι · μία κοινή ιστορία</span>
-   </div>
+   <figure class="cinema-cover"><img src="cover-v1.png" alt="Εξώφυλλο του Πριν γίνουμε τρεις"><figcaption>Αθήνα · δύο άνθρωποι · μία κοινή ιστορία</figcaption></figure>
    <p class="landing-note">Διάβασε με τον δικό σου ρυθμό. Όταν έρθει μια δύσκολη στιγμή, επίλεξε τι θα κάνει ο ήρωας. Η ιστορία δεν θα σου πει αν είχες δίκιο· απλώς θα συνεχίσει να θυμάται.</p><p class="landing-note local-file-note">Σε iPhone: χρησιμοποίησε το HTTPS link της δημοσιευμένης εφαρμογής. Το preview αρχείων του iOS δεν είναι πλήρες JavaScript runtime.</p>
    <p class="landing-note">Κωδικός διαδρομής: <strong>${esc(save.passportId||'')}</strong></p>
  </section>`;

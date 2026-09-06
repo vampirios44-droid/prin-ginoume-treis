@@ -1,17 +1,19 @@
-# Πριν γίνουμε τρεις — v0.10 Reflection Mirror
+# Πριν γίνουμε τρεις — v0.11 Visual / UI Polish
 
-Development candidate πάνω στη v0.9.
+Development candidate για GitHub → Netlify.
 
-## Τι να δοκιμάσεις
-1. Ολοκλήρωσε μια διαδρομή.
-2. Στο τέλος πάτησε **«Δες τον καθρέφτη της διαδρομής σου»**.
-3. Έλεγξε ότι εμφανίζονται 5 καθρέφτες, 3 σημαντικές στιγμές και 4 ερωτήσεις.
-4. Κάνε δεύτερη, αρκετά διαφορετική διαδρομή και επιβεβαίωσε ότι αλλάζει το ένθετο.
-5. Δοκίμασε **Εκτύπωση / Αποθήκευση ως PDF**.
-6. Έλεγξε ότι Story Passport export/import και resume συνεχίζουν να λειτουργούν.
+## Upload
+Ανέβασε **όλα** τα αρχεία αυτού του φακέλου στο branch `development`, ώστε να προστεθεί και το νέο `cover-v1.png`.
 
-## GitHub / Netlify
-Αντικατέστησε τα αντίστοιχα αρχεία στο branch `development` και κάνε commit:
-`v0.10 Reflection Mirror`
+Commit:
+`v0.11 Cinematic Visual UI Polish`
 
-Μην κάνεις merge στο `main` πριν τη δοκιμή στο Netlify development URL.
+Μετά έλεγξε στο development Netlify URL:
+- landing / cover σε iPhone
+- έναρξη και resume
+- chapter header
+- A/B/C επιλογές
+- Reflection Mirror
+- Story Passport export/import
+
+Μόνο μετά από έγκριση γίνεται merge στο `main`.

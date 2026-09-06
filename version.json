@@ -1,10 +1,10 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.10",
+  "version": "0.11",
   "channel": "development-candidate",
-  "focus": "reflection mirror / συμβουλευτικό ένθετο",
-  "engineCompatibility": "v0.9",
+  "focus": "cinematic visual & UI polish",
+  "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
-  "reflectionClaim": "narrative reflection only; not psychometric assessment"
+  "coverAsset": "cover-v1.png"
 }
