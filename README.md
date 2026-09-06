@@ -1,15 +1,16 @@
-# Πριν γίνουμε τρεις — v0.12 Cover Gate
+# Πριν γίνουμε τρεις — v0.13 Choice Cards
 
-Development candidate.
+## Νέα εμπειρία επιλογών
+Ο αναγνώστης δεν βλέπει πλέον A/B/C ούτε αρίθμηση τύπου quiz.
+Βλέπει μόνο:
+- την αφηγηματική ερώτηση,
+- τρία καθαρά πλαίσια με τις τρεις πιθανές κινήσεις.
 
-## Νέα ροή
-1. Ανοίγει μόνο το εξώφυλλο.
-2. Ο αναγνώστης βλέπει πολύ σύντομες οδηγίες.
-3. Πατά «Μπες στην ιστορία» ή «Συνέχισε την ιστορία».
-4. Τότε εμφανίζεται το visual-book reader UI.
+Οι εσωτερικοί κωδικοί A/B/C διατηρούνται για συμβατότητα με Story Passport και hidden state.
 
 ## Deployment
-Ανέβασε τα περιεχόμενα του ZIP στο branch `development`.
-Commit: `v0.12 Cover Gate`
-Έλεγξε στο Netlify development URL, ιδίως σε iPhone.
-Αν εγκριθεί: merge `development` → `main`.
+Ανέβασε τα περιεχόμενα στο branch `development`.
+Commit:
+`v0.13 Choice Cards Polish`
+
+Έλεγξε 2–3 επιλογές σε iPhone και desktop πριν το merge στο main.

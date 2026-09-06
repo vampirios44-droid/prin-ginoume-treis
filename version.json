@@ -1,11 +1,11 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.12",
+  "version": "0.13",
   "channel": "development-candidate",
-  "focus": "cover gate and reading-entry flow",
+  "focus": "choice cards without visible A/B/C or quiz numbering",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
-  "engineCompatibility": "v0.10+"
+  "engineCompatibility": "v0.12"
 }

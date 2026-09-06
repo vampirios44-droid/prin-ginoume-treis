@@ -227,6 +227,43 @@ body.cover-mode{overflow:auto;background:#090a0b}
   .cover-gate-art{border-radius:24px}
 }
 
+
+/* v0.13 — Choice Cards: narrative paths, not quiz answers */
+.choice-kicker{
+  font-size:9px;
+  letter-spacing:.22em;
+  color:#b99162;
+}
+.choice-btn{
+  display:block;
+  width:100%;
+  padding:21px 22px;
+  text-indent:0;
+  cursor:pointer;
+}
+.choice-btn::before{
+  content:"";
+  display:block;
+  width:22px;
+  height:1px;
+  margin:0 0 12px;
+  background:rgba(208,170,116,.38);
+  transition:width .18s ease, background .18s ease;
+}
+.choice-btn:hover::before,
+.choice-btn:focus-visible::before{
+  width:38px;
+  background:rgba(215,185,139,.75);
+}
+.choice-letter{display:none!important}
+.choice-btn.selected::before{
+  width:38px;
+  background:#c99b65;
+}
+@media(max-width:430px){
+  .choice-btn{padding:19px 18px;font-size:16.5px}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -281,7 +318,7 @@ body.cover-mode{overflow:auto;background:#090a0b}
 <noscript><div style="padding:20px;font-family:system-ui;background:#fff3cd;color:#332701">Αυτό το interactive βιβλίο χρειάζεται JavaScript. Άνοιξέ το από το δημοσιευμένο HTTPS link σε Safari ή Chrome και επίτρεψε JavaScript.</div></noscript>
 <script>
 window.STORY_DATA = {
-  "version": "0.12-cover-gate",
+  "version": "0.13-choice-cards",
   "book": {
     "series": "Όσα γίναμε μαζί",
     "title": "Πριν γίνουμε τρεις",
@@ -1689,9 +1726,9 @@ function renderCurrent(){document.body.classList.remove('cover-mode');if(!save.s
  if(item.type==='ending'){save.finished=true;persist();return renderEnding()}
 }
 function renderChapter(id){const ch=getChapter(id);chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · ${ch.title}`;main.innerHTML=chapterHeader(ch)+paragraphs(ch.intro)+`<button class="continue-btn" id="continue">Συνέχισε</button>`;document.querySelector('#continue').onclick=next;window.scrollTo({top:0,behavior:'smooth'});}
-function renderChoice(n){const c=DATA.choices[n];const ch=DATA.chapters.find(x=>x.choices.includes(n));chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')} · Επιλογή ${n}`;let selected=save.choices[n];let html=maybeEcho(n)+`<section class="choice-wrap"><div class="choice-kicker">Επιλογή ${n} από 21</div><h2>${esc(c.prompt)}</h2><div class="choices">`;
- for(const k of ['A','B','C']){html+=`<button class="choice-btn ${selected===k?'selected':''}" data-choice="${k}" ${selected?'disabled':''}><span class="choice-letter">${k}</span>${esc(c.options[k][0])}</button>`}html+='</div></section>';
- if(selected) html+=`<div class="selected-path">Η προηγούμενη επιλογή σου: <strong>${selected}</strong></div>`+branchHtml(n,selected);
+function renderChoice(n){const c=DATA.choices[n];const ch=DATA.chapters.find(x=>x.choices.includes(n));chapterMini.textContent=`${ch.id.replace('C','Κεφάλαιο ')}`;let selected=save.choices[n];let html=maybeEcho(n)+`<section class="choice-wrap"><div class="choice-kicker">Η στιγμή της επιλογής</div><h2>${esc(c.prompt)}</h2><div class="choices">`;
+ for(const k of ['A','B','C']){html+=`<button class="choice-btn ${selected===k?'selected':''}" data-choice="${k}" ${selected?'disabled':''}>${esc(c.options[k][0])}</button>`}html+='</div></section>';
+ if(selected) html+=branchHtml(n,selected);
  main.innerHTML=html;document.querySelectorAll('.choice-btn:not([disabled])').forEach(b=>b.onclick=()=>choose(n,b.dataset.choice));if(selected){const cont=document.querySelector('#continue');if(cont)cont.onclick=next;}window.scrollTo({top:0,behavior:'smooth'});}
 function resolvedVariant(spec){if(!spec)return '';const dep=spec.dependsOn;const key=dep?save.choices[dep]:null;return (spec.variants&&(spec.variants[key]||spec.variants.default))||spec.text||''}
 function branchText(n,k){const spec=DATA.branchVariants?.[String(n)+k];return spec?resolvedVariant(spec):DATA.choices[n].options[k][1]}
