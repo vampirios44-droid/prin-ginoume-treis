@@ -1,13 +1,13 @@
 {
   "series": "Όσα γίναμε μαζί",
   "book": "Πριν γίνουμε τρεις",
-  "version": "0.19",
+  "version": "0.20",
   "channel": "development-candidate",
-  "focus": "full literary voice pass + true paginated reader",
+  "focus": "Greece 2026 literary voice and human speech polish",
   "storyEngineCompatibility": "v0.10 preserved",
   "storyPassportCompatibility": "preserved",
   "coverAsset": "cover-v1.png",
-  "engineCompatibility": "v0.18",
+  "engineCompatibility": "v0.19",
   "visualAssets": {
     "chapters": [
       "chapter-01.jpg",
@@ -38,14 +38,5 @@
     "fromBytes": 2110147,
     "toBytes": 187784
   },
-  "reader": {
-    "mobile": "single reflowable page",
-    "desktop": "two-page spread",
-    "input": [
-      "swipe",
-      "page buttons",
-      "keyboard arrows"
-    ],
-    "reflectionMirror": "scrolling document"
-  }
+  "reader": "True Page Reader preserved"
 }
